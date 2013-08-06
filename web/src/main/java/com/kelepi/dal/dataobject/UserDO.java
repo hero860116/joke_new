@@ -22,6 +22,7 @@ public class UserDO {
     private Date recentlyLoginTime;
     private Integer status;
     private Integer permissions;
+    private String email;
     private Date gmtCreate;
     private Date gmtModify;
 
@@ -97,6 +98,14 @@ public class UserDO {
 
     public void setPermissions(Integer permissions) {
         this.permissions = permissions;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getGmtCreate() {

@@ -1,18 +1,26 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+
 <script type="text/javascript" src="$!staticsContent.getURI('uploadify/jquery.uploadify.min.js')"></script>
 <link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('uploadify/uploadify.css')" />
 <div class="content bg_white">
     <div class="register">
+        #set ($group = $form.register.defaultInstance)
         <h3>登陆成功，请完善您的资料</h3>
         <!--不做前端校验了，JS太麻烦了-->
-        <div class="alert alert-error"><strong>错误</strong>：你的邮箱还没有填写！</div>
+        <div class="alert alert-error"><strong>错误</strong>：你的邮箱还没有填写！#addProductMessage ($group.email) #addProductMessage ($group.nickName)</div>
         <div>
-            <form class="form-horizontal" action="" method="post">
+            <form class="form-horizontal" action="#" method="post">
+                $csrfToken.hiddenField
+                <input type="hidden" name="action" value="user_action"/>
+                <input type="hidden" name="event_submit_do_update_user" value="1"/>
                 <div class="row">
                     <div class="span6 offset1" style="margin-top:20px;">
                         <div class="control-group">
                             <label class="control-label" for="nickname">昵称：</label>
                             <div class="controls">
-                                <input type="text" id="nickname" name="nickname" value="$!userDO.nickName">
+                                <input type="text" id="nickname" name="$group.nickName.key" value="$!userDO.nickName">
                                 <span class="help-block">不可修改，3到15个字符</span>
                             </div>
                         </div>
@@ -21,7 +29,7 @@
                         <div class="control-group">
                             <label class="control-label" for="email">邮箱：</label>
                             <div class="controls">
-                                <input type="text" id="email" name="email">
+                                <input type="text" id="email" name="$group.email.key">
                                 <span class="help-block">建议使用常用QQ邮箱！</span>
                             </div>
                         </div>
@@ -38,7 +46,7 @@
                 </div>
                 <div class="clearfix form-actions" style="padding-left:260px;">
                     <input type="hidden" id="avatar" value="http://tp4.sinaimg.cn/1749127163/180/5664354122/1">
-                    <button type="submit" class="btn btn-large btn-primary submit">提交</button>
+                    <button type="submit"  class="btn btn-large btn-primary submit">提交</button>
                 </div>
             </form>
         </div>

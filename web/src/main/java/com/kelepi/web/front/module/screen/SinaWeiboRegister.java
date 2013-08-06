@@ -19,6 +19,7 @@ public class SinaWeiboRegister {
     private SinaWeiboAO sinaWeiboAO;
 
     public void execute(@Param("code")String code,  Navigator nav, TurbineRunData rundata, Context context) {
+
         UserDO userDO  = sinaWeiboAO.generateUser(code);
 
 

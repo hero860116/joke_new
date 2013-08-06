@@ -26,6 +26,19 @@
             </field>
         </group>
 
+        <group name="register" extends="csrfTokenCheckGroup">
+            <field name="nickName" displayName="昵称">
+                <fm-validators:required-validator>
+                    <message>必须填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+            <field name="email" displayName="邮箱">
+                <fm-validators:required-validator>
+                    <message>必须填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+        </group>
+
     </services:form>
 
 </beans:beans>
