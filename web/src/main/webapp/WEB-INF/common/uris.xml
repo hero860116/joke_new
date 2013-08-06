@@ -13,79 +13,34 @@
              ">
 
     <services:uris>
-        <!-- ================================================================ -->
-        <!-- Server Level： 外部server。                                      -->
-        <!--                                                                  -->
-        <!-- 使用方法： link.getURI('path')                                   -->
-        <!-- ================================================================ -->
-        <uris:uri id="alibabaSite" exposed="true">
-            <serverURI>http://china.alibaba.com/</serverURI>
+        <uris:uri id="jokeServer" exposed="true">
+            <serverURI>http://kelepi.com:8080</serverURI>
         </uris:uri>
-        <uris:uri id="toolkitSite" exposed="true">
-            <serverURI>http://toolkit.alibaba-inc.com/</serverURI>
-        </uris:uri>
-        <!-- ================================================================ -->
-        <!-- Server Level： java server。                                     -->
-        <!--                                                                  -->
-        <!-- 使用方法： 不能直接使用，只被其它URI继承。                       -->
-        <!-- ================================================================ -->
-        <uris:servlet-uri id="petstoreServer" requestAware="true">
-            <servletPath>/</servletPath>
-        </uris:servlet-uri>
-        <!-- ================================================================ -->
-        <!-- Component Level： webx modules。                                 -->
-        <!--                                                                  -->
-        <!-- 使用方法： link.setTarget('target.jhtml')                        -->
-        <!--                  .addQueryData('name', 'value')                  -->
-        <!-- ================================================================ -->
-        <!-- home -->
-        <uris:turbine-uri id="homeModule" exposed="true" extends="petstoreServer">
-            <componentPath>/</componentPath>
+
+        <uris:turbine-uri id="adminModule" exposed="true" extends="jokeServer">
+            <contextPath></contextPath>
+            <componentPath>admin</componentPath>
         </uris:turbine-uri>
-        <uris:turbine-content-uri id="homeContent" exposed="true" extends="homeModule">
-            <componentPath>/home</componentPath>
+
+        <uris:turbine-uri id="commonModule" exposed="true" extends="jokeServer">
+            <contextPath></contextPath>
+            <componentPath>common</componentPath>
+        </uris:turbine-uri>
+
+        <uris:turbine-uri id="jokeModule" exposed="true" extends="jokeServer">
+            <contextPath></contextPath>
+        </uris:turbine-uri>
+
+        <uris:turbine-content-uri id="staticsContent" exposed="true" extends="jokeServer">
+            <contextPath></contextPath>
+            <componentPath>statics</componentPath>
         </uris:turbine-content-uri>
-        <!-- user -->
-        <uris:turbine-uri id="userModule" exposed="true" extends="petstoreServer">
-            <componentPath>/user</componentPath>
-        </uris:turbine-uri>
-        <uris:turbine-content-uri id="userContent" exposed="true" extends="userModule" />
-        <!-- store -->
-        <uris:turbine-uri id="storeModule" exposed="true" extends="petstoreServer">
-            <componentPath>/store</componentPath>
-        </uris:turbine-uri>
-        <uris:turbine-content-uri id="storeContent" exposed="true" extends="storeModule" />
-        <uris:servlet-content-uri id="storeImageContent" exposed="true" extends="petstoreServer">
-            <prefixPath>/petstore/images</prefixPath>
-        </uris:servlet-content-uri>
-        <!-- ================================================================ -->
-        <!-- Link Level： 继承前述各类links。                                 -->
-        <!--                                                                  -->
-        <!-- 使用方法： link                                                  -->
-        <!-- ================================================================ -->
-        <uris:turbine-uri id="petstoreHomeLink" exposed="true" extends="homeModule">
-            <target>homepage</target>
-        </uris:turbine-uri>
-        <uris:turbine-uri id="petstoreLoginLink" exposed="true" extends="userModule">
-            <target>login</target>
-        </uris:turbine-uri>
-        <uris:turbine-uri id="petstoreLogoutLink" exposed="true" extends="userModule">
-            <target>login</target>
-            <query key="action">loginAction</query>
-            <query key="eventSubmitDoLogout">yes</query>
-        </uris:turbine-uri>
-        <uris:turbine-uri id="petstoreRegisterLink" exposed="true" extends="userModule">
-            <target>register</target>
-        </uris:turbine-uri>
-        <uris:turbine-uri id="petstoreRegisterAccountLink" exposed="true" extends="userModule">
-            <target>registerAccount</target>
-        </uris:turbine-uri>
-        <uris:turbine-uri id="petstoreAccountLink" exposed="true" extends="userModule">
-            <target>account</target>
-        </uris:turbine-uri>
-        <uris:uri id="toolkitArchLink" exposed="true" extends="toolkitSite">
-            <path>/arch/bigpicture.html</path>
-        </uris:uri>
+
+        <uris:turbine-content-uri id="serverContent" exposed="true" extends="jokeServer">
+            <contextPath></contextPath>
+            <componentPath></componentPath>
+        </uris:turbine-content-uri>
+
     </services:uris>
 
 </beans:beans>

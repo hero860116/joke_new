@@ -1,4 +1,4 @@
-package com.alibaba.sample.petstore.web.front.module.screen;
+package com.kelepi.web.front.module.screen;
 
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
