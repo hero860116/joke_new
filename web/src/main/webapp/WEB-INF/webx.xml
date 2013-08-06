@@ -50,6 +50,8 @@
     <!-- 模板所需要的数据。 -->
     <beans:import resource="common/template-data.xml" />
 
+    <beans:import resource="common/persistence.xml" />
+
     <beans:import resource="common/biz/service.xml" />
 
     <!-- 综合设置。 -->
