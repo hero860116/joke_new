@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--框架必需start-->
+<script type="text/javascript" src="../../libs/js/jquery.js"></script>
+<script type="text/javascript" src="../../libs/js/framework.js"></script>
+<link href="../../libs/css/import_basic.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" id="skin" prePath="../../"/>
+<link rel="stylesheet" type="text/css" id="customSkin"/>
+<!--框架必需end-->
+
+<!-- 树start-->
+<script type="text/javascript" src="../../libs/js/tree/ztree/ztree.js"></script>
+<link href="../../libs/js/tree/ztree/ztree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+	var setting = {
+		callback: {
+			onClick: onClick
+		}
+	};
+	
+	
+	var zNodes =[
+		
+		{ id:3000, parentId:0, name:"常用资源索引"},
+		{ id:001, parentId:3000, name:"固有方法与变量索引",url:"../../sample/index/function.html", target:"frmright"},
+		{ id:002, parentId:3000, name:"CSS库索引",url:"../../sample/index/css.html", target:"frmright"},
+		{ id:003, parentId:3000, name:"图标库索引",url:"../../sample/index/icons.html", target:"frmright"},
+		
+		{ id:3001, parentId:0, name:"多功能容器"},
+		{ id:101, parentId:3001, name:"box1",url:"../../sample/box/box1.html", target:"frmright" ,title:"box1"},
+		{ id:102, parentId:3001, name:"box2",url:"../../sample/box/box2.html", target:"frmright", title:"box2"},
+		{ id:103, parentId:3001, name:"box3",url:"../../sample/box/box3.html", target:"frmright", title:"box3"},
+		
+		{ id:3002, parentId:0, name:"提示类组件"},
+		{ id:201, parentId:3002, name:"鼠标提示",url:"../../sample/popup/tooltip.html", target:"frmright",title:"title"},
+		{ id:202, parentId:3002, name:"弹窗",url:"../../sample/popup/window.html", target:"frmright",title:"Dialog"},
+		{ id:203, parentId:3002, name:"浮动面板！",vision:"trial", target:"frmright",title:"floatPanel"},
+		{ id:204, parentId:3002, name:"展出式提示框！",vision:"trial", target:"frmright",title:"messager"},
+		
+		{ id:3003, parentId:0, name:"树组件"},
+		{ id:301, parentId:3003, name:"基本使用",url:"../../sample/tree/basic.html", target:"frmright",title:"基本使用"},
+		{ id:302, parentId:3003, name:"异步加载数据",url:"../../sample/tree/async.html", target:"frmright",title:"异步加载数据"},
+		{ id:303, parentId:3003, name:"添加复选框",url:"../../sample/tree/checktree.html", target:"frmright",title:"添加复选框"},
+		{ id:304, parentId:3003, name:"树的拖拽",url:"../../sample/tree/dragdrop.html", target:"frmright",title:"树的拖拽"},
+		{ id:305, parentId:3003, name:"树的编辑",url:"../../sample/tree/edit.html", target:"frmright",title:"树的编辑"},
+		{ id:306, parentId:3003, name:"右键菜单",url:"../../sample/tree/contextmenu.html", target:"frmright",title:"右键菜单"},
+		
+		{ id:3004, parentId:0, name:"表单元素"},
+		{ id:401, parentId:3004, name:"文本框",url:"../../sample/form/textinput-password.html", target:"frmright",title:"textinput/password"},
+		{ id:402, parentId:3004, name:"文本域",url:"../../sample/form/textarea.html", target:"frmright",title:"textarea"},
+		{ id:403, parentId:3004, name:"基本按钮",url:"../../sample/form/button.html", target:"frmright",title:"button"},
+		{ id:404, parentId:3004, name:"单选按钮",url:"../../sample/form/radio.html", target:"frmright",title:"radio"},
+		{ id:405, parentId:3004, name:"多选按钮",url:"../../sample/form/checkbox.html", target:"frmright",title:"checkbox"},
+		{ id:406, parentId:3004, name:"单选下拉框",url:"../../sample/form/select.html", target:"frmright",title:"select"},
+		{ id:407, parentId:3004, name:"树形下拉框！",vision:"trial", target:"frmright",title:"selectTree"},
+		{ id:408, parentId:3004, name:"多选下拉框！",vision:"trial", target:"frmright",title:"selectTree multi"},
+		{ id:409, parentId:3004, name:"自动完成框！",vision:"trial", target:"frmright",title:"autocomplete"},
+		{ id:410, parentId:3004, name:"日期选择框",url:"../../sample/form/date.html", target:"frmright",title:"date"},
+		{ id:411, parentId:3004, name:"双向选择器！",vision:"trial", target:"frmright",title:"lister"},
+		{ id:412, parentId:3004, name:"树形双选器！",vision:"trial", target:"frmright",title:"listerTree"},
+		{ id:413, parentId:3004, name:"条件过滤器！",vision:"trial", target:"frmright",title:"filter"},
+		{ id:414, parentId:3004, name:"颜色选择器！",vision:"trial", target:"frmright",title:"color"},
+		{ id:415, parentId:3004, name:"数字步进器！",vision:"trial", target:"frmright",title:"stepter"},
+		{ id:416, parentId:3004, name:"软键盘控件！",vision:"trial", target:"frmright",title:"keypad"},
+		{ id:417, parentId:3004, name:"评星级控件！",vision:"trial", target:"frmright",title:"rating"},
+		{ id:418, parentId:3004, name:"异步上传控件！",vision:"trial", target:"frmright",title:"fileUpload"},
+		{ id:419, parentId:3004, name:"上传文件列表！",vision:"trial", target:"frmright",title:"fileList"},
+		{ id:420, parentId:3004, name:"同步上传控件",url:"../../sample/form/file.html", target:"frmright",title:"file"},
+		
+		
+		{ id:3005, parentId:0, name:"综合表单"},
+		{ id:501, parentId:3005, name:"表单布局",url:"../../sample/fullform/layout.html", target:"frmright",title:"table"},
+		{ id:502, parentId:3005, name:"表单验证",url:"../../sample/fullform/validation.html", target:"frmright",title:"validation"},
+		{ id:503, parentId:3005, name:"表单拆分",url:"../../sample/fullform/step.html", target:"frmright",title:"stepForm"},
+		{ id:504, parentId:3005, name:"同步提交",url:"../../sample/fullform/submit.html", target:"frmright"},
+		{ id:505, parentId:3005, name:"同步编辑",url:"../../sample/fullform/edit.html", target:"frmright"},
+		{ id:506, parentId:3005, name:"异步提交！",vision:"trial", target:"frmright"},
+		{ id:507, parentId:3005, name:"异步弹窗提交！",vision:"trial", target:"frmright"},
+		{ id:508, parentId:3005, name:"异步编辑-标签赋值！",vision:"trial", target:"frmright"},
+		{ id:509, parentId:3005, name:"异步编辑-非标签赋值！",vision:"trial", target:"frmright"},
+		{ id:510, parentId:3005, name:"动态创建表单并赋值！",vision:"trial", target:"frmright"},
+		
+		{ id:3006, parentId:0, name:"grid表格！"},
+		{ id:601, parentId:3006, name:"使用url",vision:"trial", target:"frmright"},
+		{ id:602, parentId:3006, name:"使用远程data",vision:"trial", target:"frmright"},
+		{ id:602, parentId:3006, name:"使用本地数据",vision:"trial", target:"frmright"},
+		{ id:604, parentId:3006, name:"对行列渲染",vision:"trial", target:"frmright"},
+		{ id:605, parentId:3006, name:"锁定列",vision:"trial", target:"frmright"},
+		{ id:606, parentId:3006, name:"多表头支持",vision:"trial", target:"frmright"},
+		{ id:607, parentId:3006, name:"弹窗中的表格",vision:"trial", target:"frmright"},
+		{ id:608, parentId:3006, name:"表格动态操作",vision:"trial", target:"frmright"},
+		{ id:609, parentId:3006, name:"树形表格",vision:"trial", target:"frmright"},
+		{ id:610, parentId:3006, name:"父子表格",vision:"trial", target:"frmright"},
+		{ id:611, parentId:3006, name:"分组表格",vision:"trial", target:"frmright"},
+		{ id:612, parentId:3006, name:"数据汇总",vision:"trial", target:"frmright"},
+		
+		
+		{ id:3007, parentId:0, name:"table表格"},
+		{ id:701, parentId:3007, name:"基本表格模板*",url:"../../sample/table/basic.html", target:"frmright"},
+		{ id:702, parentId:3007, name:"含横向滚动条",url:"../../sample/table/scroll.html", target:"frmright"},
+		{ id:703, parentId:3007, name:"多表头支持",url:"../../sample/table/multiheader.html", target:"frmright"},
+		{ id:704, parentId:3007, name:"弹窗中的表格",url:"../../sample/table/basic-pop.html", target:"frmright"},
+		{ id:705, parentId:3007, name:"表格动态操作",url:"../../sample/table/dynamic.html", target:"frmright"},
+		{ id:706, parentId:3007, name:"树形表格！",vision:"trial", target:"frmright"},
+		{ id:707, parentId:3007, name:"父子表格！",vision:"trial", target:"frmright"},
+		
+		{ id:3008, parentId:0, name:"导航组件"},
+		{ id:801, parentId:3008, name:"弹出菜单",url:"../../sample/nav/menu-popup.html", target:"frmright"},
+		{ id:802, parentId:3008, name:"右键菜单",url:"../../sample/nav/menu-rightclick.html", target:"frmright"},
+		{ id:803, parentId:3008, name:"个性化菜单(篮子)！",vision:"trial", target:"frmright"},
+		{ id:804, parentId:3008, name:"个性化菜单(鱼眼)！",vision:"trial", target:"frmright"},
+		{ id:805, parentId:3008, name:"基本选项卡",url:"../../sample/nav/tab-basic.html", target:"frmright"},
+		{ id:806, parentId:3008, name:"动态选项卡！",vision:"trial", target:"frmright"},
+		{ id:807, parentId:3008, name:"单级纵向导航(常规模式)",url:"../../sample/nav/nav-single.html", target:"frmright",title:"单级纵向导航(常规模式)"},
+		{ id:808, parentId:3008, name:"单级纵向导航(迷你模式)",url:"../../sample/nav/nav-single-min.html", target:"frmright",title:"单级纵向导航(迷你模式)"},
+		{ id:809, parentId:3008, name:"双级纵向导航(列表模式)",url:"../../sample/nav/nav-double-list.html", target:"frmright",title:"双级纵向导航(单层模式)"},
+		{ id:810, parentId:3008, name:"双级纵向导航(分组模式)",url:"../../sample/nav/nav-double-group.html", target:"frmright",title:"双级纵向导航(双层模式)"},
+		{ id:811, parentId:3008, name:"抽屉容器",url:"../../sample/nav/accordion.html", target:"frmright"},
+		{ id:812, parentId:3008, name:"当前位置",url:"../../sample/nav/position.html", target:"frmright"},
+		{ id:813, parentId:3008, name:"图标导航！",vision:"trial", target:"frmright"},
+		{ id:814, parentId:3008, name:"图标工具箱！",vision:"trial", target:"frmright"},
+		{ id:815, parentId:3008, name:"图标工具栏！",vision:"trial", target:"frmright"},
+		{ id:816, parentId:3008, name:"数字分页控件",url:"../../sample/nav/paging-number.html", target:"frmright"},
+		{ id:817, parentId:3008, name:"箭头分页控件！",vision:"trial", target:"frmright"},
+		{ id:818, parentId:3008, name:"分隔条(局部应用)！",vision:"trial", target:"frmright"},
+		{ id:819, parentId:3008, name:"分隔条(整体应用-左)！",vision:"trial", target:"frmright"},
+		{ id:820, parentId:3008, name:"分隔条(整体应用-下)！",vision:"trial", target:"frmright"},
+		{ id:821, parentId:3008, name:"分隔条(整体应用-综合)！",vision:"trial", target:"frmright"},
+		
+		
+		{ id:3009, parentId:0, name:"图片特效", isParent: true},
+		{ id:901, parentId:3009, name:"图片标题特效",url:"../../sample/pic/title.html", target:"frmright"},
+		{ id:902, parentId:3009, name:"图片列表特效",url:"../../sample/pic/list.html", target:"frmright"},
+		{ id:903, parentId:3009, name:"图片预览！",vision:"trial",target:"frmright"},
+		{ id:904, parentId:3009, name:"图片滚动", url:"../../sample/pic/scroll.html", target:"frmright"},
+		{ id:905, parentId:3009, name:"图片滚动(可控)！",vision:"trial", target:"frmright"},
+		{ id:906, parentId:3009, name:"单图边框", url:"../../sample/pic/frame.html",target:"frmright"},
+		{ id:907, parentId:3009, name:"单图区域放大！",vision:"trial", target:"frmright"},
+		{ id:908, parentId:3009, name:"图片幻灯", url:"../../sample/pic/slider.html", target:"frmright"},
+		
+		{ id:3010, parentId:0, name:"文本特效", isParent: true},
+		{ id:1001, parentId:3010, name:"文本截取", url:"../../sample/text/slice.html", target:"frmright"},
+		{ id:1003, parentId:3010, name:"文章列表", url:"../../sample/text/list.html" ,target:"frmright"},
+		{ id:1004, parentId:3010, name:"文本变色", url:"../../sample/text/color.html" ,target:"frmright"},
+		{ id:1005, parentId:3010, name:"文本滚动", url:"../../sample/text/scroll.html", target:"frmright"},
+		{ id:1006, parentId:3010, name:"监听文字改变", url:"../../sample/text/watch.html",target:"frmright"},
+		
+		{ id:3011, parentId:0, name:"其他特效！", isParent: true},
+		{ id:1101, parentId:3011, name:"设为主页与加入收藏",vision:"trial", target:"frmright"},
+		{ id:1102, parentId:3011, name:"多视图切换",vision:"trial", target:"frmright"},
+		{ id:1103, parentId:3011, name:"拖放与接收",vision:"trial", target:"frmright"},
+		{ id:1104, parentId:3011, name:"拖拽排序",vision:"trial", target:"frmright"},
+		{ id:1105, parentId:3011, name:"平滑锚点链接",vision:"trial", target:"frmright"},
+		{ id:1106, parentId:3011, name:"遮罩",vision:"trial", target:"frmright"},
+		
+
+		{ id:3012, parentId:0, name:"常用情景模板！", isParent: true},
+		{ id:1201, parentId:3012, name:"资源维护",vision:"trial", target:"frmright"},
+		{ id:1202, parentId:3012, name:"机构维护",vision:"trial", target:"frmright"},
+		{ id:1203, parentId:3012, name:"用户管理",vision:"trial", target:"frmright"},
+		{ id:1204, parentId:3012, name:"角色管理",vision:"trial", target:"frmright"},
+		{ id:1205, parentId:3012, name:"资源分配(按用户)",vision:"trial", target:"frmright"},
+		{ id:1206, parentId:3012, name:"资源分配(按角色)",vision:"trial", target:"frmright"},
+		{ id:1207, parentId:3012, name:"横向tab",vision:"trial", target:"frmright"},
+		{ id:1208, parentId:3012, name:"横纵向tab",vision:"trial", target:"frmright"},
+		{ id:1209, parentId:3012, name:"横纵向动态tab",vision:"trial", target:"frmright"},
+		{ id:1210, parentId:3012, name:"多区域展示1",vision:"trial", target:"frmright"},
+		{ id:1211, parentId:3012, name:"多区域展示2",vision:"trial", target:"frmright"},
+		{ id:1212, parentId:3012, name:"综合box容器布局",vision:"trial", target:"frmright"},
+		
+		{ id:3014, parentId:0, name:"与第三方组件整合！", isParent: true},
+		{ id:1402, parentId:3014, name:"与fusioncharts整合"},
+		{ id:140201, parentId:1402, name:"单列图表",vision:"trial", target:"frmright"},
+		{ id:140202, parentId:1402, name:"多列图表",vision:"trial", target:"frmright"},
+		{ id:140203, parentId:1402, name:"堆积图",vision:"trial", target:"frmright"},
+		{ id:140204, parentId:1402, name:"组合图表",vision:"trial", target:"frmright"},
+		{ id:140205, parentId:1402, name:"泡状图",vision:"trial", target:"frmright"},
+		{ id:140206, parentId:1402, name:"含滚动条的图表",vision:"trial", target:"frmright"},
+		{ id:140207, parentId:1402, name:"个性图表",vision:"trial", target:"frmright"},
+		{ id:140208, parentId:1402, name:"图表链接",vision:"trial", target:"frmright"},
+		
+		{ id:1403, parentId:3014, name:"与highslide整合",vision:"trial", target:"frmright"},
+		{ id:1404, parentId:3014, name:"与ckEditer整合",vision:"trial", target:"frmright"}
+
+	];
+	
+	function initComplete(){
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		//每次刷新时保持上次打开的
+		showContent();
+	}
+	function showContent(){
+		var treeNodeId=jQuery.jCookie('leftTreeNodeId');
+		if(treeNodeId==false||treeNodeId=="false"){}
+		else{
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			var node = zTree.getNodeByParam("id", treeNodeId);
+			zTree.selectNode(node);
+			if(node.url){
+				//每次刷新时设置当前位置内容
+				if(node.name=="当前位置"){
+					top.positionType="normal";
+					top.positionContent="当前位置："+node.getParentNode().name+">>"+node.name;
+				}
+				else{
+					top.positionType="none";
+				}
+				top.frmright.location=node.url;
+			}
+		}
+	}
+		
+	function onClick(e,treeId, treeNode){
+		//单击展开
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		zTree.expandNode(treeNode);
+		if(treeNode.vision){
+			if(treeNode.vision=="trial"){
+				top.Dialog.alert("抱歉，试用版不包含该功能！",null,null,null,1)
+			}
+		}
+		
+		
+		//出现进度条
+		if(treeNode.url!=null){
+			showProgressBar();
+		}
+		
+		//可以设置某些页面出现或者某些页面不出现当前位置组件
+		if(treeNode.name=="当前位置"){
+			//每次点击时设置当前位置内容
+			top.positionContent="当前位置："+treeNode.getParentNode().name+">>"+treeNode.name;
+			top.positionType="normal";
+		}
+		else{
+			top.positionType="none";
+		}
+		
+		//存储点击节点id
+		jQuery.jCookie('leftTreeNodeId',treeNode.id.toString());
+	}
+
+	function  showAll(){
+		var treeObj=$.fn.zTree.getZTreeObj("treeDemo");
+		treeObj.expandAll(true);
+	}
+	function  hideAll(){
+		var treeObj = $.fn.zTree.getZTreeObj("treeDemo")
+		treeObj.expandAll(false);
+	}
+</script>
+<!-- 树end -->
+<style>
+.ztree *{
+	font-family:sans-serif!important;
+}
+</style>
+</head>
+
+<body leftFrame="true" style="background-color:#f1f8ff">
+<div class="padding_top5 ali02">
+	<a onclick="showAll()">全部展开</a>&nbsp;&nbsp;<a onclick="hideAll()">全部收缩</a>
+	<div class="red">（含！号代表试用版不支持）</div>
+</div>
+
+<div id="scrollContent">
+
+	<div>
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+		
+</div>				
+</body>
+</html>

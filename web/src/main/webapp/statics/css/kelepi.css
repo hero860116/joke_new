@@ -1,0 +1,208 @@
+body{
+	background: url("../images/body_bg.png") repeat;
+	margin: 0px;
+	font-family: "微软雅黑","新宋";
+}
+.container{
+	width: 960px;
+}
+#warp{
+	background: url("../images/header_bg_2.png") top repeat-x;
+	margin: 0px auto 40px;
+}
+.nav-pills{
+	margin:20px 0px;
+}
+#user{
+	padding: 8px 15px;
+}
+#user li a{
+	color: #666;
+	line-height: 23px;
+	padding: 3px;
+	margin-left: 0px;
+}
+#user li a:hover,#user li a:focus{
+	color: white;
+}
+.nav-pills li a{
+	line-height: 23px;
+	margin-left: 20px;
+	padding: 8px 15px;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+}
+.nav-pills li a:hover,.nav-pills li a:focus{
+	color: #666;
+}
+.nav-pills .active a,.nav-pills .active a:hover,.nav-pills .active a:focus{
+	background: white;
+	color: #333;
+}
+#logo{
+	padding-top: 10px;
+}
+#logo a{
+	background: url("../images/logo.png") no-repeat;
+	text-indent: -9999px;
+	width: 236px;
+	height: 54px;
+	display: block;
+}
+.right-slider{
+	width: 310px;
+	background: #E0E1E2;
+	height: 200px;
+	margin-bottom: -10000px;
+	padding-bottom: 10000px;
+	z-index: 100;
+}
+.content{
+	clear: both;
+	padding-top: 10px;
+	overflow: hidden;
+}
+.content ul{
+	margin-right: 310px;
+}
+.content li{
+	margin-bottom: 20px;
+	list-style: none;
+	z-index: 1;
+}
+.avatar{
+	width: 100px;
+}
+.media .pull-left{
+	margin-right: 0px;
+}
+.joke-details img{
+	width: 460px;
+	margin: 0 20px;
+}
+.joke-details{
+	background: white;
+	padding: 18px;
+}
+.dig{
+	margin-top: 10px;
+	vertical-align: text-bottom;
+}
+.dig .btn{
+	margin-top: 5px;
+	margin-right: 10px;
+}
+[class^="icon-"], [class*=" icon-"]{
+	vertical-align: middle;
+}
+.share{
+	margin-left: 120px;
+	line-height: 40px;
+}
+.no-margin{
+	margin: 0px;
+}
+.nav-tabs{
+	height: 38px;
+	border-bottom: none;
+	margin-bottom: 0px;
+}
+.login_page{
+	width: 480px;
+	height: 400px;
+	margin: 50px auto;
+}
+.login_page h3{
+	text-align: center;
+	margin-bottom: 50px;
+}
+.bg_white{
+	background: white;
+	margin-top: 50px;
+}
+.margin-left-20{
+	margin-left: 20px;
+}
+.comment{
+	padding: 10px;
+}
+#friendlink{
+	margin-top: 10px;
+}
+.imgarea{
+	margin-left: 185px;
+}
+.imgdiv{
+	width:460px;
+	position: relative;
+	height: auto;
+	border: 1px #ccc;
+	background: white;
+	margin-bottom: 10px;
+}
+.joke{
+	border: 1px #ccc;
+	background: #ddd;
+	width: 170px;
+	padding: 5px;
+}
+.btn-select{
+	position: absolute;
+	top: 150px;
+	left: 190px;
+}
+.btn-del{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+.btn-reslt{
+	position: absolute;
+	top: 10px;
+	left: 80px;
+}
+textarea{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 460px;
+	padding: 0px;
+	margin: 0px;
+	font-size: 20px;
+}
+#jokedes{
+	position: relative;
+}
+.joketd:hover{
+	cursor: pointer;
+}
+.modaltitle{
+	padding: 0px 15px;
+}
+.instructions{
+	background: white;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+#slt-modal{
+	width: 640px;
+	margin-left: -320px;
+}
+.loginpad{
+	padding: 40px 20px 50px 40px;
+}
+.register{
+	padding: 50px;
+	margin: 0 auto;
+}
+.register h3 {
+	width: 500px;
+	text-align: center;
+	margin: 0 auto 50px auto;
+}
+
+.margin_tb_8{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
