@@ -7,8 +7,17 @@ import com.kelepi.biz.snsmanager.sinaweibo.Users;
 import com.kelepi.biz.snsmanager.sinaweibo.http.AccessToken;
 import com.kelepi.biz.snsmanager.sinaweibo.model.User;
 import com.kelepi.biz.snsmanager.sinaweibo.model.WeiboException;
+import com.kelepi.dal.dao.UserDAO;
+import com.kelepi.dal.dataobject.UserDO;
+import com.kelepi.dal.enums.MainStatus;
+import com.kelepi.dal.enums.PermissionsType;
+import com.kelepi.dal.enums.SnsSourceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * User: liWeiLin
@@ -17,28 +26,45 @@ import org.springframework.stereotype.Component;
 @Component("sinaWeiboAO")
 public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
 
+    Logger logger = LoggerFactory.getLogger(SinaWeiboAOImpl.class);
+
     @Autowired
     private SinaWeiboManager sinaWeiboManager;
+
+    @Autowired
+    private UserDAO userDAO;
 
     public String getLoginUrl() {
         //To change body of implemented methods use File | Settings | File Templates.
         return sinaWeiboManager.openLoginUrl();
     }
 
-    public User getUser(String code) {
+    public UserDO generateUser(String code) {
         AccessToken accessToken = sinaWeiboManager.getAccessToken(code);
 
         Users um = new Users();
         um.client.setToken(accessToken.getAccessToken());
 
-        User user = null;
+        UserDO userDO = null;
         try {
-            user = um.showUserById(accessToken.getUid());
+            User user = um.showUserById(accessToken.getUid());
+
+            userDO = new UserDO();
+            userDO.setAccessToken(accessToken.getAccessToken());
+            userDO.setFaceImageUrl(user.getAvatarLarge());
+            userDO.setNickName(user.getScreenName());
+            userDO.setPermissions(PermissionsType.NORMAL.getType());
+            userDO.setSourceId(accessToken.getUid());
+            userDO.setSourceType(SnsSourceType.SINA_WEIBO.getType());
+            userDO.setStatus(MainStatus.NORMAL.getType());
+
+            userDAO.save(userDO);
 
         } catch (WeiboException e) {
             e.printStackTrace();
+            logger.error("WeiboException", e);
         }
 
-        return user;  //To change body of implemented methods use File | Settings | File Templates.
+        return userDO;
     }
 }

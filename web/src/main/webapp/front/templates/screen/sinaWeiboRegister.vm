@@ -12,7 +12,7 @@
                         <div class="control-group">
                             <label class="control-label" for="nickname">昵称：</label>
                             <div class="controls">
-                                <input type="text" id="nickname" name="nickname" value="$!user.screenName">
+                                <input type="text" id="nickname" name="nickname" value="$!userDO.nickName">
                                 <span class="help-block">不可修改，3到15个字符</span>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
 
                     <div class="span3">
                         <span class="help-block margin-left-20">用户头像：</span>
-                        <img class="img-polaroid margin_tb_8 margin-left-20" style="width:80px;" id="avatarimg" src="$!user.avatarLarge">
+                        <img class="img-polaroid margin_tb_8 margin-left-20" style="width:80px;" id="avatarimg" src="$!userDO.faceImageUrl">
                         <input type="hidden" id="faceImageUrl" name="faceImageUrl" value="$!user.avatarLarge" />
                         <input class="" type="file" name="avatar_upload" id="avatar_upload" />
                     </div>

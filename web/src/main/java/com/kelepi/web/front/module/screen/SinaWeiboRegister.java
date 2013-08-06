@@ -6,6 +6,7 @@ import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.SinaWeiboAO;
 import com.kelepi.biz.snsmanager.sinaweibo.model.User;
+import com.kelepi.dal.dataobject.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -18,8 +19,9 @@ public class SinaWeiboRegister {
     private SinaWeiboAO sinaWeiboAO;
 
     public void execute(@Param("code")String code,  Navigator nav, TurbineRunData rundata, Context context) {
-        User user  = sinaWeiboAO.getUser(code);
+        UserDO userDO  = sinaWeiboAO.generateUser(code);
 
-        context.put("user", user);
+
+        context.put("userDO", userDO);
     }
 }

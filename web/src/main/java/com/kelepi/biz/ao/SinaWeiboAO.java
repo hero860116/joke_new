@@ -1,6 +1,7 @@
 package com.kelepi.biz.ao;
 
 import com.kelepi.biz.snsmanager.sinaweibo.model.User;
+import com.kelepi.dal.dataobject.UserDO;
 
 /**
  * User: liWeiLin
@@ -9,5 +10,5 @@ import com.kelepi.biz.snsmanager.sinaweibo.model.User;
 public interface SinaWeiboAO {
     String getLoginUrl();
 
-    User getUser(String code);
+    UserDO generateUser(String code);
 }

@@ -5,6 +5,8 @@ import com.kelepi.dal.dao.UserDAO;
 import com.kelepi.dal.dataobject.UserDO;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * User: liWeiLin
  * Date: 13-8-6 下午11:12
@@ -12,10 +14,13 @@ import org.springframework.stereotype.Component;
 @Component("userDAO")
 public class UserDAOHibernateImpl extends HibernateBaseDAO implements UserDAO {
     public void save(UserDO userDO) {
+        userDO.setGmtCreate(new Date());
+        userDO.setGmtModify(new Date());
         getHibernateTemplate().save(userDO);
     }
 
     public void update(UserDO userDO) {
+        userDO.setGmtModify(new Date());
         getHibernateTemplate().update(userDO);
     }
 
