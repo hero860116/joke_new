@@ -1,0 +1,19 @@
+<div id="friendlink" class="well">
+    <h5>友情链接 [<a href="" class="text-info">申请友情链接</a>]</h5>
+    <ul class="inline">
+        <li><a href="#">糗事百科</a></li>
+        <li><a href="#">挖段子</a></li>
+        <li><a href="#">女段子</a></li>
+        <li><a href="#">麻辣</a></li>
+        <li><a href="#">麻花</a></li>
+        <li><a href="#">捧腹</a></li>
+    </ul>
+</div>
+<div id="footer" class="text-center">
+    <ul class="inline">
+        <li><a href="#">关于可乐皮</a></li>
+        <li><a href="#">商务合作</a></li>
+        <li><a href="#">意见反馈</a></li>
+        <li><a href="#">浙备案00000000-1</a></li>
+    </ul>
+</div>

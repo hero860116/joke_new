@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:p="http://www.springframework.org/schema/p"
+             xmlns:services="http://www.alibaba.com/schema/services"
+             xmlns:uris="http://www.alibaba.com/schema/services/uris"
+             xmlns:uri-interceptors="http://www.alibaba.com/schema/services/uris/interceptors"
+             xsi:schemaLocation="
+                 http://www.alibaba.com/schema/services http://localhost:8080/schema/services.xsd
+                 http://www.alibaba.com/schema/services/uris http://localhost:8080/schema/services-uris.xsd
+                 http://www.alibaba.com/schema/services/uris/interceptors http://localhost:8080/schema/services-uris-interceptors.xsd
+                 http://www.springframework.org/schema/beans http://localhost:8080/schema/www.springframework.org/schema/beans/spring-beans.xsd
+             ">
+
+    <services:uris>
+        <!-- ================================================================ -->
+        <!-- Server Level： 外部server。                                      -->
+        <!--                                                                  -->
+        <!-- 使用方法： link.getURI('path')                                   -->
+        <!-- ================================================================ -->
+        <uris:uri id="alibabaSite" exposed="true">
+            <serverURI>http://china.alibaba.com/</serverURI>
+        </uris:uri>
+        <uris:uri id="toolkitSite" exposed="true">
+            <serverURI>http://toolkit.alibaba-inc.com/</serverURI>
+        </uris:uri>
+        <!-- ================================================================ -->
+        <!-- Server Level： java server。                                     -->
+        <!--                                                                  -->
+        <!-- 使用方法： 不能直接使用，只被其它URI继承。                       -->
+        <!-- ================================================================ -->
+        <uris:servlet-uri id="petstoreServer" requestAware="true">
+            <servletPath>/</servletPath>
+        </uris:servlet-uri>
+        <!-- ================================================================ -->
+        <!-- Component Level： webx modules。                                 -->
+        <!--                                                                  -->
+        <!-- 使用方法： link.setTarget('target.jhtml')                        -->
+        <!--                  .addQueryData('name', 'value')                  -->
+        <!-- ================================================================ -->
+        <!-- home -->
+        <uris:turbine-uri id="homeModule" exposed="true" extends="petstoreServer">
+            <componentPath>/</componentPath>
+        </uris:turbine-uri>
+        <uris:turbine-content-uri id="homeContent" exposed="true" extends="homeModule">
+            <componentPath>/home</componentPath>
+        </uris:turbine-content-uri>
+        <!-- user -->
+        <uris:turbine-uri id="userModule" exposed="true" extends="petstoreServer">
+            <componentPath>/user</componentPath>
+        </uris:turbine-uri>
+        <uris:turbine-content-uri id="userContent" exposed="true" extends="userModule" />
+        <!-- store -->
+        <uris:turbine-uri id="storeModule" exposed="true" extends="petstoreServer">
+            <componentPath>/store</componentPath>
+        </uris:turbine-uri>
+        <uris:turbine-content-uri id="storeContent" exposed="true" extends="storeModule" />
+        <uris:servlet-content-uri id="storeImageContent" exposed="true" extends="petstoreServer">
+            <prefixPath>/petstore/images</prefixPath>
+        </uris:servlet-content-uri>
+        <!-- ================================================================ -->
+        <!-- Link Level： 继承前述各类links。                                 -->
+        <!--                                                                  -->
+        <!-- 使用方法： link                                                  -->
+        <!-- ================================================================ -->
+        <uris:turbine-uri id="petstoreHomeLink" exposed="true" extends="homeModule">
+            <target>homepage</target>
+        </uris:turbine-uri>
+        <uris:turbine-uri id="petstoreLoginLink" exposed="true" extends="userModule">
+            <target>login</target>
+        </uris:turbine-uri>
+        <uris:turbine-uri id="petstoreLogoutLink" exposed="true" extends="userModule">
+            <target>login</target>
+            <query key="action">loginAction</query>
+            <query key="eventSubmitDoLogout">yes</query>
+        </uris:turbine-uri>
+        <uris:turbine-uri id="petstoreRegisterLink" exposed="true" extends="userModule">
+            <target>register</target>
+        </uris:turbine-uri>
+        <uris:turbine-uri id="petstoreRegisterAccountLink" exposed="true" extends="userModule">
+            <target>registerAccount</target>
+        </uris:turbine-uri>
+        <uris:turbine-uri id="petstoreAccountLink" exposed="true" extends="userModule">
+            <target>account</target>
+        </uris:turbine-uri>
+        <uris:uri id="toolkitArchLink" exposed="true" extends="toolkitSite">
+            <path>/arch/bigpicture.html</path>
+        </uris:uri>
+    </services:uris>
+
+</beans:beans>

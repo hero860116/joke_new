@@ -1,0 +1,17 @@
+<div id="head">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="#">全部</a></li>
+        <li><a href="#">热门</a></li>
+        <li><a href="#">生成器</a></li>
+        <li><a href="#loginmodal" data-toggle="modal">登陆</a></li>
+        <li><div id="user" class="btn-group">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">邪邪的微笑<span class="caret">
+						</span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">个人设置</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div></li>
+    </ul>
+    <h3 id="logo"><a href="/">可乐皮</a></h3>
+</div>
