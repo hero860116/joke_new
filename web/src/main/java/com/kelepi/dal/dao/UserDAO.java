@@ -22,4 +22,13 @@ public interface UserDAO {
      * @return
      */
     UserDO getUserBySource(Integer sourceType, String sourceId);
+
+    /**
+     * 更新完善用户资料
+     * @param nikeName
+     * @param email
+     * @param faceImageUrl
+     * @param id
+     */
+    void updateInfo(String nikeName, String email, String faceImageUrl, Long id);
 }

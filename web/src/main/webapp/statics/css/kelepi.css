@@ -206,3 +206,8 @@ textarea{
     margin-top: 8px;
     margin-bottom: 8px;
 }
+
+.badge{
+    vertical-align: top;
+}
+

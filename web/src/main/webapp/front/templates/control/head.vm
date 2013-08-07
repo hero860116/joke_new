@@ -3,15 +3,27 @@
         <li class="active"><a href="#">全部</a></li>
         <li><a href="#">热门</a></li>
         <li><a href="#">生成器</a></li>
-        <li><a href="#loginmodal" data-toggle="modal">登陆</a></li>
-        <li><div id="user" class="btn-group">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">邪邪的微笑<span class="caret">
+        #if($userDO)
+            <li><div id="user" class="btn-group">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$userDO.nickName<span class="caret">
 						</span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">个人设置</a></li>
-                <li><a href="#">退出</a></li>
-            </ul>
-        </div></li>
+                <ul class="dropdown-menu">
+                    <li><a href="#">个人设置</a></li>
+                    <li><a href="$jokeModule/logout?action=user_action&event_submit_do_logout=1">退出</a></li>
+                </ul>
+            </div></li>
+        #else
+            <li><a href="#loginmodal" data-toggle="modal">登陆</a></li>
+        #end
     </ul>
     <h3 id="logo"><a href="/">可乐皮</a></h3>
+</div>
+<div id="loginmodal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>请使用以下账号登陆我们网站</h3>
+    </div>
+    <div class="modal-body loginpad">
+        <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1"><img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a> <a class="margin-left-20" href=""><img src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
+    </div>
 </div>

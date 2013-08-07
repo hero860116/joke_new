@@ -40,31 +40,41 @@ public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
     }
 
     public UserDO generateUser(String code) {
+        if (getUserDO() != null)  {
+               return getUserDO();
+        }
+
         AccessToken accessToken = sinaWeiboManager.getAccessToken(code);
 
         Users um = new Users();
         um.client.setToken(accessToken.getAccessToken());
 
-        UserDO userDO = null;
-        try {
-            User user = um.showUserById(accessToken.getUid());
+        UserDO userDO = userDAO.getUserBySource(SnsSourceType.SINA_WEIBO.getType(), accessToken.getUid());
 
-            userDO = new UserDO();
+        if (userDO == null) {
+            try {
+                User user = um.showUserById(accessToken.getUid());
+                userDO = new UserDO();
+                userDO.setAccessToken(accessToken.getAccessToken());
+                userDO.setFaceImageUrl(user.getAvatarLarge());
+                userDO.setNickName(user.getScreenName());
+                userDO.setPermissions(PermissionsType.NORMAL.getType());
+                userDO.setSourceId(accessToken.getUid());
+                userDO.setSourceType(SnsSourceType.SINA_WEIBO.getType());
+                userDO.setStatus(MainStatus.NORMAL.getType());
+
+                userDAO.save(userDO);
+
+            } catch (WeiboException e) {
+                e.printStackTrace();
+                logger.error("WeiboException", e);
+            }
+        } else if (!userDO.getAccessToken().equals(accessToken.getAccessToken())) {
             userDO.setAccessToken(accessToken.getAccessToken());
-            userDO.setFaceImageUrl(user.getAvatarLarge());
-            userDO.setNickName(user.getScreenName());
-            userDO.setPermissions(PermissionsType.NORMAL.getType());
-            userDO.setSourceId(accessToken.getUid());
-            userDO.setSourceType(SnsSourceType.SINA_WEIBO.getType());
-            userDO.setStatus(MainStatus.NORMAL.getType());
-
-            userDAO.save(userDO);
-
-        } catch (WeiboException e) {
-            e.printStackTrace();
-            logger.error("WeiboException", e);
+            userDAO.update(userDO);
         }
 
+        setUserDO(userDO);
         return userDO;
     }
 }

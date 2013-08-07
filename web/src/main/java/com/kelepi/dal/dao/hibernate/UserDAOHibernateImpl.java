@@ -36,7 +36,14 @@ public class UserDAOHibernateImpl extends HibernateBaseDAO implements UserDAO {
     }
 
     public UserDO getUserBySource(Integer sourceType, String sourceId) {
-        UserDO userDO = (UserDO)getSession().createQuery("from UserDO u where u.sourceType = :sourceType and u.sourceId = :sourceId").uniqueResult();
+        UserDO userDO = (UserDO)getSession().createQuery("from UserDO u where u.sourceType = :sourceType and u.sourceId = :sourceId")
+                .setInteger("sourceType", sourceType).setString("sourceId", sourceId).uniqueResult();
         return userDO;
+    }
+
+    public void updateInfo(String nickName, String email, String faceImageUrl, Long id) {
+        getSession().createQuery("update UserDO u set nickName = :nickName, email = :email, faceImageUrl = :faceImageUrl where id = :id")
+                .setString("nickName", nickName).setString("email", email).setString("faceImageUrl", faceImageUrl).setLong("id", id).executeUpdate();
+
     }
 }

@@ -4,13 +4,14 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.kelepi.biz.ao.SinaWeiboAO;
+import com.kelepi.web.common.BaseAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * User: liWeiLin
  * Date: 13-8-4 下午9:39
  */
-public class SinaWeiboAction {
+public class SinaWeiboAction extends BaseAction{
 
     @Autowired
     private SinaWeiboAO sinaWeiboAO;

@@ -9,7 +9,7 @@ import com.alibaba.citrus.turbine.util.TurbineUtil;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-public class BaseScreen extends BaseSession{
+public class BaseAction extends BaseSession{
 	@Resource
 	private URIBrokerService uriBrokerService;
 	

@@ -29,12 +29,26 @@
         <group name="register" extends="csrfTokenCheckGroup">
             <field name="nickName" displayName="昵称">
                 <fm-validators:required-validator>
-                    <message>必须填写${displayName}</message>
+                    <message>您还没有填写${displayName}</message>
                 </fm-validators:required-validator>
             </field>
             <field name="email" displayName="邮箱">
                 <fm-validators:required-validator>
-                    <message>必须填写${displayName}</message>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+                <fm-validators:regexp-validator pattern="^(?:\w+\.{1})*\w+@(\w+\.)*\w+$">
+                    <message>您填写的邮箱地址格式不正确,请重新输入</message>
+                </fm-validators:regexp-validator>
+            </field>
+
+            <field name="faceImageUrl" displayName="头像">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+            <field name="id" displayName="id">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
                 </fm-validators:required-validator>
             </field>
         </group>

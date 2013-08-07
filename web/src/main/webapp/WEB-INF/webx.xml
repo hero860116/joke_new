@@ -83,10 +83,6 @@
             </store-mappings>
             <interceptors>
                 <session-interceptors:lifecycle-logger />
-                <session-interceptors:attribute-whitelist>
-                    <attribute name="_csrf_token" />
-                    <attribute name="_lang" />
-                </session-interceptors:attribute-whitelist>
             </interceptors>
         </request-contexts:session>
     </services:request-contexts>

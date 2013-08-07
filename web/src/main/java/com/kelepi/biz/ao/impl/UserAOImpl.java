@@ -20,4 +20,9 @@ public class UserAOImpl extends BaseAO implements UserAO {
     public void save(UserDO userDO) {
            userDAO.save(userDO);
     }
+
+    public void updateInfo(String nikeName, String email, String faceImageUrl, long id) {
+        //To change body of implemented methods use File | Settings | File Templates.
+        userDAO.updateInfo(nikeName, email, faceImageUrl,id);
+    }
 }

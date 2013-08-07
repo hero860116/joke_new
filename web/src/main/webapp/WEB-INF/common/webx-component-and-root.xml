@@ -34,6 +34,7 @@
                         <if-matches pattern="^screen_placeholder" />
                         <if-matches pattern="^stringEscapeUtil\.escape" />
                         <if-matches pattern="^csrfToken\.(get)?(\w*)hiddenField" />
+                        <if-matches pattern="^http://" />
                     </noescape>
                 </vm-plugins:escape-support>
             </plugins>

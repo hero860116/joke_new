@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="t_user")
-public class UserDO {
+public class UserDO extends BaseDO {
+
     private Long id;
     private String accessToken;
     private String nickName;
