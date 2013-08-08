@@ -22,12 +22,14 @@ public class SinaWeiboRegister extends BaseScreen{
     public void execute(@Param("code")String code,  Navigator nav, TurbineRunData rundata, Context context) {
 
         UserDO userDO  = sinaWeiboAO.generateUser(code);
+        setUserDO(userDO);
 
         if (userDO.getEmail() != null) {
             nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
             return;
+        } else {
+            nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("completeUserInfo.vm").render());
+            return;
         }
-
-        context.put("userDO", userDO);
     }
 }

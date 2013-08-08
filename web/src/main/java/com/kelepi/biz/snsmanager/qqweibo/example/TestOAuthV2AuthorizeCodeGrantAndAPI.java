@@ -286,9 +286,9 @@ public class TestOAuthV2AuthorizeCodeGrantAndAPI {
        // oAuth.setClientSecret("be1dd1410434a9f7d5a2586bab7a6829");
         //oAuth.setRedirectUri("http://www.tencent.com/zh-cn/index.shtml");
 
-        oAuth.setClientId("801395247");
-        oAuth.setClientSecret("db28f7eb450c0a5cc6ca50b32d889507");
-        oAuth.setRedirectUri("http://www.kelepi.com/addautu");
+        oAuth.setClientId("100496964");
+        oAuth.setClientSecret("07676d5868d1c9d6bc5b9ed76d427f4c");
+        oAuth.setRedirectUri("http://www.kelepi.com/qqregedit");
 //        oAuth.setAccessToken("02204e5e59c2d22b73fb9b688e9f0c02");
 //        oAuth.setOpenid("42A2ACA51C28782E854A50C5FA14160A");
 //        oAuth.setOpenkey("ECBBC3B17F4190C8824DB652436E5DFA");

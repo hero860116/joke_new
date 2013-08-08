@@ -12,11 +12,13 @@ import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.PermissionsType;
 import com.kelepi.dal.enums.SnsSourceType;
+import com.kelepi.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -56,6 +58,9 @@ public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
                 User user = um.showUserById(accessToken.getUid());
                 userDO = new UserDO();
                 userDO.setAccessToken(accessToken.getAccessToken());
+                int expireIn = Integer.parseInt(accessToken.getExpireIn());
+                Date tokenExpireDate = DateUtil.addDuration(new Date(), Calendar.SECOND, expireIn);
+                userDO.setTokenExpireDate(tokenExpireDate);
                 userDO.setFaceImageUrl(user.getAvatarLarge());
                 userDO.setNickName(user.getScreenName());
                 userDO.setPermissions(PermissionsType.NORMAL.getType());
@@ -71,10 +76,11 @@ public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
             }
         } else if (!userDO.getAccessToken().equals(accessToken.getAccessToken())) {
             userDO.setAccessToken(accessToken.getAccessToken());
+            int expireIn = Integer.parseInt(accessToken.getExpireIn());
+            Date tokenExpireDate = DateUtil.addDuration(new Date(), Calendar.SECOND, expireIn);
+            userDO.setTokenExpireDate(tokenExpireDate);
             userDAO.update(userDO);
         }
-
-        setUserDO(userDO);
         return userDO;
     }
 }

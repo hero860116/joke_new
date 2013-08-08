@@ -14,7 +14,7 @@
 
     <services:uris>
         <uris:uri id="jokeServer" exposed="true">
-            <serverURI>http://kelepi.com:8080</serverURI>
+            <serverURI>http://kelepi.com</serverURI>
         </uris:uri>
 
         <uris:turbine-uri id="adminModule" exposed="true" extends="jokeServer">
