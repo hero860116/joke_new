@@ -13,7 +13,7 @@ import com.kelepi.dal.dataobject.PropertiesDO;
 import org.springframework.stereotype.Component;
 
 @Component("propertiesManager")
-public class DefaultPropertiesManager implements PropertiesManager {
+public class PropertiesManagerImpl implements PropertiesManager {
 	@Resource
 	private PropertiesDAO propertiesDAO;
 
