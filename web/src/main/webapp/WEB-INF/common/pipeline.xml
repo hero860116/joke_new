@@ -26,6 +26,7 @@
         <!-- 检查csrf token，防止csrf攻击和重复提交。假如request和session中的token不匹配，则出错，或显示expired页面。 -->
         <pl-valves:checkCsrfToken />
 
+
         <pl-valves:loop>
             <pl-valves:choose>
                 <when>

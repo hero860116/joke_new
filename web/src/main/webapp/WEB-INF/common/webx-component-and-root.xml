@@ -28,6 +28,7 @@
                 <name>global/*.vm</name>
             </global-macros>
             <plugins>
+                <!--
                 <vm-plugins:escape-support defaultEscape="html">
                     <noescape>
                         <if-matches pattern="^control\." />
@@ -37,6 +38,7 @@
                         <if-matches pattern="^http://" />
                     </noescape>
                 </vm-plugins:escape-support>
+                -->
             </plugins>
         </tpl-engines:velocity-engine>
         <tpl-engines:freemarker-engine templateEncoding="UTF-8" path="/${component}/templates" />

@@ -3,6 +3,7 @@ package com.kelepi.dal.dao.hibernate;
 import com.kelepi.dal.dao.HibernateBaseDAO;
 import com.kelepi.dal.dao.PropertiesDAO;
 import com.kelepi.dal.dataobject.PropertiesDO;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -10,7 +11,8 @@ import java.util.List;
  * User: liWeiLin
  * Date: 13-8-10 上午9:34
  */
-public class PropertiesDAOHibernateImpl extends HibernateBaseDAO implements PropertiesDAO{
+@Component("propertiesDAO")
+public class PropertiesDAOHibernateImpl extends HibernateBaseDAO implements PropertiesDAO {
 
 
     public long save(PropertiesDO propertiesDO) {
@@ -29,7 +31,7 @@ public class PropertiesDAOHibernateImpl extends HibernateBaseDAO implements Prop
     }
 
     public PropertiesDO getProperties(long id) {
-        return (PropertiesDO)getHibernateTemplate().get(PropertiesDO.class, id);
+        return (PropertiesDO) getHibernateTemplate().get(PropertiesDO.class, id);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +40,7 @@ public class PropertiesDAOHibernateImpl extends HibernateBaseDAO implements Prop
     }
 
     public PropertiesDO getPropertiesByName(String name) {
-        return (PropertiesDO)getSession().createQuery("from PropertiesDO p where p.name = :name").setString("name", name).uniqueResult();
+        return (PropertiesDO) getSession().createQuery("from PropertiesDO p where p.name = :name").setString("name", name).uniqueResult();
     }
 
     public void updatePropertiesValue(String name, String value) {

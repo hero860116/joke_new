@@ -1,10 +1,9 @@
 package com.kelepi.dal.dataobject;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: liWeiLin
@@ -15,13 +14,16 @@ import java.util.Date;
 public class CategoryDO extends BaseDO{
     private Long id;
     private String name;
-    private String value;
+    private Integer indexf;
     private String description;
     private Long parentId;
-    private String outType;
-    private String outId;
+    private Integer isDelete;
     private Date gmtCreated;
     private Date gmtModified;
+
+    private List<CategoryDO> subCategoryDOs = new ArrayList<CategoryDO>();
+    private List<CategoryDO> parentCategoryDOs = new ArrayList<CategoryDO>();
+    private List<Object> entityList = new ArrayList<Object>();
 
     @Id
     @GeneratedValue
@@ -41,12 +43,12 @@ public class CategoryDO extends BaseDO{
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public Integer getIndexf() {
+        return indexf;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setIndexf(Integer indexf) {
+        this.indexf = indexf;
     }
 
     public String getDescription() {
@@ -65,22 +67,16 @@ public class CategoryDO extends BaseDO{
         this.parentId = parentId;
     }
 
-    public String getOutType() {
-        return outType;
+    @Column(updatable=false, insertable=false)
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setOutType(String outType) {
-        this.outType = outType;
+    public void setIsDelete(Integer delete) {
+        isDelete = delete;
     }
 
-    public String getOutId() {
-        return outId;
-    }
-
-    public void setOutId(String outId) {
-        this.outId = outId;
-    }
-
+    @Column(updatable=false)
     public Date getGmtCreated() {
         return gmtCreated;
     }
@@ -95,5 +91,29 @@ public class CategoryDO extends BaseDO{
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    @Transient
+    public List<CategoryDO> getSubCategoryDOs() {
+        return subCategoryDOs;
+    }
+    public void setSubCategoryDOs(List<CategoryDO> subCategoryDOs) {
+        this.subCategoryDOs = subCategoryDOs;
+    }
+
+    @Transient
+    public List<CategoryDO> getParentCategoryDOs() {
+        return parentCategoryDOs;
+    }
+    public void setParentCategoryDOs(List<CategoryDO> parentCategoryDOs) {
+        this.parentCategoryDOs = parentCategoryDOs;
+    }
+
+    @Transient
+    public List<Object> getEntityList() {
+        return entityList;
+    }
+    public void setEntityList(List<Object> entityList) {
+        this.entityList = entityList;
     }
 }

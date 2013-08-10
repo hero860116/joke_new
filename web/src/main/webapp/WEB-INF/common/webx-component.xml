@@ -34,6 +34,8 @@
             <tool id="selectYear" />
         </pull-factories:context-exposer>
 
+        <pull-factories:bean-tool id="categoryTool" class="com.kelepi.biz.tool.CategoryTool" scope="request" autowire="true" />
+
     </services:pull>
 
 </beans:beans>
