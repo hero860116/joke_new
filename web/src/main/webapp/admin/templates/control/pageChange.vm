@@ -1,0 +1,98 @@
+<link href="$staticsContent.getURI('css/page.css')?t=100006" rel="stylesheet" type="text/css">
+## 总页数
+#set($tPage=$query.totalPage)
+## 当前页
+#set($cPage=$query.currentPage)
+
+
+#set($minpage=2)
+#set($maxpage=$tPage+(-2))
+#set($midminpage=$cPage+(-2))
+#set($midmaxpage=$cPage+2)
+#set($nextPage=$cPage+1)
+
+#if($midminpage<1)
+    #set($midminpage=1)
+#end
+#if($midmaxpage>$tPage)
+    #set($midmaxpage=$tPage)
+#end
+#if($nextPage>$tPage)
+    #set($midmaxpage=$tPage)
+#end
+#set($prepiont=true)
+#set($aftpiont=true)
+#set($prevPage=$cPage+(-1))
+#if($query)
+    #set($prevPage="$pageTool.paging($prevPage)")
+    #set($nextPage="$pageTool.paging($nextPage)")
+#end
+
+
+##接下来是页面HTML结构
+
+##上一页
+#if($cPage > 1)
+<a href="$prevPage" class="page-prev page:id"><span>上一页</span></a><!--上一页-->
+#end
+##中间页码
+#foreach($p in [1..${tPage}])
+    #if($p<$minpage||$p>$maxpage||($p>$midminpage && $p<$midmaxpage))
+        #if($p==$cPage)
+        <span class="current">$cPage</span>
+        #else
+        <a href="$pageTool.paging($p)" class="page:id">$p</a>
+        #end
+    #else
+        #if($prepiont&&$p<=$midminpage)
+            #set($prepiont=false)
+        <span class="page-break">...</span>
+        #elseif($aftpiont&&$p>=$midmaxpage)
+            #set($aftpiont=false)
+        <span class="page-break">...</span>
+        #end
+    #end
+#end
+##下一页
+#if($cPage < $tPage)
+<a class="page-next" href="$nextPage"><span>下一页</span></a><!--下一页-->
+#end
+
+<span class="page-skip">
+    共$!{tPage}页
+    到第<input type="text" name="page" style="width:25px;" value="$query.currentPage"  onkeyup="if(event.keyCode==13) jumpPage(this.value);"/>页
+    <button type="button" onclick="jumpPage(this.parentNode.getElementsByTagName('input')[0].value);">确定</button>
+</span>
+
+#if(!$noscript)		##只加载一次
+<script type='text/javascript'>
+    var totalPage="$!securityUtil.jsEncode($!query.totalPage)";
+    //判断用户输入的页码是否在区间[1,totalPage]
+    function resetPageNo(aPage){
+        if(!/^[0-9]+$/.test(aPage)){
+            return "1";
+        }
+        if(parseInt(aPage) <= 0) {
+            return "1";
+        }
+        if(parseInt(aPage) > parseInt(totalPage)){
+            return totalPage;
+        }
+        return aPage;
+    }
+
+    function jumpPage(page) {
+        page = resetPageNo(page);
+        var href = location.href;
+        var start = href.indexOf('?page=') != -1 ? href.indexOf('?page=') : href.indexOf('&page=');
+        if (start == -1) {
+            href += (href.indexOf('?') == -1 ? '?' : '&') + 'page=' + page;
+        } else {
+            start += 6;
+            var end = href.indexOf('&', start);
+            href = href.substring(0, start) + page + (end != -1 ? href.substring(end) : '');
+        }
+        location.href = href;
+    }
+</script>
+#end

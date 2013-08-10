@@ -1,0 +1,46 @@
+<link href="$staticsContent.getURI('css/page.css')?t=100006" rel="stylesheet" type="text/css">
+<div class="primary">
+
+    <div class="box_tool_min padding_top2 padding_bottom2 padding_right5">
+        <div class="center">
+            <div class="left">
+                <div class="right">
+                    <div class="padding_top5 padding_left10">
+                        <a href="$!{adminModule}/add_modify_category.htm?parentId=$!categoryQuery.parentId"><span class="icon_add">增加类别</span></a>
+                        <div class="box_tool_line"></div>
+                        <a onclick="return false;" class="printStatement" href="$!{adminModule}"><span class="icon_print">返回</span></a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="foodContainer">
+        <table  border="1" class="tableStyle">
+            <thead>
+            <th width="10%">id</th>
+            <th width="20%">类型名称</th>
+            <th width="30%">类型描述</th>
+            <th width="10%">类型排序</th>
+            <th width="30%">操作</th>
+            </thead>
+            #foreach($!categoryDO in $!categoryDOs)
+                <tr>
+                    <td>$!categoryDO.id</td>
+                    <td height="30px;">$!categoryDO.name</td>
+                    <td>$!categoryDO.description</td>
+                    <td>$!categoryDO.indexf</td>
+                    <td>
+                        <a href="$adminModule.setTarget('categoryList.vm').addQueryData('parentId', $categoryDO.id)" class="smallLink">子类列表</a>
+                        <a href="$adminModule.setTarget('addModifyCategory.vm').addQueryData('id', $categoryDO.id).addQueryData('parentId', $categoryDO.parentId)" class="smallLink">修改</a>
+                        <a href="$adminModule/delete.htm?action=category_action&event_submit_do_delete=1&id=$!categoryDO.id&parentId=$categoryDO.parentId">删除</a>
+                    </td>
+                </tr>
+            #end
+        </table>
+        <div class="pagination">
+            $control.setTemplate("pageChange.vm").setParameter('query',$categoryQuery)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+<!-- 增加修改店铺 -->
+<div class="primary">
+    #set ($group = $form.addModifyCategory.defaultInstance)
+    $group.mapTo($categoryDO)
+    <div class="box3" panelTitle="增加订单">
+    <form id="addFood" method="post" action="#" enctype="multipart/form-data">
+        $csrfToken.uniqueHiddenField
+        <input name="id" type="hidden" value="$id" />
+        <input name="parentId" type="hidden" value="$parentId" />
+        <input name="$group.id.key" type="hidden" value="$id" />
+        <input name="$group.parentId.key" type="hidden" value="$parentId" />
+        <input type="hidden" name="action" value="category_action" />
+
+        <table class="tableStyle" formMode="transparent">
+            <tr>
+                <td>$group.name.displayName：</td>
+                <td><input  type="text" name="$group.name.key" value="$group.name.value"/><span style="color:red;">#addProductMessage ($group.name)</span></td>
+            </tr>
+            <tr>
+                <td>$group.description.displayName：</td>
+                <td><input  type="text" name="$group.description.key" value="$group.description.value"/><span style="color:red;">#addProductMessage ($group.description)</span></td>
+             </tr>
+             <tr>
+                 <td colspan="2">
+                     #if($!id > 0)
+                         <input type="submit" class="mybutton" name="event_submit_do_update" value="修改" />
+                     #else
+                         <input type="submit" class="mybutton" name="event_submit_do_save" value="添加" />
+                     #end
+                 </td>
+             </tr>
+        </table>
+    </form>
+<div>
+</div>
