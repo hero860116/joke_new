@@ -16,6 +16,7 @@ public class PropertiesDO extends BaseDO{
     private Long id;
     private String name;
     private String value;
+    private String defaultValue;
     private String description;
     private String group;
     private Date gmtCreated;
@@ -45,6 +46,14 @@ public class PropertiesDO extends BaseDO{
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public String getDescription() {
