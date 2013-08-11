@@ -77,9 +77,15 @@
                 <session-stores:cookie-store id="temporaryCookie">
                     <cookie name="tmp" />
                 </session-stores:cookie-store>
+
+                <!-- 30天  2592000 -->
+                <session-stores:cookie-store id="monthCookie">
+                    <cookie name="month" maxAge="2592000" survivesInInvalidating="true"/>
+                </session-stores:cookie-store>
             </stores>
             <store-mappings>
                 <match name="*" store="temporaryCookie" />
+                <match name="currentLoginUser" store="monthCookie" />
             </store-mappings>
             <interceptors>
                 <session-interceptors:lifecycle-logger />

@@ -6,6 +6,7 @@ import com.kelepi.dal.dataobject.UserDO;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: liWeiLin
@@ -45,5 +46,11 @@ public class UserDAOHibernateImpl extends HibernateBaseDAO implements UserDAO {
         getSession().createQuery("update UserDO u set nickName = :nickName, email = :email, faceImageUrl = :faceImageUrl where id = :id")
                 .setString("nickName", nickName).setString("email", email).setString("faceImageUrl", faceImageUrl).setLong("id", id).executeUpdate();
 
+    }
+
+    public List<UserDO> getUserDOs(List<Long> userIds) {
+        List<UserDO> userDOs = getSession().createQuery("from UserDO u where u.id in (:ids)")
+                .setParameterList("ids", userIds).list();
+        return userDOs;
     }
 }

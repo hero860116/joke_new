@@ -3,8 +3,6 @@ package com.kelepi.web.front.module.screen;
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
-import com.alibaba.citrus.turbine.dataresolver.Param;
-import com.kelepi.biz.ao.SinaWeiboAO;
 import com.kelepi.biz.ao.UserAO;
 import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.dal.enums.MainStatus;
@@ -39,8 +37,13 @@ public class QqRegister extends BaseScreen{
     public void execute(Navigator nav, TurbineRunData rundata, Context context) {
 
         try {
-            AccessToken accessTokenObj = (new Oauth()).getAccessTokenByQueryString(request.getQueryString(), request.getParameter("state")) ;
+            AccessToken accessTokenObj = new Oauth().getAccessTokenByRequest(request) ;
             String accessToken = accessTokenObj.getAccessToken();
+
+            System.out.println("**************************************");
+            System.out.println(accessToken);
+            System.out.println(accessTokenObj);
+            System.out.println("**************************************");
             Long tokenExpireIn = accessTokenObj.getExpireIn();
 
             OpenID openIDObj =  new OpenID(accessToken);
@@ -61,7 +64,7 @@ public class QqRegister extends BaseScreen{
 
             userAO.save(userDO);
 
-            setUserDO(userDO);
+            setCurrentLoginUser(userDO);
         } catch (QQConnectException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

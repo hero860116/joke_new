@@ -21,16 +21,16 @@ public class UserAction extends BaseAction{
     public void doUpdateUser(@FormGroup("register") UserDO userDO, Navigator nav, TurbineRunData rundata, Context context)  {
         userAO.updateInfo(userDO.getNickName(), userDO.getEmail(), userDO.getFaceImageUrl(), userDO.getId());
 
-        UserDO userDO1 = getUserDO();
+        UserDO userDO1 = getCurrentLoginUser();
         userDO1.setFaceImageUrl(userDO.getFaceImageUrl());
         userDO1.setEmail(userDO.getEmail());
         userDO1.setNickName(userDO.getNickName());
-        setUserDO(userDO1);
+        setCurrentLoginUser(userDO1);
         nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
     }
 
     public void doLogout(Navigator nav, TurbineRunData rundata, Context context) {
-        removeUserDO();
+        removeCurrentLoginUser();
         nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
     }
 }

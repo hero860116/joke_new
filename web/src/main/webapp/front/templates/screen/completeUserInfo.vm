@@ -7,7 +7,7 @@
 <div class="content bg_white">
     <div class="register">
         #set ($group = $form.register.defaultInstance)
-        $group.mapTo($userDO)
+        $group.mapTo($currentLoginUser)
         <h3>登陆成功，请完善您的资料</h3>
         <!--不做前端校验了，JS太麻烦了-->
         <div class="alert alert-error"><strong>#addProductMessage ($group.email) #addProductMessage ($group.nickName)</div>
@@ -58,17 +58,20 @@
 </div>
 </div>
 <script type="text/javascript">
+    var serDomain = '$jokeModule';
+
     $(function() {
         $("#avatar_upload").uploadify({
             'fileObjName' : 'imgFile',
             'buttonText'	: '重新上传',
+            'formData'    : {'type' : 'faceimage'},
             'height'        : 30,
             'swf'           : '$staticsContent.getURI('uploadify/uploadify.swf')',
             <!--         uploader   这里你来定义     -->
             'uploader'      : '$jokeModule.setTarget('uploadImg.vm')',
             'width'         : 120,
             'onUploadSuccess' : function(file, data, response){
-                $("#avatarimg").attr("src", data);
+                $("#avatarimg").attr("src", serDomain+data);
                 $("#faceImageUrl").val(data);
             }
         });

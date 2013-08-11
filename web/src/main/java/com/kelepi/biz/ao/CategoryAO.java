@@ -100,10 +100,11 @@ public interface CategoryAO {
 	/**
 	 * structureId 与 structureType用来定位大类别缓存
 	 *
+     *
      * @param id
      * @return
 	 */
-	CategoryDO getCategory(Long id);
+	CategoryDO getCategoryFromCache(Long id);
 	
 	//获得顶级目录
 	CategoryDO getTopCategory(long id);

@@ -3,7 +3,8 @@ $rundata.setLayoutEnabled(false)
 <html>
 <head>
     <meta charset="gbk" />
-    <title>聚外卖 - 贴心外卖服务</title>
+    <title>可乐皮</title>
+
     <script type="text/javascript" src="$staticsContent.getURI('qui/libs/js/jquery-1.6.4.min.js')" ></script>
     <!--框架必需start-->
     <link href="$staticsContent.getURI('qui/libs/css/import_basic.css')" rel="stylesheet" type="text/css"/>

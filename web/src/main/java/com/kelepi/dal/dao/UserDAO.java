@@ -2,6 +2,8 @@ package com.kelepi.dal.dao;
 
 import com.kelepi.dal.dataobject.UserDO;
 
+import java.util.List;
+
 /**
  * User: liWeiLin
  * Date: 13-8-6 下午11:08
@@ -31,4 +33,11 @@ public interface UserDAO {
      * @param id
      */
     void updateInfo(String nikeName, String email, String faceImageUrl, Long id);
+
+    /**
+     * 获取用户列表
+     * @param userIds
+     * @return
+     */
+    List<UserDO> getUserDOs(List<Long> userIds);
 }

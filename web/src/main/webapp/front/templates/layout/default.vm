@@ -14,7 +14,7 @@
 <body>
 <div id="warp">
     <div class="container">
-    $control.setTemplate("head.vm")
+    $control.setTemplate("head.vm").setParameter("index", $index)
 
 	$screen_placeholder
     $control.setTemplate("footer.vm")

@@ -41,6 +41,15 @@
             <componentPath></componentPath>
         </uris:turbine-content-uri>
 
+        <uris:turbine-content-uri id="upyunImageServer" exposed="true">
+            <!--
+            <uri-interceptors:interceptor
+                    class="com.kelepi.biz.uri.UpyunImageServerCustomHandler" />
+            -->
+            <serverURI>http://kelepi.b0.upaiyun.com</serverURI>
+            <prefixPath></prefixPath>
+        </uris:turbine-content-uri>
+
     </services:uris>
 
 </beans:beans>

@@ -18,8 +18,8 @@ public class CategoryDO extends BaseDO{
     private String description;
     private Long parentId;
     private Integer isDelete;
-    private Date gmtCreated;
-    private Date gmtModified;
+    private Date gmtCreate;
+    private Date gmtModify;
 
     private List<CategoryDO> subCategoryDOs = new ArrayList<CategoryDO>();
     private List<CategoryDO> parentCategoryDOs = new ArrayList<CategoryDO>();
@@ -77,20 +77,20 @@ public class CategoryDO extends BaseDO{
     }
 
     @Column(updatable=false)
-    public Date getGmtCreated() {
-        return gmtCreated;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmtCreated(Date gmtCreated) {
-        this.gmtCreated = gmtCreated;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
-        return gmtModified;
+    public Date getGmtModify() {
+        return gmtModify;
     }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
     }
 
     @Transient

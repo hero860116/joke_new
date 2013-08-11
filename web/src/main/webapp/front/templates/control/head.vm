@@ -1,14 +1,19 @@
 <div id="head">
     <ul class="nav nav-pills pull-right">
-        <li class="active"><a href="#">全部</a></li>
-        <li><a href="#">热门</a></li>
+        <li #if($index == "homepage") class="active" #end><a href="$jokeModule">全部</a></li>
+        <li #if($index == "hot") class="active" #end><a href="$jokeModule.setTarget('homepage.vm').addQueryData('recommendType', 2)">热门</a></li>
+
+        <!--如果是管理员，显示-->
+        #if ($currentLoginUser.permissions == 2)
+         <li #if($index == "addTopic") class="active" #end><a href="$jokeModule.setTarget('addTopic.vm')">投稿</a></li>
+        #end
         <li><a href="#">生成器</a></li>
-        #if($userDO)
-            <li><div id="user" class="btn-group">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$userDO.nickName<span class="caret">
+        #if($currentLoginUser)
+            <li ><div id="user" class="btn-group">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$currentLoginUser.nickName<span class="caret">
 						</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">个人设置</a></li>
+                    <li><a href="$jokeModule.setTarget('completeUserInfo.vm')">个人设置</a></li>
                     <li><a href="$jokeModule/logout?action=user_action&event_submit_do_logout=1">退出</a></li>
                 </ul>
             </div></li>
@@ -24,6 +29,8 @@
         <h3>请使用以下账号登陆我们网站</h3>
     </div>
     <div class="modal-body loginpad">
-        <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1"><img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a> <a class="margin-left-20" href=""><img src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
+        <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1">
+            <img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a>
+        <a class="margin-left-20" href="$jokeModule/login?action=qq_action&event_submit_do_goto_login=1"><img src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
     </div>
 </div>

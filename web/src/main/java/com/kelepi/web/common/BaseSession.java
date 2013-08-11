@@ -51,15 +51,15 @@ public class BaseSession{
 		return session;
 	}
 	
-	public UserDO getUserDO() {
-		return (UserDO)session.getAttribute("userDO");
+	public UserDO getCurrentLoginUser() {
+		return (UserDO)session.getAttribute("currentLoginUser");
 	}
 	
-	public void setUserDO(UserDO userDO) {
-        session.setAttribute("userDO", userDO);
+	public void setCurrentLoginUser(UserDO userDO) {
+        session.setAttribute("currentLoginUser", userDO);
 	}
 
-    public void removeUserDO() {
-        session.removeAttribute("userDO");
+    public void removeCurrentLoginUser() {
+        session.removeAttribute("currentLoginUser");
     }
 }

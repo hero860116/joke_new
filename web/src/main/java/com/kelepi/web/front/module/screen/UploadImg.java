@@ -3,6 +3,7 @@ package com.kelepi.web.front.module.screen;
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
+import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.alibaba.citrus.turbine.uribroker.uri.TurbineContentURIBroker;
 import com.kelepi.web.common.BaseScreen;
 import com.kelepi.biz.manager.ImageManager;
@@ -24,13 +25,18 @@ public class UploadImg extends BaseScreen {
     @Autowired
     private  HttpServletRequest request;
 
-    public void execute(Navigator nav, TurbineRunData rundata, Context context)  {
+    public void execute(@Param("type")String type, Navigator nav, TurbineRunData rundata, Context context)  {
         rundata.setLayoutEnabled(false);
         FileItem picture = rundata.getParameters().getFileItem("imgFile");
-        String url = imageManager.saveFaceImageUrl(request, picture);
 
-        TurbineContentURIBroker turbineContentURIBroker = getURIBroker("serverContent");
-        context.put("url", turbineContentURIBroker.getURI(url).render());
+        String url = "";
+
+        if ("faceimage".equals(type)) {
+            url = imageManager.saveFaceImageUrl(request, picture);
+        } else if ("jokeimage".equals(type)) {
+            url = imageManager.saveJokeImageUrl(request, picture);
+        }
+        context.put("url", url);
     }
 
 }

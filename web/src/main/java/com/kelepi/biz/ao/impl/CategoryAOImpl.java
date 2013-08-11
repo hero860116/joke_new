@@ -83,7 +83,7 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 		categoryDAO.updateIndexf(indexf, id);
 	}
 
-	public CategoryDO getCategory(Long id) {
+	public CategoryDO getCategoryFromCache(Long id) {
 		return ParamInstance.getCategory(id);
 	}
 

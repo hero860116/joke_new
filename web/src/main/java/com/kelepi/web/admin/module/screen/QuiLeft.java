@@ -25,8 +25,11 @@ public class QuiLeft extends BaseScreen {
 	       
 	       TreeNode treeNode2 = new TreeNode(0l, "笑话TAG", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "jokeTag").addQueryData("outId", "0").render(), "frmright");
 
+           TreeNode treeNode3 = new TreeNode(0l, "刷新类别缓存", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_put_to_cache", 1).render(), "frmright");
+
            treeNodes.add(treeNode1);
            treeNodes.add(treeNode2);
+           treeNodes.add(treeNode3);
 	       context.put("treeNodesJson", new Gson().toJson(treeNodes));
 	}
 }

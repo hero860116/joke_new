@@ -42,8 +42,8 @@ public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
     }
 
     public UserDO generateUser(String code) {
-        if (getUserDO() != null)  {
-               return getUserDO();
+        if (getCurrentLoginUser() != null)  {
+               return getCurrentLoginUser();
         }
 
         AccessToken accessToken = sinaWeiboManager.getAccessToken(code);

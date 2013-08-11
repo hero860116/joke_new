@@ -19,15 +19,15 @@ public class CategoryDAOHibernateImpl extends HibernateBaseDAO implements Catego
 
 	@Transactional
 	public long save(CategoryDO categoryDO) {
-		categoryDO.setGmtCreated(new Date());
-		categoryDO.setGmtModified(new Date());
+		categoryDO.setGmtCreate(new Date());
+		categoryDO.setGmtModify(new Date());
 
 		return (Long) getHibernateTemplate().save(categoryDO);
 	}
 
 	@Transactional
 	public void update(CategoryDO categoryDO) {
-		categoryDO.setGmtModified(new Date());
+		categoryDO.setGmtModify(new Date());
 
 		getHibernateTemplate().update(categoryDO);
 

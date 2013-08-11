@@ -1,2 +1,41 @@
-test112
-$categoryTool.getSubCategoryList(0)
+<div class="content">
+    <div class="right-slider pull-right">
+
+    </div>
+    <ul>
+        #foreach($jokeDO in $jokeDOs)
+        <li class="media">
+            #set($userDO = $listUtilTool.getObjectFromList($userDOs, "id", $jokeDO.userId))
+            <div class="avatar pull-left"><img src="$!userDO.faceImageUrl" /></div>
+            <div class="joke-details media-body">
+                <h3>$!jokeDO.title</h3>
+                <img src="$!jokeDO.contentImageUrl"/>
+
+                <div class="dig">
+                    <a class="btn btn-success pull-left" href="#"><i class="icon-thumbs-up icon-white"></i>$!jokeDO.topSize</a>
+                    <a class="btn btn-inverse pull-left" href="#"><i class="icon-thumbs-down icon-white"></i>$!jokeDO.downSize</a>
+
+                    <div class="share pull-left">分享到：</div>
+                    <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"
+                         data="{'desc':'','text':'$!jokeDO.title','comment':'','url':'http://www.kelepi.com/1.html','pic':'$!jokeDO.contentImageUrl'}">
+                        <a class="bds_sqq"></a>
+                        <a class="bds_qzone"></a>
+                        <a class="bds_tsina"></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        #end
+    </ul>
+    <div class="pagination pagination-large pagination-centered">
+    <div class="pagination">
+        $control.setTemplate("admin:pageChange.vm").setParameter('query',$jokeQuery)
+    </div>
+    </div>
+</div>
+
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6466560" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>

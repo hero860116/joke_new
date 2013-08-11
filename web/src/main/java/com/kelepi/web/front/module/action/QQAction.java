@@ -4,10 +4,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
-import com.kelepi.biz.ao.SinaWeiboAO;
 import com.kelepi.biz.ao.UserAO;
-import com.kelepi.biz.manager.SinaWeiboManager;
-import com.kelepi.dal.dao.UserDAO;
 import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.PermissionsType;
@@ -78,7 +75,7 @@ public class QQAction extends BaseAction{
 
             userAO.save(userDO);
 
-            setUserDO(userDO);
+            setCurrentLoginUser(userDO);
         } catch (QQConnectException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

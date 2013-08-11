@@ -53,6 +53,30 @@
             </field>
         </group>
 
+        <group name="addTopic" extends="csrfTokenCheckGroup">
+            <field name="title" displayName="标题">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+            <field name="contentImageUrl" displayName="笑话图片">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+            <field name="jokeCategory" displayName="笑话类型">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+            <field name="tags" displayName="标签">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+        </group>
+
     </services:form>
 
 </beans:beans>

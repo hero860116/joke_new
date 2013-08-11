@@ -5,7 +5,6 @@ import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.SinaWeiboAO;
-import com.kelepi.biz.snsmanager.sinaweibo.model.User;
 import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.web.common.BaseScreen;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class SinaWeiboRegister extends BaseScreen{
     public void execute(@Param("code")String code,  Navigator nav, TurbineRunData rundata, Context context) {
 
         UserDO userDO  = sinaWeiboAO.generateUser(code);
-        setUserDO(userDO);
+        setCurrentLoginUser(userDO);
 
         if (userDO.getEmail() != null) {
             nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
