@@ -1,0 +1,81 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+
+<script type="text/javascript" src="$!staticsContent.getURI('uploadify/jquery.uploadify.min.js')"></script>
+<link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('uploadify/uploadify.css')"/>
+<div class="content bg_white">
+    <div class="page-header">
+        <h1 style="padding-left:100px;">投稿</h1>
+    </div>
+    <form class="form-horizontal" action="" method="post">
+        $csrfToken.hiddenField
+        #set ($group = $form.addTopic.defaultInstance)
+        <input type="hidden" name="action" value="joke_action"/>
+        <input type="hidden" name="event_submit_do_add_topic" value="1"/>
+        <div class="control-group">
+            <label class="control-label" for="title">标题：</label>
+
+            <div class="controls">
+                <input class="x-large" type="text" id="title" name="$!group.title.key" value="$!group.title.value">
+            </div>
+
+            <div><strong>#addProductMessage ($group.title)</strong></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="contentImageUrl">笑话图片：</label>
+
+            <div class="controls">
+                <input type="hidden" id="contentImageUrl" name="$!group.contentImageUrl.key" />
+                <button class="btn" id="imguploader">选择文件</button>
+            </div>
+            <div><strong>#addProductMessage ($group.contentImageUrl)</strong></div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Select Basic -->
+            <label class="control-label">图片类型</label>
+
+            <div class="controls">
+                <select class="input-xlarge" name="$!group.jokeCategory.key">
+                    #foreach($categoryDO in $categoryTool.getSubCategoryList(23))
+                        <option value="$categoryDO.id" #if($!group.jokeCategory.value == $categoryDO.id) selected="selected"  #end>$categoryDO.name</option>
+                    #end
+                </select>
+            </div>
+
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="tag">标签：</label>
+
+            <div class="controls">
+                <input class="x-large" type="text" id="tag" name="$!group.tags.key" value="$!group.tags.value">
+                <span class="help-inline">多个TAG用,分开</span>
+            </div>
+        </div>
+
+        <div class=" form-actions">
+            <button type="submit" class="btn btn-large btn-primary submit">提交</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#imguploader").uploadify({
+            'fileObjName': 'imgFile',
+            'buttonText': '上传图片',
+            'formData': {'type': 'jokeimage'},
+            'height': 30,
+            'swf': '$staticsContent.getURI('uploadify/uploadify.swf')',
+            <!--         uploader   这里你来定义     -->
+            'uploader': '$jokeModule.setTarget('uploadImg.vm')',
+            'width': 120,
+            'onUploadSuccess': function (file, data, response) {
+                $("#contentImageUrl").val(data);
+            }
+        });
+    });
+</script>
