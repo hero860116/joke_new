@@ -4,10 +4,8 @@
         <li #if($index == "hot") class="active" #end><a href="$jokeModule.setTarget('homepage.vm').addQueryData('recommendType', 2)">热门</a></li>
 
         <!--如果是管理员，显示-->
-        #if ($currentLoginUser.permissions == 2)
-         <li #if($index == "addTopic") class="active" #end><a href="$jokeModule.setTarget('addTopic.vm')">投稿</a></li>
-        #end
-        <li><a href="#">生成器</a></li>
+        <li #if($index == "addTopic") class="active" #end><a href="$jokeModule.setTarget('addTopic.vm')">投稿</a></li>
+        <li #if($index == "review") class="active" #end><a href="$jokeModule.setTarget('jokeReview.vm')">审查</a></li>
         #if($currentLoginUser)
             <li ><div id="user" class="btn-group">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">$currentLoginUser.nickName<span class="caret">

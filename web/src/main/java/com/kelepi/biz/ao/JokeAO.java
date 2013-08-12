@@ -54,6 +54,31 @@ public interface JokeAO {
      */
     Result findJokes(JokeQuery jokeQuery);
 
+    /**
+     * 获得审查joke
+     * @param jokeQuery
+     * @return
+     */
+    Result getReviewJoke(JokeQuery jokeQuery);
+
     void addTopic(JokeDO jokeDO);
+
+    /**
+     * 好笑
+     * @param id
+     */
+    void funnyJoke(long id);
+
+    /**
+     * 不好笑
+     * @param id
+     */
+    void notFunnyJoke(long id);
+
+    /**
+     * 审查通过
+     * @param id
+     */
+    void reviewPass(long id);
 
 }

@@ -7,9 +7,9 @@
     <meta name="keywords" content="内涵笑话 夫妻笑话 段子">
     <meta name="description" content="可乐皮-原创笑话社区，才子佳人多，所以内涵深、基情无限、腐得有腔调">
     <script src="http://lib.sinaapp.com/js/jquery/1.8/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('css/bootstrap.min.css')">
+    <link rel="stylesheet" type="text/css" href="http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('css/kelepi.css')">
-    <script type="text/javascript" src="$!staticsContent.getURI('js/bootstrap.min.js')"></script>
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="warp">

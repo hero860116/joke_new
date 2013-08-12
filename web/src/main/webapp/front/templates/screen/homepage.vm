@@ -12,8 +12,9 @@
                 <img src="$!jokeDO.contentImageUrl"/>
 
                 <div class="dig">
-                    <a class="btn btn-success pull-left" href="#"><i class="icon-thumbs-up icon-white"></i>$!jokeDO.topSize</a>
-                    <a class="btn btn-inverse pull-left" href="#"><i class="icon-thumbs-down icon-white"></i>$!jokeDO.downSize</a>
+                    <a class="btn btn-success digbtn pull-left" title="喜欢" href="#"><i class="icon-thumbs-up icon-white"></i>$!jokeDO.topSize</a>
+                    <a class="btn btn-inverse digbtn pull-left" href="#"><i class="icon-thumbs-down icon-white"></i>$!jokeDO.downSize</a>
+
 
                     <div class="share pull-left">分享到：</div>
                     <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"

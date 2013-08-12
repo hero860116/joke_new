@@ -20,6 +20,8 @@ public class JokeDO extends BaseDO {
     private Integer status;
     private Integer topSize;
     private Integer downSize;
+    private Integer funnySize;
+    private Integer notFunnySize;
     private Long userId;
     private String userNickName;
     private Integer isDelete;
@@ -108,6 +110,24 @@ public class JokeDO extends BaseDO {
 
     public void setDownSize(Integer downSize) {
         this.downSize = downSize;
+    }
+
+    @Column(updatable=false, insertable = false)
+    public Integer getFunnySize() {
+        return funnySize;
+    }
+
+    public void setFunnySize(Integer funnySize) {
+        this.funnySize = funnySize;
+    }
+
+    @Column(updatable=false, insertable = false)
+    public Integer getNotFunnySize() {
+        return notFunnySize;
+    }
+
+    public void setNotFunnySize(Integer notFunnySize) {
+        this.notFunnySize = notFunnySize;
     }
 
     public Long getUserId() {

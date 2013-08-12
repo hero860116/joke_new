@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="right-slider pull-right">
+
+    </div>
+    <ul>
+        <li class="media"><div class="dig">
+            <a class="btn btn-success btn-large pull-left" style="margin-left:100px" href="$jokeModule/funny?action=joke_action&event_submit_do_funny_joke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-thumbs-up icon-white"></i>好笑</a>
+            <a class="btn btn-inverse btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_not_funny_joke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-thumbs-down icon-white"></i>不好笑</a>
+            <a class="btn btn-danger btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_review_pass=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-ok icon-white"></i>通过</a>
+            <div class="pull-right"><a class="btn" href="$jokeModule.setTarget('jokeReview.vm').addQueryData('page', $nextPage)">下一个</a></div>
+        </div></li>
+        <li class="media">
+            <!--begin 如果是管理员，这里要显示的-->
+            #if ($userDO.permissions == 2)
+            <div class="avatar pull-left"><img src="$!userDO.faceImageUrl"/></div>
+            #end
+            <!-- end  如果是管理员，这里要显示的-->
+            <div class="joke-details media-body">
+
+                <h3>$jokeDO.title</h3>
+                <img src="$jokeDO.contentImageUrl" />
+            </div>
+        </li>
+    </ul>
+</div>

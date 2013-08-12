@@ -74,6 +74,7 @@
             'uploader': '$jokeModule.setTarget('uploadImg.vm')',
             'width': 120,
             'onUploadSuccess': function (file, data, response) {
+                alert(data);
                 $("#contentImageUrl").val(data);
             }
         });

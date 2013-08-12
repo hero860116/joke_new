@@ -103,4 +103,19 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
         return criteria.setFirstResult(jokeQuery.getStartRow()).setMaxResults(jokeQuery.getPageSize()).list();
     }
+
+    public void addFunnySize(int addSize, long id) {
+        getSession().createQuery("update JokeDO set funnySize = funnySize + :addSize where id = :id")
+                .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
+    }
+
+    public void addNotFunnySize(int addSize, long id) {
+        getSession().createQuery("update JokeDO set notFunnySize = notFunnySize + :addSize where id = :id")
+                .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
+    }
+
+    public void updateStatus(int status, long id) {
+        getSession().createQuery("update JokeDO set status = :status where id = :id")
+                .setInteger("status", status).setLong("id", id).executeUpdate();
+    }
 }

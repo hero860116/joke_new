@@ -50,4 +50,25 @@ public interface JokeDAO {
 	 * @return
 	 */
 	List<JokeDO> findJokeListByQuery(JokeQuery jokeQuery);
+
+    /**
+     * 增加funnySize
+     * @param addSize
+     * @param id
+     */
+    void addFunnySize(int addSize, long id);
+
+    /**
+     * 增加不好笑size
+     * @param addSize
+     * @param id
+     */
+    void addNotFunnySize(int addSize, long id);
+
+    /**
+     * 修改笑话状态
+     * @param status
+     * @param id
+     */
+    void updateStatus(int status, long id);
 }

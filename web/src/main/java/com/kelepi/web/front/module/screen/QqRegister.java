@@ -3,7 +3,10 @@ package com.kelepi.web.front.module.screen;
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
+import com.kelepi.biz.ao.QqAO;
 import com.kelepi.biz.ao.UserAO;
+import com.kelepi.biz.snsmanager.qqweibo.oauthv2.OAuthV2;
+import com.kelepi.dal.dao.UserDAO;
 import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.PermissionsType;
@@ -29,7 +32,7 @@ import java.util.Date;
 public class QqRegister extends BaseScreen{
 
     @Autowired
-    private UserAO userAO;
+   private QqAO qqAO;
 
     @Autowired
     private HttpServletRequest request;
@@ -37,36 +40,21 @@ public class QqRegister extends BaseScreen{
     public void execute(Navigator nav, TurbineRunData rundata, Context context) {
 
         try {
-            AccessToken accessTokenObj = new Oauth().getAccessTokenByRequest(request) ;
-            String accessToken = accessTokenObj.getAccessToken();
+            AccessToken accessTokenObj = new Oauth().getAccessTokenByRequest(request);
 
-            System.out.println("**************************************");
-            System.out.println(accessToken);
-            System.out.println(accessTokenObj);
-            System.out.println("**************************************");
-            Long tokenExpireIn = accessTokenObj.getExpireIn();
-
-            OpenID openIDObj =  new OpenID(accessToken);
-            String openID = openIDObj.getUserOpenID();
-
-            UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
-            UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-
-            UserDO userDO = new UserDO();
-            userDO.setTokenExpireDate(DateUtil.addDuration(new Date(), Calendar.SECOND, tokenExpireIn.intValue()));
-            userDO.setNickName(userInfoBean.getNickname());
-            userDO.setFaceImageUrl(userInfoBean.getAvatar().getAvatarURL100());
-            userDO.setSourceType(SnsSourceType.TENXUN_QQ.getType());
-            userDO.setAccessToken(accessToken);
-            userDO.setSourceId(openID);
-            userDO.setStatus(MainStatus.NORMAL.getType());
-            userDO.setPermissions(PermissionsType.NORMAL.getType());
-
-            userAO.save(userDO);
+            UserDO userDO = qqAO.generateUser(accessTokenObj);
 
             setCurrentLoginUser(userDO);
+
+            if (userDO.getEmail() != null) {
+                nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
+                return;
+            } else {
+                nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("completeUserInfo.vm").render());
+                return;
+            }
         } catch (QQConnectException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
 }

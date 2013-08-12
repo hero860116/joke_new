@@ -1,0 +1,17 @@
+<div class="content">
+    <div class="right-slider pull-right">
+
+    </div>
+    <ul>
+        <li class="media" style="height:800px">
+            <div class="alert alert-error">
+                <h2>没有嫩草了，要不你也去投一稿吧！</h2>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-success btn-large" href="$jokeModule.setTarget('addTopic.vm')">投稿</a>
+                <a class="btn btn-large margin-left-20" href="$jokeModule">去首页</a>
+            </div>
+        </li>
+
+    </ul>
+</div>

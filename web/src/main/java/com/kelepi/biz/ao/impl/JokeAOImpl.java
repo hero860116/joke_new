@@ -14,6 +14,7 @@ import com.kelepi.dal.enums.RecommendType;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.util.ListUtil;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -76,15 +77,72 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
         return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public Result getReviewJoke(JokeQuery jokeQuery) {
+
+        Result result = createResult(true);
+
+        jokeQuery.setPageSize(1);
+        jokeQuery.setStatus(MainStatus.TO_REVIEW.getType());
+        jokeQuery.setFirstOrder("gmtCreate");
+        jokeQuery.setFirstOrderSort("desc");
+        List<JokeDO> jokeDOs = jokeDAO.findJokeListByQuery(jokeQuery);
+
+        JokeDO jokeDO = null;
+        if (jokeDOs.size() > 0) {
+            jokeDO = jokeDOs.get(0);
+        }
+
+        result.setModel("jokeDO", jokeDO);
+
+        if (jokeDO != null) {
+            UserDO userDO = userDAO.get(jokeDO.getUserId());
+            result.setModel("userDO", userDO);
+        }
+
+        return result;
+    }
+
     public void addTopic(JokeDO jokeDO) {
         //权限校验
 
         CategoryDO categoryDO = categoryAO.getCategoryFromCache((long) jokeDO.getJokeCategory());
         jokeDO.setMediumCategory(categoryDO.getParentCategoryDOs().get(1).getId().intValue());
-        jokeDO.setStatus(MainStatus.NORMAL.getType());
+        jokeDO.setStatus(MainStatus.TO_REVIEW.getType());
         jokeDO.setRecommendType(RecommendType.NORMAL.getType());
         jokeDO.setUserId(getCurrentLoginUser().getId());
         jokeDO.setUserNickName(getCurrentLoginUser().getNickName());
         jokeDAO.save(jokeDO);
+    }
+
+    @Transactional
+    public void funnyJoke(long id) {
+         JokeDO jokeDO = jokeDAO.getJoke(id);
+
+         int funnySize = jokeDO.getFunnySize() + 1;
+         int notFunnySize = jokeDO.getNotFunnySize();
+
+         if (funnySize + notFunnySize >= 50 && funnySize >= 35) {
+                jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
+         }
+
+        jokeDAO.addFunnySize(1, id);
+    }
+
+    @Transactional
+    public void notFunnyJoke(long id) {
+        JokeDO jokeDO = jokeDAO.getJoke(id);
+
+        int funnySize = jokeDO.getFunnySize();
+        int notFunnySize = jokeDO.getNotFunnySize() + 1;
+
+        if (funnySize + notFunnySize >= 50 && funnySize >= 35) {
+            jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
+        }
+
+        jokeDAO.addNotFunnySize(1, id);
+    }
+
+    public void reviewPass(long id) {
+        jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
     }
 }

@@ -6,7 +6,7 @@ package com.kelepi.dal.enums;
  */
 public enum MainStatus {
 
-    NORMAL(1, "正常"), FORBID(2, "禁止");
+    TO_REVIEW(0, "待审查"), NORMAL(1, "正常"), FORBID(2, "禁止");
     private int type;
     private String message;
 
