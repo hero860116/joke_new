@@ -56,10 +56,10 @@ public interface JokeAO {
 
     /**
      * 获得审查joke
-     * @param jokeQuery
-     * @return
+     *
+     * @param several@return
      */
-    Result getReviewJoke(JokeQuery jokeQuery);
+    Result getReviewJoke(int several);
 
     void addTopic(JokeDO jokeDO);
 
@@ -81,4 +81,15 @@ public interface JokeAO {
      */
     void reviewPass(long id);
 
+    /**
+     * 顶
+     * @param id
+     */
+    void topJoke(long id);
+
+    /**
+     * 踩
+     * @param id
+     */
+    void downJoke(long id);
 }

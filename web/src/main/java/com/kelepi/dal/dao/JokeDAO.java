@@ -52,6 +52,15 @@ public interface JokeDAO {
 	List<JokeDO> findJokeListByQuery(JokeQuery jokeQuery);
 
     /**
+     * 根据序号查找一条review记录
+     *
+     * @param several
+     * @param userId
+     * @return
+     */
+    JokeDO findReviewJoke(int several, long userId);
+
+    /**
      * 增加funnySize
      * @param addSize
      * @param id
@@ -64,6 +73,20 @@ public interface JokeDAO {
      * @param id
      */
     void addNotFunnySize(int addSize, long id);
+
+    /**
+     * 增加顶的数量
+     * @param addSize
+     * @param id
+     */
+    void addTopSize(int addSize, long id);
+
+    /**
+     * 增加踩的数量
+     * @param addSize
+     * @param id
+     */
+    void addDownSize(int addSize, long id);
 
     /**
      * 修改笑话状态

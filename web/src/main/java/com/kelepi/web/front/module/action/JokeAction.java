@@ -46,4 +46,18 @@ public class JokeAction extends BaseAction{
 
         nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("jokeReview.vm").addQueryData("page", nextPage).render());
     }
+
+    public void doTopJoke(@Param("id")long id, @Param("page")int page, Navigator nav, TurbineRunData rundata, Context context)  {
+
+        jokeAO.topJoke(id);
+
+        //返回json,攻前台调用
+    }
+
+    public void doDownJoke(@Param("id")long id, @Param("page")int page, Navigator nav, TurbineRunData rundata, Context context)  {
+
+        jokeAO.downJoke(id);
+
+        //返回json,攻前台调用
+    }
 }

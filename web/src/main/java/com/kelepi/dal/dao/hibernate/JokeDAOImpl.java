@@ -2,7 +2,6 @@ package com.kelepi.dal.dao.hibernate;
 
 import com.kelepi.dal.dao.HibernateBaseDAO;
 import com.kelepi.dal.dao.JokeDAO;
-import com.kelepi.dal.dataobject.CategoryDO;
 import com.kelepi.dal.dataobject.JokeDO;
 import com.kelepi.dal.queryobject.JokeQuery;
 import org.hibernate.Criteria;
@@ -104,6 +103,14 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
         return criteria.setFirstResult(jokeQuery.getStartRow()).setMaxResults(jokeQuery.getPageSize()).list();
     }
 
+    public JokeDO findReviewJoke(int several, long userId) {
+
+        JokeDO jokeDO = (JokeDO)getSession().createSQLQuery("select * from t_joke j left join t_joke_interaction_record r on j.id = r.jokeId and r.type in (1,2,3) and r.userId = :userId where j.status = 0 and r.id is null")
+                .addEntity(JokeDO.class).setLong("userId", userId).setFirstResult(several - 1).setMaxResults(1).uniqueResult();
+
+        return  jokeDO;
+    }
+
     public void addFunnySize(int addSize, long id) {
         getSession().createQuery("update JokeDO set funnySize = funnySize + :addSize where id = :id")
                 .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
@@ -111,6 +118,16 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
     public void addNotFunnySize(int addSize, long id) {
         getSession().createQuery("update JokeDO set notFunnySize = notFunnySize + :addSize where id = :id")
+                .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
+    }
+
+    public void addTopSize(int addSize, long id) {
+        getSession().createQuery("update JokeDO set topSize = topSize + :addSize where id = :id")
+                .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
+    }
+
+    public void addDownSize(int addSize, long id) {
+        getSession().createQuery("update JokeDO set downSize = downSize + :addSize where id = :id")
                 .setInteger("addSize", addSize).setLong("id", id).executeUpdate();
     }
 

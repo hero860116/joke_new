@@ -5,10 +5,13 @@ import com.kelepi.biz.ao.CategoryAO;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.common.bean.Result;
 import com.kelepi.dal.dao.JokeDAO;
+import com.kelepi.dal.dao.JokeInteractionRecordDAO;
 import com.kelepi.dal.dao.UserDAO;
 import com.kelepi.dal.dataobject.CategoryDO;
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.dataobject.JokeInteractionRecordDO;
 import com.kelepi.dal.dataobject.UserDO;
+import com.kelepi.dal.enums.JokeInteractionRecordType;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.RecommendType;
 import com.kelepi.dal.queryobject.JokeQuery;
@@ -30,6 +33,9 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     @Resource
     private UserDAO userDAO;
+
+    @Resource
+    private JokeInteractionRecordDAO jokeInteractionRecordDAO;
 
     public long save(JokeDO joke) {
 		return jokeDAO.save(joke);
@@ -77,20 +83,11 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
         return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Result getReviewJoke(JokeQuery jokeQuery) {
+    public Result getReviewJoke(int several) {
 
         Result result = createResult(true);
 
-        jokeQuery.setPageSize(1);
-        jokeQuery.setStatus(MainStatus.TO_REVIEW.getType());
-        jokeQuery.setFirstOrder("gmtCreate");
-        jokeQuery.setFirstOrderSort("desc");
-        List<JokeDO> jokeDOs = jokeDAO.findJokeListByQuery(jokeQuery);
-
-        JokeDO jokeDO = null;
-        if (jokeDOs.size() > 0) {
-            jokeDO = jokeDOs.get(0);
-        }
+        JokeDO jokeDO = jokeDAO.findReviewJoke(several, getCurrentLoginUser().getId());
 
         result.setModel("jokeDO", jokeDO);
 
@@ -125,6 +122,12 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
                 jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
          }
 
+
+        //记录操作
+        recordJokeInteraction(jokeDO, JokeInteractionRecordType.REVIEW_FUNNY);
+
+
+        //增加数量
         jokeDAO.addFunnySize(1, id);
     }
 
@@ -139,10 +142,64 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
             jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
         }
 
+        //记录操作
+        recordJokeInteraction(jokeDO, JokeInteractionRecordType.REVIEW_NOTFUNNY);
+
+        //增加数量
         jokeDAO.addNotFunnySize(1, id);
     }
 
+    @Transactional
     public void reviewPass(long id) {
+        JokeDO jokeDO = jokeDAO.getJoke(id);
+
+        //记录操作
+        recordJokeInteraction(jokeDO, JokeInteractionRecordType.REVIEW_PASS);
+
         jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
+    }
+
+    @Transactional
+    public void topJoke(long id) {
+        JokeDO jokeDO = jokeDAO.getJoke(id);
+
+        if (getCurrentLoginUser() != null) {
+            //记录操作
+            recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_UP);
+        }
+
+
+        //跟新统计次数
+        jokeDAO.addTopSize(1, id);
+
+        //记录到session，同一个笑话，点过之后不能再点
+
+    }
+
+    @Transactional
+    public void downJoke(long id) {
+        JokeDO jokeDO = jokeDAO.getJoke(id);
+
+        if (getCurrentLoginUser() != null) {
+            //记录操作
+            recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_DOWN);
+        }
+
+        //跟新统计次数
+        jokeDAO.addDownSize(1, id);
+
+        //记录到session，同一个笑话，点过之后不能再点
+    }
+
+    private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {
+        JokeInteractionRecordDO jokeInteractionRecordDO = new JokeInteractionRecordDO();
+        jokeInteractionRecordDO.setJokeId(jokeDO.getId());
+        jokeInteractionRecordDO.setJokeNickName(jokeDO.getUserNickName());
+        jokeInteractionRecordDO.setJokeUserId(jokeDO.getUserId());
+        jokeInteractionRecordDO.setNickName(getCurrentLoginUser().getNickName());
+        jokeInteractionRecordDO.setUserId(getCurrentLoginUser().getId());
+        jokeInteractionRecordDO.setType(jokeInteractionRecordType.getType());
+
+        jokeInteractionRecordDAO.save(jokeInteractionRecordDO);
     }
 }
