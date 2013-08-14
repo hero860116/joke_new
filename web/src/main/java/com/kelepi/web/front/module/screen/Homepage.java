@@ -46,5 +46,7 @@ public class Homepage extends BaseScreen{
             context.put("index", "homepage");
         }
 
+        context.put("positionJokeList", getPositionJokeList());
+
     }
 }

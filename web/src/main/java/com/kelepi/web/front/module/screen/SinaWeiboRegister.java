@@ -18,8 +18,12 @@ public class SinaWeiboRegister extends BaseScreen{
     @Autowired
     private SinaWeiboAO sinaWeiboAO;
 
-    public void execute(@Param("code")String code,  Navigator nav, TurbineRunData rundata, Context context) {
+    public void execute(@Param("code")String code,  @Param("error_code")String errorCode, Navigator nav, TurbineRunData rundata, Context context) {
 
+        if (errorCode != null) {
+            nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
+            return;
+        }
         UserDO userDO  = sinaWeiboAO.generateUser(code);
         setCurrentLoginUser(userDO);
 

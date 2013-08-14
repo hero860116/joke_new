@@ -1,0 +1,14 @@
+<div class="content bg_white">
+    <div class="login_page">
+        <!-- 出错提示 -->
+        <div class="alert">
+            <h2>使用该功能需要先登陆哦</h2>
+        </div>
+        <!-- 出错提示 -->
+        <h3>无需注册，使用以下合作网站账号直接登陆</h3>
+        <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1">
+            <img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a>
+        <a class="margin-left-20" href="$jokeModule/login?action=qq_action&event_submit_do_goto_login=1"><img
+                src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
+    </div>
+</div>

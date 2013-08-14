@@ -52,6 +52,7 @@ public class JokeAction extends BaseAction{
         jokeAO.topJoke(id);
 
         //返回json,攻前台调用
+        toSuccessJson(null);
     }
 
     public void doDownJoke(@Param("id")long id, @Param("page")int page, Navigator nav, TurbineRunData rundata, Context context)  {
@@ -59,5 +60,6 @@ public class JokeAction extends BaseAction{
         jokeAO.downJoke(id);
 
         //返回json,攻前台调用
+        toSuccessJson(null);
     }
 }

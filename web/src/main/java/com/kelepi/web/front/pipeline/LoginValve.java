@@ -31,11 +31,19 @@ public class LoginValve extends AbstractValve {
     public void invoke(PipelineContext pipelineContext) throws Exception {
 
         //如果请求的是静态资源,不走valve
-        if (request.getRequestURI().contains("user_address_list.htm") || request.getRequestURI().contains("modify_password.htm") || request.getRequestURI().contains("recent_order_list.htm")) {
-            if ((Long)session.getAttribute("userId") == null) {
+
+        if (request.getRequestURI().contains("add_topic.htm") || request.getRequestURI().contains("joke_review.htm")) {
+            if (session.getAttribute("currentLoginUser") == null) {
                 TurbineRunData rundata = TurbineUtil.getTurbineRunData(request);
-                TurbineURIBroker tasteModule = (TurbineURIBroker)uriBrokerService.getURIBroker("tasteModule");
-                rundata.setRedirectLocation(tasteModule.setTarget("login.vm").render());
+                TurbineURIBroker jokeModule = (TurbineURIBroker)uriBrokerService.getURIBroker("jokeModule");
+
+                if (request.getRequestURI().contains("add_topic.htm")) {
+                    rundata.setRedirectLocation(jokeModule.setTarget("login.vm").addQueryData("index", "addTopic").render());
+                } else if (request.getRequestURI().contains("joke_review.htm")) {
+                    rundata.setRedirectLocation(jokeModule.setTarget("login.vm").addQueryData("index", "review").render());
+                }
+
+                rundata.setRedirectLocation(jokeModule.setTarget("login.vm").addQueryData("index", "addTopic").render());
 
                 return;
             }

@@ -1,0 +1,63 @@
+## 总页数
+#set($tPage=$query.totalPage)
+## 当前页
+#set($cPage=$query.currentPage)
+
+
+#set($minpage=2)
+#set($maxpage=$tPage+(-2))
+#set($midminpage=$cPage+(-2))
+#set($midmaxpage=$cPage+2)
+#set($nextPage=$cPage+1)
+
+#if($midminpage<1)
+    #set($midminpage=1)
+#end
+#if($midmaxpage>$tPage)
+    #set($midmaxpage=$tPage)
+#end
+#if($nextPage>$tPage)
+    #set($midmaxpage=$tPage)
+#end
+#set($prepiont=true)
+#set($aftpiont=true)
+#set($prevPage=$cPage+(-1))
+#if($query)
+    #set($prevPage="$pageTool.paging($prevPage)")
+    #set($nextPage="$pageTool.paging($nextPage)")
+#end
+
+
+##接下来是页面HTML结构
+
+<div class="pagination pagination-large pagination-centered">
+    <ul>
+##上一页
+#if($cPage > 1)
+    <li><a href="$prevPage">上一页</a></li>
+#end
+##中间页码
+#foreach($p in [1..${tPage}])
+    #if($p<$minpage||$p>$maxpage||($p>$midminpage && $p<$midmaxpage))
+        #if($p==$cPage)
+         <li class="active"><span>$cPage</span></li>
+        #else
+           <li><a href="$pageTool.paging($p)">$p</a></li>
+        #end
+    #else
+        #if($prepiont&&$p<=$midminpage)
+            #set($prepiont=false)
+         <li class="active"><span>...</span></li>
+        #elseif($aftpiont&&$p>=$midmaxpage)
+            #set($aftpiont=false)
+            <li class="active"><span>...</span></li>
+        #end
+    #end
+#end
+##下一页
+#if($cPage < $tPage)
+    <li><a href="$nextPage">下一页</a></li>
+#end
+
+        </ul>
+</div>

@@ -82,10 +82,16 @@
                 <session-stores:cookie-store id="monthCookie">
                     <cookie name="month" maxAge="2592000" survivesInInvalidating="true"/>
                 </session-stores:cookie-store>
+
+                <!-- 1天  86400 -->
+                <session-stores:cookie-store id="dayCookie">
+                    <cookie name="month" maxAge="86400" survivesInInvalidating="true"/>
+                </session-stores:cookie-store>
             </stores>
             <store-mappings>
                 <match name="*" store="temporaryCookie" />
                 <match name="currentLoginUser" store="monthCookie" />
+                <match name="positionJokeList" store="dayCookie" />
             </store-mappings>
             <interceptors>
                 <session-interceptors:lifecycle-logger />

@@ -163,16 +163,20 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
     public void topJoke(long id) {
         JokeDO jokeDO = jokeDAO.getJoke(id);
 
-        if (getCurrentLoginUser() != null) {
-            //记录操作
-            recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_UP);
+        if (jokeDO != null) {
+            if (getCurrentLoginUser() != null) {
+                //记录操作
+                recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_UP);
+            }
+
+
+            //跟新统计次数
+            jokeDAO.addTopSize(1, id);
+
+            //记录到session，同一个笑话，点过之后不能再点
+            addPositionJokeList(id);
         }
 
-
-        //跟新统计次数
-        jokeDAO.addTopSize(1, id);
-
-        //记录到session，同一个笑话，点过之后不能再点
 
     }
 
@@ -180,15 +184,19 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
     public void downJoke(long id) {
         JokeDO jokeDO = jokeDAO.getJoke(id);
 
-        if (getCurrentLoginUser() != null) {
-            //记录操作
-            recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_DOWN);
+        if (jokeDO != null) {
+            if (getCurrentLoginUser() != null) {
+                //记录操作
+                recordJokeInteraction(jokeDO, JokeInteractionRecordType.POSITION_DOWN);
+            }
+
+            //跟新统计次数
+            jokeDAO.addDownSize(1, id);
+
+            //记录到session，同一个笑话，点过之后不能再点
+            addPositionJokeList(id);
         }
 
-        //跟新统计次数
-        jokeDAO.addDownSize(1, id);
-
-        //记录到session，同一个笑话，点过之后不能再点
     }
 
     private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {

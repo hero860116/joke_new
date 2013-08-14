@@ -12,8 +12,11 @@
                 <img src="$!jokeDO.contentImageUrl"/>
 
                 <div class="dig">
-                    <a class="btn btn-success digbtn pull-left" title="喜欢" href="#"><i class="icon-thumbs-up icon-white"></i>$!jokeDO.topSize</a>
-                    <a class="btn btn-inverse digbtn pull-left" href="#"><i class="icon-thumbs-down icon-white"></i>$!jokeDO.downSize</a>
+                    <input type="hidden" value="$jokeDO.id" />
+                    <input type="hidden" value="$!jokeDO.topSize" />
+                    <input type="hidden" value="$!jokeDO.downSize" />
+                    <a class="btn btn-success #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" title="喜欢" data-id="$jokeDO.id"><i class="icon-thumbs-up icon-white"></i><span>$!jokeDO.topSize</span></a>
+                    <a class="btn btn-inverse #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" data-id="$jokeDO.id"><i class="icon-thumbs-down icon-white"></i><span>$!jokeDO.downSize</span></a>
 
 
                     <div class="share pull-left">分享到：</div>
@@ -28,15 +31,12 @@
         </li>
         #end
     </ul>
-    <div class="pagination pagination-large pagination-centered">
-    <div class="pagination">
-        $control.setTemplate("admin:pageChange.vm").setParameter('query',$jokeQuery)
-    </div>
-    </div>
 </div>
+$control.setTemplate("pageChange.vm").setParameter('query',$jokeQuery)
 
 <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6466560" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
 <script type="text/javascript">
     document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
 </script>
+<script type="text/javascript" src="$staticsContent.getURI('js/front/homepage.js')?t=3" ></script>

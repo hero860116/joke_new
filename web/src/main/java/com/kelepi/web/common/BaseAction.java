@@ -5,6 +5,7 @@ import com.alibaba.citrus.service.uribroker.uri.URIBroker;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.uribroker.uri.TurbineURIBroker;
 import com.alibaba.citrus.turbine.util.TurbineUtil;
+import com.kelepi.common.bean.JsonResult;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,4 +33,11 @@ public class BaseAction extends BaseSession{
 		TurbineRunData rundata = TurbineUtil.getTurbineRunData(request);
 		rundata.setRedirectLocation(getTurbineURIBroker("commonModule").setTarget("userError.vm").addQueryData("v_param", "message").addQueryData("message", message).render());
 	}
+
+    protected void toSuccessJson(Object data) {
+        JsonResult jsonResult = new JsonResult(data);
+        TurbineRunData rundata = TurbineUtil.getTurbineRunData(request);
+        rundata.getParameters().add("data", jsonResult);
+        rundata.setRedirectTarget("json");
+    }
 }

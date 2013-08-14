@@ -62,4 +62,21 @@ public class BaseSession{
     public void removeCurrentLoginUser() {
         session.removeAttribute("currentLoginUser");
     }
+
+    /*  记录表态数据 */
+    public void addPositionJokeList(Long jokeId) {
+        List<Long> positionJokeList = (List<Long>)session.getAttribute("positionJokeList");
+        if (positionJokeList == null) {
+            positionJokeList = new LinkedList<Long>();
+        }
+
+        positionJokeList.add(jokeId);
+
+        session.setAttribute("positionJokeList", positionJokeList);
+    }
+
+    public List<Long> getPositionJokeList() {
+        return (List<Long>)getSession().getAttribute("positionJokeList");
+    }
+
 }
