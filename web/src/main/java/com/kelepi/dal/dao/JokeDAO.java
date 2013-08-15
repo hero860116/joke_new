@@ -1,6 +1,7 @@
 package com.kelepi.dal.dao;
 
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 import com.kelepi.dal.queryobject.JokeQuery;
 
 import java.util.List;
@@ -94,4 +95,12 @@ public interface JokeDAO {
      * @param id
      */
     void updateStatus(int status, long id);
+
+    /**
+     * 获取用户顶过的笑话
+     *
+     *
+     * @param jokeInteractionRecordQuery@return
+     */
+    List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery);
 }

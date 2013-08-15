@@ -10,4 +10,6 @@ public interface UserAO {
     void save(UserDO userDO);
 
     void updateInfo(String nikeName, String email, String faceImageUrl, long id);
+
+    UserDO getUserDO(long id);
 }

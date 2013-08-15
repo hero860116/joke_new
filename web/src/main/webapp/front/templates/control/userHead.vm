@@ -1,0 +1,11 @@
+<div id="userinfo" class="well media">
+    <a class="pull-left" href="#">
+        <img src="$userDO.faceImageUrl" style="width:60px;"/>
+    </a>
+
+    <div class="media-body">
+        <h4>$userDO.nickName<a href="http://weibo.com/$userDO.sourceId"> <img src="$staticsContent.getURI('images/weibo_logo.png')"/> </a> <a href="$jokeModule.setTarget('completeUserInfo.vm')" class="btn">个人设置</a>
+        </h4>
+        原创爆笑图片社区，太可乐了！拒绝广告！放心关注吧!
+    </div>
+</div>

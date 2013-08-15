@@ -1,0 +1,47 @@
+<div class="content">
+    $control.setTemplate("userHead.vm").setParameter("userId", $jokeQuery.userId)
+    <div class="right-slider pull-right">
+    </div>
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a  >创作</a>
+            </li>
+            <li><a href="$jokeModule.setTarget('userTop.vm').addQueryData('userId', $!jokeQuery.userId)">赞过</a></li>
+        </ul>
+        <ul class="no-margin">
+            #foreach($jokeDO in $jokeDOs)
+                <li>
+                    <div class="joke-details clearfix">
+                        <h3>$!jokeDO.title </h3>
+                        <img src="$!jokeDO.contentImageUrl"/>
+
+                        <div class="dig">
+                            <a class="btn btn-success #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" data-toggle="tooltip" data-placement="bottom"
+                               title="" data-original-title="赞一个吧！" data-id="$jokeDO.id"><i class="icon-thumbs-up icon-white"></i>$!jokeDO.topSize</a>
+                            <a class="btn btn-inverse #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left"><i
+                                    class="icon-thumbs-down icon-white" data-id="$jokeDO.id"></i>$!jokeDO.downSize</a>
+
+                            <div class="share pull-left">分享到：</div>
+                            <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"
+                                 data="{'desc':'','text':'$!jokeDO.title','comment':'','url':'','pic':''}">
+                                <a class="bds_sqq"></a>
+                                <a class="bds_qzone"></a>
+                                <a class="bds_tsina"></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            #end
+        </ul>
+    </div>
+
+</div>
+$control.setTemplate("pageChange.vm").setParameter('query',$jokeQuery)
+
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6466560" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<script type="text/javascript" src="$staticsContent.getURI('js/front/homepage.js')?t=3" ></script>

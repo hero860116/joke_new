@@ -3,6 +3,7 @@ package com.kelepi.dal.dao.hibernate;
 import com.kelepi.dal.dao.HibernateBaseDAO;
 import com.kelepi.dal.dao.JokeDAO;
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 import com.kelepi.dal.queryobject.JokeQuery;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -134,5 +135,11 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
     public void updateStatus(int status, long id) {
         getSession().createQuery("update JokeDO set status = :status where id = :id")
                 .setInteger("status", status).setLong("id", id).executeUpdate();
+    }
+
+    public List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery) {
+        List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j, t_joke_interaction_record r where j.id = r.jokeId and r.type = :type and r.userId = :userId")
+                .addEntity(JokeDO.class).setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).setFirstResult(jokeInteractionRecordQuery.getStartRow()).setMaxResults(jokeInteractionRecordQuery.getPageSize()).list();
+        return jokeDOs;
     }
 }

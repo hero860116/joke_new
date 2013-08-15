@@ -3,6 +3,7 @@ package com.kelepi.biz.ao;
 import com.kelepi.common.bean.KeyValue;
 import com.kelepi.common.bean.Result;
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 import com.kelepi.dal.queryobject.JokeQuery;
 
 import java.util.List;
@@ -92,4 +93,11 @@ public interface JokeAO {
      * @param id
      */
     void downJoke(long id);
+
+    /**
+     * 获取用户顶过的笑话
+     *
+     * @param jokeInteractionRecordQuery@return
+     */
+    List<JokeDO> getTopJokeByQuery(JokeInteractionRecordQuery jokeInteractionRecordQuery);
 }

@@ -14,6 +14,7 @@ import com.kelepi.dal.dataobject.UserDO;
 import com.kelepi.dal.enums.JokeInteractionRecordType;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.RecommendType;
+import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.util.ListUtil;
 import org.springframework.stereotype.Component;
@@ -199,15 +200,28 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     }
 
-    private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {
-        JokeInteractionRecordDO jokeInteractionRecordDO = new JokeInteractionRecordDO();
-        jokeInteractionRecordDO.setJokeId(jokeDO.getId());
-        jokeInteractionRecordDO.setJokeNickName(jokeDO.getUserNickName());
-        jokeInteractionRecordDO.setJokeUserId(jokeDO.getUserId());
-        jokeInteractionRecordDO.setNickName(getCurrentLoginUser().getNickName());
-        jokeInteractionRecordDO.setUserId(getCurrentLoginUser().getId());
-        jokeInteractionRecordDO.setType(jokeInteractionRecordType.getType());
+    public List<JokeDO> getTopJokeByQuery(JokeInteractionRecordQuery jokeInteractionRecordQuery) {
+        return jokeDAO.getTopJokeByUserId(jokeInteractionRecordQuery);
+    }
 
-        jokeInteractionRecordDAO.save(jokeInteractionRecordDO);
+    @Transactional
+    private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {
+        JokeInteractionRecordDO jokeInteractionRecordQuery = new JokeInteractionRecordDO();
+        jokeInteractionRecordQuery.setUserId(getCurrentLoginUser().getId());
+        jokeInteractionRecordQuery.setType(jokeInteractionRecordType.getType());
+        jokeInteractionRecordQuery.setJokeId(jokeDO.getId());
+        List<JokeInteractionRecordDO>  jokeInteractionRecordDOs = jokeInteractionRecordDAO.getJokeInteractionRecordListByTemplate(jokeInteractionRecordQuery);
+
+        if (jokeInteractionRecordDOs.size() == 0) {
+            JokeInteractionRecordDO jokeInteractionRecordDO = new JokeInteractionRecordDO();
+            jokeInteractionRecordDO.setJokeId(jokeDO.getId());
+            jokeInteractionRecordDO.setJokeNickName(jokeDO.getUserNickName());
+            jokeInteractionRecordDO.setJokeUserId(jokeDO.getUserId());
+            jokeInteractionRecordDO.setNickName(getCurrentLoginUser().getNickName());
+            jokeInteractionRecordDO.setUserId(getCurrentLoginUser().getId());
+            jokeInteractionRecordDO.setType(jokeInteractionRecordType.getType());
+
+            jokeInteractionRecordDAO.save(jokeInteractionRecordDO);
+        }
     }
 }

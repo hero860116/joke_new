@@ -25,4 +25,8 @@ public class UserAOImpl extends BaseAO implements UserAO {
         //To change body of implemented methods use File | Settings | File Templates.
         userDAO.updateInfo(nikeName, email, faceImageUrl,id);
     }
+
+    public UserDO getUserDO(long id) {
+        return userDAO.get(id);
+    }
 }
