@@ -3,6 +3,7 @@ package com.kelepi.web.front.module.screen;
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
+import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.UserAO;
 import com.kelepi.web.common.BaseScreen;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class CompleteUserInfo extends BaseScreen{
     @Autowired
     private HttpServletRequest request;
 
-    public void execute(Navigator nav, TurbineRunData rundata, Context context) {
+    public void execute(@Param("isSnsLogin")boolean isSnsLogin, Navigator nav, TurbineRunData rundata, Context context) {
        context.put("currentLoginUser", getCurrentLoginUser());
+        context.put("isSnsLogin", isSnsLogin);
     }
 }

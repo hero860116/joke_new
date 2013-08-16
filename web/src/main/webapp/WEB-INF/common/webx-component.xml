@@ -37,6 +37,7 @@
         <pull-factories:bean-tool id="categoryTool" class="com.kelepi.biz.tool.CategoryTool" scope="request" autowire="true" />
         <pull-factories:bean-tool id="listUtilTool" class="com.kelepi.util.ListUtil" scope="request" autowire="true" />
         <pull-factories:bean-tool id="pageTool" class="com.kelepi.web.common.tool.PageTool" scope="request" autowire="true" />
+        <pull-factories:bean-tool id="imageTool" class="com.kelepi.biz.tool.ImageTool" scope="request" autowire="true" />
 
     </services:pull>
 

@@ -204,6 +204,32 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
         return jokeDAO.getTopJokeByUserId(jokeInteractionRecordQuery);
     }
 
+    public Result jokeDetail(long jokeId) {
+        Result result = createResult(true);
+
+        //获取joke
+        JokeDO jokeDO = jokeDAO.getJoke(jokeId);
+
+        UserDO userDO = userDAO.get(jokeDO.getUserId());
+
+        JokeInteractionRecordDO jokeInteractionRecordDOQuery = new JokeInteractionRecordDO();
+        jokeInteractionRecordDOQuery.setType(JokeInteractionRecordType.POSITION_UP.getType());
+        jokeInteractionRecordDOQuery.setJokeId(jokeId);
+
+        List<JokeInteractionRecordDO> jokeInteractionRecordDOs = jokeInteractionRecordDAO.getJokeInteractionRecordListByTemplate(jokeInteractionRecordDOQuery);
+        List<Long> topUserIds = ListUtil.getPropertiesFromList(jokeInteractionRecordDOs, "userId");
+
+        if (topUserIds.size() > 0) {
+            List<UserDO> topUserDOs = userDAO.getUserDOs(topUserIds);
+            result.setModel("topUserDOs", topUserDOs);
+        }
+
+        result.setModel("jokeDO", jokeDO);
+        result.setModel("userDO", userDO);
+
+        return result;
+    }
+
     @Transactional
     private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {
         JokeInteractionRecordDO jokeInteractionRecordQuery = new JokeInteractionRecordDO();

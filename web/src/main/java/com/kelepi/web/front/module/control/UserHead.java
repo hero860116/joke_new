@@ -18,6 +18,7 @@ public class UserHead extends BaseControl {
 
         UserDO userDO = userAO.getUserDO(userId);
 		context.put("userDO", userDO);
+        context.put("currentLoginUser", getCurrentLoginUser());
 	}
 
 }

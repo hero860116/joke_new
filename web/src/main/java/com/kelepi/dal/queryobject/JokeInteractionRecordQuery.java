@@ -9,6 +9,8 @@ public class JokeInteractionRecordQuery extends BaseQuery {
 
     private Integer type;
 
+    private Long jokeId;
+
     public Long getUserId() {
         return userId;
     }
@@ -23,6 +25,14 @@ public class JokeInteractionRecordQuery extends BaseQuery {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Long getJokeId() {
+        return jokeId;
+    }
+
+    public void setJokeId(Long jokeId) {
+        this.jokeId = jokeId;
     }
 }
 

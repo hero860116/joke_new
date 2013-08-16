@@ -50,6 +50,9 @@ public class QqAOImpl extends BaseAO implements QqAO {
                 UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
                 UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
 
+
+
+
                 userDO = new UserDO();
                 userDO.setTokenExpireDate(DateUtil.addDuration(new Date(), Calendar.SECOND, tokenExpireIn.intValue()));
                 userDO.setNickName(userInfoBean.getNickname());
@@ -57,6 +60,14 @@ public class QqAOImpl extends BaseAO implements QqAO {
                 userDO.setSourceType(SnsSourceType.TENXUN_QQ.getType());
                 userDO.setAccessToken(accessToken);
                 userDO.setSourceId(openID);
+
+                com.qq.connect.api.weibo.UserInfo weiboUserInfo = new com.qq.connect.api.weibo.UserInfo(accessToken, openID);
+                if (weiboUserInfo != null) {
+                    com.qq.connect.javabeans.weibo.UserInfoBean weiboUserInfoBean = weiboUserInfo.getUserInfo();
+                    if (weiboUserInfoBean != null) {
+                        userDO.setHomepage("http://t.qq.com/"+weiboUserInfoBean.getName());
+                    }
+                }
                 userDO.setStatus(MainStatus.NORMAL.getType());
                 userDO.setPermissions(PermissionsType.NORMAL.getType());
 

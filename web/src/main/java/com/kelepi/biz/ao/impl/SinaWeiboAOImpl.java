@@ -61,6 +61,7 @@ public class SinaWeiboAOImpl extends BaseAO implements SinaWeiboAO{
                 Date tokenExpireDate = DateUtil.addDuration(new Date(), Calendar.SECOND, expireIn);
                 userDO.setTokenExpireDate(tokenExpireDate);
                 userDO.setFaceImageUrl(user.getAvatarLarge());
+                userDO.setHomepage("http://www.weibo.com/u/"+accessToken.getUid());
                 userDO.setNickName(user.getScreenName());
                 userDO.setPermissions(PermissionsType.NORMAL.getType());
                 userDO.setSourceId(accessToken.getUid());

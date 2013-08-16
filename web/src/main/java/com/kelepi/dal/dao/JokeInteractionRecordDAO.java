@@ -1,6 +1,7 @@
 package com.kelepi.dal.dao;
 
 import com.kelepi.dal.dataobject.JokeInteractionRecordDO;
+import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 
 import java.util.List;
 

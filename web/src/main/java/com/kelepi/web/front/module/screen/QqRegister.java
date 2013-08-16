@@ -50,7 +50,7 @@ public class QqRegister extends BaseScreen{
                 nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
                 return;
             } else {
-                nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("completeUserInfo.vm").render());
+                nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("completeUserInfo.vm").addQueryData("isSnsLogin", true).render());
                 return;
             }
         } catch (QQConnectException e) {

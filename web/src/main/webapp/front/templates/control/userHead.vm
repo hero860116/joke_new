@@ -1,10 +1,19 @@
 <div id="userinfo" class="well media">
-    <a class="pull-left" href="#">
+    <a class="pull-left">
         <img src="$userDO.faceImageUrl" style="width:60px;"/>
     </a>
 
     <div class="media-body">
-        <h4>$userDO.nickName<a href="http://weibo.com/$userDO.sourceId"> <img src="$staticsContent.getURI('images/weibo_logo.png')"/> </a> <a href="$jokeModule.setTarget('completeUserInfo.vm')" class="btn">个人设置</a>
+        <h4>$userDO.nickName<a href="$userDO.homepage" target="_blank">
+            #if($userDO.sourceType==1)
+            <img src="$staticsContent.getURI('images/weibo_logo.png')"/>
+            #elseif($userDO.sourceType==2)
+            <img src="$staticsContent.getURI('images/weibo_logo.png')" />
+            #end</a>
+            #if ($currentLoginUser.id == $userDO.id)
+                <a href="$jokeModule.setTarget('completeUserInfo.vm')" class="btn">个人设置</a>
+            #end
+
         </h4>
         原创爆笑图片社区，太可乐了！拒绝广告！放心关注吧!
     </div>

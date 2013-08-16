@@ -8,9 +8,18 @@
     <div class="register">
         #set ($group = $form.register.defaultInstance)
         $group.mapTo($currentLoginUser)
-        <h3>登陆成功，请完善您的资料</h3>
+        <h3>
+        #if($isSnsLogin)
+            登陆成功，请完善您的资料
+        #else
+            个人资料设置
+        #end
+        </h3>
         <!--不做前端校验了，JS太麻烦了-->
-        <div class="alert alert-error"><strong>#addProductMessage ($group.email) #addProductMessage ($group.nickName)</div>
+        #if(!$group.email.valid || !$group.nickName.valid)
+            <div class="alert alert-error"><strong>#addProductMessage ($group.email) #addProductMessage ($group.nickName)</div>
+        #end
+
         <div>
             <form class="form-horizontal" action="#" method="post">
                 $csrfToken.hiddenField

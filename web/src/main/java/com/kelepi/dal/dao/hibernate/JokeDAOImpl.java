@@ -137,8 +137,13 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
                 .setInteger("status", status).setLong("id", id).executeUpdate();
     }
 
+    /**
+     * 改方法只能用于一对一的情况，如一个用户只能对一个joke顶一次，多余的都会不会记录
+     * @param jokeInteractionRecordQuery@return
+     * @return
+     */
     public List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery) {
-        List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j, t_joke_interaction_record r where j.id = r.jokeId and r.type = :type and r.userId = :userId")
+        List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where r.type = :type and r.userId = :userId")
                 .addEntity(JokeDO.class).setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).setFirstResult(jokeInteractionRecordQuery.getStartRow()).setMaxResults(jokeInteractionRecordQuery.getPageSize()).list();
         return jokeDOs;
     }

@@ -3,10 +3,7 @@
 
     </div>
     <ul>
-        #foreach($jokeDO in $jokeDOs)
-        <li class="media">
-            #set($userDO = $listUtilTool.getObjectFromList($userDOs, "id", $jokeDO.userId))
-            <div class="avatar pull-left"><a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $jokeDO.userId)"><img src="$!imageTool.getURI($!userDO.faceImageUrl, 'w100.jpg')" /></a></div>
+        <li class="media"><div class="avatar pull-left"><img src="$!imageTool.getURI($!userDO.faceImageUrl, 'w100.jpg')"/></div>
             <div class="joke-details media-body">
                 <h3>$!jokeDO.title</h3>
                 <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)"/>
@@ -27,13 +24,41 @@
                         <a class="bds_tsina"></a>
                     </div>
                 </div>
+
+                <div class="bg_white">
+                    <h5>喜欢过的人：</h5>
+                    <div class="likepeople">
+                        #foreach($topUserDO in $topUserDOs)
+                            <a href="#"><img src="$!imageTool.getURI($!topUserDO.faceImageUrl, 'w100.jpg')"></a>
+                        #end
+                    </div>
+                </div>
             </div>
         </li>
-        #end
+        <div class="pager">
+            <a class="btn btn-info pull-left" href="#">上一个</a>
+            <a class="btn btn-primary pull-right" href="#">下一个</a>
+        </div>
     </ul>
-</div>
-$control.setTemplate("pageChange.vm").setParameter('query',$jokeQuery)
+#*    <div class="comment bg_white">
+        <h4>来句评论呗，评论多内涵！</h4>
+        <form  action="">
+            <textarea row="3" class="input-xxlarge"></textarea>
+            <button type="submit" class="btn">提交</button>
+        </form>
+        <div class="media">
+            <a class="pull-left" href="#">
+                <img src="" class="media-object">
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading">谢谢的微笑</h5>
+                我的评论内容也不会太长的，这是肯定的撒
+            </div>
+        </div>
+    </div>*#
 
+
+</div>
 <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6466560" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
 <script type="text/javascript">

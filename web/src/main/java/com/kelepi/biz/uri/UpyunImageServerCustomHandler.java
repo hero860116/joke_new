@@ -3,6 +3,7 @@ package com.kelepi.biz.uri;
 import com.alibaba.citrus.service.uribroker.interceptor.URIBrokerInterceptor;
 import com.alibaba.citrus.service.uribroker.uri.ContentURIBroker;
 import com.alibaba.citrus.service.uribroker.uri.URIBroker;
+import com.alibaba.citrus.turbine.uribroker.uri.TurbineContentURIBroker;
 
 /**
  * @author dongbai mailto:dongbai@taobao.com
@@ -13,8 +14,8 @@ public class UpyunImageServerCustomHandler implements URIBrokerInterceptor {
 
 
     public void perform(URIBroker broker) {
-        if (broker instanceof ContentURIBroker) {
-            ContentURIBroker tBroker = (ContentURIBroker) broker;
+        if (broker instanceof TurbineContentURIBroker) {
+            TurbineContentURIBroker tBroker = (TurbineContentURIBroker) broker;
             String path = tBroker.getContentPath();
             String[] imgs = new String[]{"img01", "img02", "img03", "img04", "img05"};
             int  index = urlToInt(path, 5);

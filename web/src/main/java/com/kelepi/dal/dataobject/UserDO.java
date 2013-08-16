@@ -25,6 +25,7 @@ public class UserDO extends BaseDO {
     private Integer status;
     private Integer permissions;
     private String email;
+    private String homepage;
     private Date tokenExpireDate;
     private Date gmtCreate;
     private Date gmtModify;
@@ -109,6 +110,14 @@ public class UserDO extends BaseDO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public Date getTokenExpireDate() {

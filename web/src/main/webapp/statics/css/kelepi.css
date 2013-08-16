@@ -163,7 +163,6 @@ body{
 	left: 80px;
 }
 textarea{
-	position: absolute;
 	bottom: 0px;
 	left: 0px;
 	width: 460px;
@@ -193,21 +192,22 @@ textarea{
 	padding: 40px 20px 50px 40px;
 }
 .register{
-	padding: 50px;
+	padding: 30px 50px;
 	margin: 0 auto;
 }
 .register h3 {
 	width: 500px;
 	text-align: center;
-	margin: 0 auto 50px auto;
+	margin: 0 auto 30px auto;
 }
-
 .margin_tb_8{
-    margin-top: 8px;
-    margin-bottom: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
-
 .badge{
-    vertical-align: top;
+	vertical-align: top;
 }
-
+.likepeople img{
+	width: 50px;
+	margin:4px;
+}

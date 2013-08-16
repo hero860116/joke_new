@@ -100,4 +100,11 @@ public interface JokeAO {
      * @param jokeInteractionRecordQuery@return
      */
     List<JokeDO> getTopJokeByQuery(JokeInteractionRecordQuery jokeInteractionRecordQuery);
+
+    /**
+     * 获得笑话详情
+     * @return
+     * @param jokeId
+     */
+    Result jokeDetail(long jokeId);
 }
