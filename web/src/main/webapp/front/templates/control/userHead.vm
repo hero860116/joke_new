@@ -4,12 +4,15 @@
     </a>
 
     <div class="media-body">
-        <h4>$userDO.nickName<a href="$userDO.homepage" target="_blank">
-            #if($userDO.sourceType==1)
-            <img src="$staticsContent.getURI('images/weibo_logo.png')"/>
-            #elseif($userDO.sourceType==2)
-            <img src="$staticsContent.getURI('images/weibo_logo.png')" />
-            #end</a>
+        <h4>$userDO.nickName
+            #if ($userDO.homepage != "" && "$!userDO.homepage" != "")
+                <a href="$!userDO.homepage" target="_blank">
+                #if($userDO.sourceType==1)
+                <img src="$staticsContent.getURI('images/weibo_logo.png')"/>
+                #elseif($userDO.sourceType==2)
+                <img src="http://mat1.gtimg.com/www/mb/favicon.ico" style="width:18px;height:18px;"/>
+                #end</a>
+            #end
             #if ($currentLoginUser.id == $userDO.id)
                 <a href="$jokeModule.setTarget('completeUserInfo.vm')" class="btn">个人设置</a>
             #end

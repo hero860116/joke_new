@@ -31,7 +31,7 @@ public class Homepage extends BaseScreen{
     public void execute(@Param("page") int page, @Param("recommendType") Integer recommendType, Navigator nav, TurbineRunData rundata, Context context) {
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setCurrentPage(page);
-        jokeQuery.setPageSize(2);
+        jokeQuery.setPageSize(10);
         jokeQuery.setRecommendType(recommendType);
         jokeQuery.setStatus(MainStatus.NORMAL.getType());
 
@@ -47,6 +47,7 @@ public class Homepage extends BaseScreen{
         }
 
         context.put("positionJokeList", getPositionJokeList());
+        context.put("currentLoginUser", getCurrentLoginUser());
 
     }
 }

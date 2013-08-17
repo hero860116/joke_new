@@ -1,0 +1,20 @@
+.projectutils_modify_dialog{
+	border:3px solid #8cca11;
+	width:160px;
+	padding:5px;
+	position: absolute;
+	background:#edf7f9; 
+	display:none;
+}
+
+.projectutils_modify_dialog label {
+	line-height:30px;
+}
+
+.projectutils_modify_dialog input {
+	width:150px;
+}
+
+.colorGray{
+	color:#bbbbbb;
+}

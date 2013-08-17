@@ -91,7 +91,7 @@
             <store-mappings>
                 <match name="*" store="temporaryCookie" />
                 <match name="currentLoginUser" store="monthCookie" />
-                <match name="positionJokeList" store="dayCookie" />
+                <match name="positionJokeList" store="monthCookie" />
             </store-mappings>
             <interceptors>
                 <session-interceptors:lifecycle-logger />

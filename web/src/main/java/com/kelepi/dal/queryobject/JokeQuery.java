@@ -8,6 +8,8 @@ public class JokeQuery extends BaseQuery {
     private Integer status;
     private Integer recommendType;
     private Long userId;
+    private Long preJokeId;
+    private Long nextJokeId;
 
     public String getTitle() {
         return title;
@@ -39,5 +41,21 @@ public class JokeQuery extends BaseQuery {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getPreJokeId() {
+        return preJokeId;
+    }
+
+    public void setPreJokeId(Long preJokeId) {
+        this.preJokeId = preJokeId;
+    }
+
+    public Long getNextJokeId() {
+        return nextJokeId;
+    }
+
+    public void setNextJokeId(Long nextJokeId) {
+        this.nextJokeId = nextJokeId;
     }
 }

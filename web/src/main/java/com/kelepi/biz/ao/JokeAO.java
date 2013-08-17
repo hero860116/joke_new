@@ -107,4 +107,29 @@ public interface JokeAO {
      * @param jokeId
      */
     Result jokeDetail(long jokeId);
+
+    /**
+     * 获得下一个笑话
+     * id小于
+     * @return
+     * @param jokeQuery
+     */
+    JokeDO getNextJoke(JokeQuery jokeQuery);
+
+    /**
+     * 获得上一个笑话
+     * id小于
+     * @return
+     * @param jokeQuery
+     */
+    JokeDO getPreJoke(JokeQuery jokeQuery);
+
+    void updateViewPermissions(long jokeId, int viewPermissionsType);
+
+    /**
+     * 设置推荐类别
+     * @param recommendType
+     * @param jokeId
+     */
+    void updateRecommendType(int recommendType, long jokeId);
 }

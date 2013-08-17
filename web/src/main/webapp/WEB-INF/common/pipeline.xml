@@ -28,6 +28,8 @@
 
         <pl-valves:valve class="com.kelepi.web.front.pipeline.LoginValve"></pl-valves:valve>
 
+        <pl-valves:valve class="com.kelepi.web.admin.pipeline.RefererValve"></pl-valves:valve>
+
         <pl-valves:loop>
             <pl-valves:choose>
                 <when>

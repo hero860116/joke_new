@@ -1,6 +1,7 @@
 package com.kelepi.biz.ao;
 
 import com.kelepi.dal.dataobject.UserDO;
+import com.kelepi.dal.dataobject.WeiboRelationshipDO;
 import com.qq.connect.javabeans.AccessToken;
 
 /**

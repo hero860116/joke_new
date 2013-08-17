@@ -51,6 +51,14 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
         Criteria criteria = getSession().createCriteria(JokeDO.class);
         criteria.add(Restrictions.eq("isDelete", 0));
 
+        if (jokeQuery.getPreJokeId() != null) {
+             criteria.add(Restrictions.lt("id", jokeQuery.getPreJokeId()));
+        }
+
+        if (jokeQuery.getNextJokeId() != null) {
+            criteria.add(Restrictions.gt("id", jokeQuery.getNextJokeId()));
+        }
+
         if (jokeQuery.getTitle() != null) {
             criteria.add(Restrictions.like("title", "%" + jokeQuery.getTitle() + "%"));
         }
@@ -61,6 +69,10 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
         if (jokeQuery.getStatus() != null) {
             criteria.add(Restrictions.eq("status", jokeQuery.getStatus()));
+        }
+
+        if (jokeQuery.getUserId() != null) {
+            criteria.add(Restrictions.eq("userId", jokeQuery.getUserId()));
         }
 
         criteria.setProjection(Projections.rowCount());
@@ -73,6 +85,14 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
         criteria.add(Restrictions.eq("isDelete", 0));
 
+        if (jokeQuery.getPreJokeId() != null) {
+            criteria.add(Restrictions.lt("id", jokeQuery.getPreJokeId()));
+        }
+
+        if (jokeQuery.getNextJokeId() != null) {
+            criteria.add(Restrictions.gt("id", jokeQuery.getNextJokeId()));
+        }
+
         if (jokeQuery.getTitle() != null) {
             criteria.add(Restrictions.like("title", "%" + jokeQuery.getTitle() + "%"));
         }
@@ -83,6 +103,10 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
         if (jokeQuery.getStatus() != null) {
             criteria.add(Restrictions.eq("status", jokeQuery.getStatus()));
+        }
+
+        if (jokeQuery.getUserId() != null) {
+            criteria.add(Restrictions.eq("userId", jokeQuery.getUserId()));
         }
 
         if (jokeQuery.getFirstOrder() != null) {
@@ -106,7 +130,7 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
     public JokeDO findReviewJoke(int several, long userId) {
 
-        JokeDO jokeDO = (JokeDO)getSession().createSQLQuery("select * from t_joke j left join t_joke_interaction_record r on j.id = r.jokeId and r.type in (1,2,3) and r.userId = :userId where j.status = 0 and r.id is null")
+        JokeDO jokeDO = (JokeDO)getSession().createSQLQuery("select * from t_joke j left join t_joke_interaction_record r on j.id = r.jokeId and r.type in (1,2,3) and r.userId = :userId where j.status = 0 and r.id is null order by j.gmtCreate desc")
                 .addEntity(JokeDO.class).setLong("userId", userId).setFirstResult(several - 1).setMaxResults(1).uniqueResult();
 
         return  jokeDO;
@@ -146,5 +170,15 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
         List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where r.type = :type and r.userId = :userId")
                 .addEntity(JokeDO.class).setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).setFirstResult(jokeInteractionRecordQuery.getStartRow()).setMaxResults(jokeInteractionRecordQuery.getPageSize()).list();
         return jokeDOs;
+    }
+
+    public void updateViewPermissions(long jokeId, int viewPermissionsType) {
+        getSession().createQuery("update JokeDO j set j.viewPermissions = :viewPermissions where id = :id")
+                .setInteger("viewPermissions", viewPermissionsType).setLong("id", jokeId).executeUpdate();
+    }
+
+    public void updateRecommendType(int recommendType, long jokeId) {
+        getSession().createQuery("update JokeDO j set j.recommendType = :recommendType where id =:id")
+                .setInteger("recommendType", recommendType).setLong("id", jokeId).executeUpdate();
     }
 }

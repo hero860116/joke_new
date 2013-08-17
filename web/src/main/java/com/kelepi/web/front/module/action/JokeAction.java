@@ -7,7 +7,7 @@ import com.alibaba.citrus.turbine.dataresolver.FormGroup;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.dal.dataobject.JokeDO;
-import com.kelepi.dal.dataobject.UserDO;
+import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.web.common.BaseAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -61,5 +61,41 @@ public class JokeAction extends BaseAction{
 
         //返回json,攻前台调用
         toSuccessJson(null);
+    }
+
+    public void doGetNextJoke(@Param("jokeId")long jokeId, @Param("recommendType")Integer recommendType, Navigator nav, TurbineRunData rundata, Context context)  {
+
+        JokeQuery jokeQuery = new JokeQuery();
+        jokeQuery.setPreJokeId(jokeId);
+        jokeQuery.setRecommendType(recommendType);
+
+        JokeDO jokeDO = jokeAO.getNextJoke(jokeQuery);
+
+        if (jokeDO == null) {
+            jokeQuery.setPreJokeId(null);
+            jokeDO = jokeAO.getNextJoke(jokeQuery);
+        }
+
+        String nextJokeUrl = getTurbineURIBroker("jokeModule").setTarget("jokeDetail.vm").addQueryData("jokeId", jokeDO.getId()).render();
+
+        nav.redirectToLocation(nextJokeUrl);
+    }
+
+    public void doGetPreJoke(@Param("jokeId")long jokeId,  @Param("recommendType")Integer recommendType, Navigator nav, TurbineRunData rundata, Context context)  {
+
+        JokeQuery jokeQuery = new JokeQuery();
+        jokeQuery.setNextJokeId(jokeId);
+        jokeQuery.setRecommendType(recommendType);
+
+        JokeDO jokeDO = jokeAO.getPreJoke(jokeQuery);
+
+        if (jokeDO == null) {
+            jokeQuery.setNextJokeId(null);
+            jokeDO = jokeAO.getPreJoke(jokeQuery);
+        }
+
+        String nextJokeUrl = getTurbineURIBroker("jokeModule").setTarget("jokeDetail.vm").addQueryData("jokeId", jokeDO.getId()).render();
+
+        nav.redirectToLocation(nextJokeUrl);
     }
 }

@@ -1,0 +1,62 @@
+<div class="box2" statusText="展开">
+    <form id="queryForm" action="$adminModule.setTarget('jokeList.vm')">
+        <table>
+            <tr>
+                <td>
+                    <label for="title">标题</label>
+                </td>
+                <td>
+                    <input id="title" name="title" type="text" value="$!jokeQuery.title">
+                    </input>
+                </td>
+                <td>
+                    <input type="submit" value="查询"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<table class="tableStyle">
+    <thead>
+    <th>标题</th>
+    <th>图片</th>
+    <th>类型</th>
+    <th>操作</th>
+    </thead>
+    #foreach($jokeDO in $jokeDOs)
+        <tr>
+            <td>$!jokeDO.title</td>
+            <td><img src="$!upyunImageServer.getURI($!jokeDO.contentImageUrl)!h50.jpg"/></td>
+            <td>$categoryTool.getCategory($!jokeDO.jokeCategory).name</td>
+            <td>
+                #if($jokeDO.viewPermissions == 1)
+                <a
+                        href="$!{adminModule}/view.htm?action=joke_action&event_submit_doUpdateViewPermissions=1&jokeId=$jokeDO.id&viewPermissionsType=2">
+                    设置登录可见
+                </a>
+            #else
+                <a
+                        href="$!{adminModule}/view.htm?action=joke_action&event_submit_doUpdateViewPermissions=1&jokeId=$jokeDO.id&viewPermissionsType=1">
+                    设置全部可见
+                </a>
+            #end
+
+            #if($jokeDO.recommendType == 1)
+                <a
+                        href="$!{adminModule}/view.htm?action=joke_action&event_submit_doUpdateRecommendType=1&jokeId=$jokeDO.id&recommendType=2">
+                    设置为热门
+                </a>
+            #else
+                <a
+                        href="$!{adminModule}/view.htm?action=joke_action&event_submit_doUpdateRecommendType=1&jokeId=$jokeDO.id&recommendType=1">
+                    设置为普通
+                </a>
+            #end
+
+            </td>
+        </tr>
+    #end
+</table>
+<div class="pagination">
+    $control.setTemplate("pageChange.vm").setParameter('query',$jokeQuery)
+</div>

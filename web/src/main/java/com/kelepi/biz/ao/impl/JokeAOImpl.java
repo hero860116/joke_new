@@ -230,6 +230,41 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
         return result;
     }
 
+    public JokeDO getNextJoke(JokeQuery jokeQuery) {
+        jokeQuery.setPageSize(1);
+        jokeQuery.setFirstOrder("gmtCreate");
+        jokeQuery.setFirstOrderSort("desc");
+
+        List<JokeDO> jokeDOs = jokeDAO.findJokeListByQuery(jokeQuery);
+
+        if (jokeDOs.size() > 0) {
+            return jokeDOs.get(0);
+        }
+        return null;
+    }
+
+    public JokeDO getPreJoke(JokeQuery jokeQuery) {
+        jokeQuery.setPageSize(1);
+        jokeQuery.setFirstOrder("gmtCreate");
+        jokeQuery.setFirstOrderSort("asc");
+
+        List<JokeDO> jokeDOs = jokeDAO.findJokeListByQuery(jokeQuery);
+
+        if (jokeDOs.size() > 0) {
+            return jokeDOs.get(0);
+        }
+        return null;
+    }
+
+    public void updateViewPermissions(long jokeId, int viewPermissionsType) {
+        //To change body of implemented methods use File | Settings | File Templates.
+        jokeDAO.updateViewPermissions(jokeId, viewPermissionsType);
+    }
+
+    public void updateRecommendType(int recommendType, long jokeId) {
+        jokeDAO.updateRecommendType(recommendType, jokeId);
+    }
+
     @Transactional
     private void recordJokeInteraction(JokeDO jokeDO, JokeInteractionRecordType jokeInteractionRecordType) {
         JokeInteractionRecordDO jokeInteractionRecordQuery = new JokeInteractionRecordDO();

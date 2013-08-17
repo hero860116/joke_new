@@ -24,6 +24,7 @@ public class JokeDO extends BaseDO {
     private Integer notFunnySize;
     private Long userId;
     private String userNickName;
+    private Integer viewPermissions;
     private Integer isDelete;
     private Date gmtCreate;
     private Date gmtModify;
@@ -144,6 +145,15 @@ public class JokeDO extends BaseDO {
 
     public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
+    }
+
+    @Column(updatable=false, insertable = false)
+    public Integer getViewPermissions() {
+        return viewPermissions;
+    }
+
+    public void setViewPermissions(Integer viewPermissions) {
+        this.viewPermissions = viewPermissions;
     }
 
     @Column(updatable=false, insertable = false)

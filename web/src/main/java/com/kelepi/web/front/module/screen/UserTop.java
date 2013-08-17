@@ -28,7 +28,7 @@ public class UserTop extends BaseScreen{
         JokeInteractionRecordQuery jokeInteractionRecordQuery = new JokeInteractionRecordQuery();
         jokeInteractionRecordQuery.setUserId(userId);
         jokeInteractionRecordQuery.setCurrentPage(page);
-        jokeInteractionRecordQuery.setPageSize(5);
+        jokeInteractionRecordQuery.setPageSize(10);
         jokeInteractionRecordQuery.setType(JokeInteractionRecordType.POSITION_UP.getType());
 
         List<JokeDO> jokeDOs = jokeAO.getTopJokeByQuery(jokeInteractionRecordQuery);
@@ -36,5 +36,6 @@ public class UserTop extends BaseScreen{
         context.put("jokeDOs", jokeDOs);
         context.put("jokeInteractionRecordQuery", jokeInteractionRecordQuery);
         context.put("positionJokeList", getPositionJokeList());
+        context.put("currentLoginUser", getCurrentLoginUser());
     }
 }

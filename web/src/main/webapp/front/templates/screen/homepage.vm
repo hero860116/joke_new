@@ -7,27 +7,43 @@
         <li class="media">
             #set($userDO = $listUtilTool.getObjectFromList($userDOs, "id", $jokeDO.userId))
             <div class="avatar pull-left"><a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $jokeDO.userId)"><img src="$!imageTool.getURI($!userDO.faceImageUrl, 'w100.jpg')" /></a></div>
-            <div class="joke-details media-body">
-                <h3>$!jokeDO.title</h3>
-                <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)"/>
-
-                <div class="dig">
-                    <input type="hidden" value="$jokeDO.id" />
-                    <input type="hidden" value="$!jokeDO.topSize" />
-                    <input type="hidden" value="$!jokeDO.downSize" />
-                    <a class="btn btn-success #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" title="喜欢" data-id="$jokeDO.id"><i class="icon-thumbs-up icon-white"></i><span>$!jokeDO.topSize</span></a>
-                    <a class="btn btn-inverse #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" data-id="$jokeDO.id"><i class="icon-thumbs-down icon-white"></i><span>$!jokeDO.downSize</span></a>
-
-
-                    <div class="share pull-left">分享到：</div>
-                    <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"
-                         data="{'desc':'','text':'$!jokeDO.title','comment':'','url':'','pic':'$upyunImageServer.getURI($!jokeDO.contentImageUrl)'}">
-                        <a class="bds_sqq"></a>
-                        <a class="bds_qzone"></a>
-                        <a class="bds_tsina"></a>
+            #if($jokeDO.viewPermissions == 2 && !$currentLoginUser)
+                <div class="joke-details media-body">
+                    <h3><a href="$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $jokeDO.id)">$!jokeDO.title</a></h3>
+                    <div class="needlogin">
+                        <h4>此图片不适合在大众场所浏览<br />
+                            请登录后浏览</h4>
+                        <div class="text-center">
+                            <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1">
+                                <img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a>
+                            <a class="margin-left-20" href="$jokeModule/login?action=qq_action&event_submit_do_goto_login=1">
+                                <img src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            #else
+                <div class="joke-details media-body">
+                    <h3><a href="$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $jokeDO.id)">$!jokeDO.title</a></h3>
+                    <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)"/>
+
+                    <div class="dig">
+                        <input type="hidden" value="$jokeDO.id" />
+                        <input type="hidden" value="$!jokeDO.topSize" />
+                        <input type="hidden" value="$!jokeDO.downSize" />
+                        <a class="btn btn-success #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" title="喜欢" data-id="$jokeDO.id"><i class="icon-thumbs-up icon-white"></i><span>$!jokeDO.topSize</span></a>
+                        <a class="btn btn-inverse #if(!$positionJokeList.contains($jokeDO.id)) digbtn #else disabled #end pull-left" data-id="$jokeDO.id"><i class="icon-thumbs-down icon-white"></i><span>$!jokeDO.downSize</span></a>
+
+
+                        <div class="share pull-left">分享到：</div>
+                        <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"
+                             data="{'desc':'','text':'$!jokeDO.title','comment':'','url':'$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $!jokeDO.id)','pic':'$upyunImageServer.getURI($!jokeDO.contentImageUrl)'}">
+                            <a class="bds_sqq"></a>
+                            <a class="bds_qzone"></a>
+                            <a class="bds_tsina"></a>
+                        </div>
+                    </div>
+                </div>
+            #end
         </li>
         #end
     </ul>

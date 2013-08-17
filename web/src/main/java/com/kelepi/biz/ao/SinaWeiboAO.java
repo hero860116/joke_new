@@ -11,4 +11,6 @@ public interface SinaWeiboAO {
     String getLoginUrl();
 
     UserDO generateUser(String code);
+
+
 }

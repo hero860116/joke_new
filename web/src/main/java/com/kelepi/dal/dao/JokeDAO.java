@@ -103,4 +103,18 @@ public interface JokeDAO {
      * @param jokeInteractionRecordQuery@return
      */
     List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery);
+
+    /**
+     * 跟新查看权限
+     * @param jokeId
+     * @param viewPermissionsType
+     */
+    void updateViewPermissions(long jokeId, int viewPermissionsType);
+
+    /**
+     * 设置推荐类别
+     * @param recommendType
+     * @param jokeId
+     */
+   void updateRecommendType(int recommendType, long jokeId);
 }

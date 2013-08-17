@@ -45,4 +45,5 @@ public interface JokeInteractionRecordDAO {
      * @return
      */
     List<JokeInteractionRecordDO> getJokeInteractionRecordListByTemplate(JokeInteractionRecordDO jokeInteractionRecordDO);
+
 }

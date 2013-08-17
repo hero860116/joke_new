@@ -14,4 +14,9 @@ public class CategoryTool {
         List<CategoryDO> categoryDOList =   ParamInstance.getCategoryList(parentId);
         return categoryDOList;
     }
+
+    public CategoryDO getCategory(long id) {
+        CategoryDO categoryDO =   ParamInstance.getCategory(id);
+        return categoryDO;
+    }
 }

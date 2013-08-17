@@ -6,13 +6,14 @@ import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.google.gson.Gson;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.common.bean.Result;
+import com.kelepi.web.common.BaseScreen;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * User: liWeiLin
  * Date: 13-8-14 下午9:18
  */
-public class JokeDetail {
+public class JokeDetail extends BaseScreen{
 
     @Autowired
     private JokeAO jokeAO;
@@ -25,5 +26,7 @@ public class JokeDetail {
         context.put("jokeDO", result.getModule("jokeDO"));
         context.put("userDO", result.getModule("userDO"));
         context.put("topUserDOs", result.getModule("topUserDOs"));
+        context.put("positionJokeList", getPositionJokeList());
+        context.put("currentLoginUser", getCurrentLoginUser());
     }
 }

@@ -30,7 +30,10 @@
                     <td>$!categoryDO.id</td>
                     <td height="30px;">$!categoryDO.name</td>
                     <td>$!categoryDO.description</td>
-                    <td>$!categoryDO.indexf</td>
+                    <td>
+                        $!categoryDO.indexf
+                        [<a onClick="return false;" class="modifyIndexf" href="$!{adminModule}/modify.htm?action=category_action&event_submit_doUpdateIndexf=1&id=$!categoryDO.id">修改</a>]
+                    </td>
                     <td>
                         <a href="$adminModule.setTarget('categoryList.vm').addQueryData('parentId', $categoryDO.id)" class="smallLink">子类列表</a>
                         <a href="$adminModule.setTarget('addModifyCategory.vm').addQueryData('id', $categoryDO.id).addQueryData('parentId', $categoryDO.parentId)" class="smallLink">修改</a>
@@ -44,3 +47,6 @@
         </div>
     </div>
 </div>
+<script>
+    $(".modifyIndexf").modifyM('请输入新值',[{"label":"排序号：", "name":"indexf", "type":"text"}]);
+</script>

@@ -211,3 +211,18 @@ textarea{
 	width: 50px;
 	margin:4px;
 }
+.needlogin{
+	width: 480px;
+	height:300px;
+	background: url("../images/body_bg.png") repeat;
+}
+.needlogin img{
+	width: 200px;
+	height: 42px;
+	margin-bottom: 20px;
+}
+.needlogin h4{
+	line-height: 35px;
+	text-align: center;
+	padding: 50px 50px 10px;
+}

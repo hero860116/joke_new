@@ -5,7 +5,7 @@
 <div class="primary">
     #set ($group = $form.addModifyCategory.defaultInstance)
     $group.mapTo($categoryDO)
-    <div class="box3" panelTitle="增加订单">
+    <div class="box3" panelTitle="增加类别" style="width:300px;">
     <form id="addFood" method="post" action="#" enctype="multipart/form-data">
         $csrfToken.uniqueHiddenField
         <input name="id" type="hidden" value="$id" />
