@@ -22,11 +22,13 @@
 
             <on-exception type="com.alibaba.citrus.service.template.TemplateNotFoundException"
                           statusCode="404"
-                          logging="brief" />
+                          logging="brief"
+                          page="notfound"/>
 
             <on-exception type="com.alibaba.citrus.service.moduleloader.ModuleNotFoundException"
                           statusCode="404"
-                          logging="brief" />
+                          logging="brief"
+                          page="notfound"/>
 
         </pl-valves:handleException>
 

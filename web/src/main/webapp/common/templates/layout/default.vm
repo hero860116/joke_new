@@ -4,7 +4,7 @@
     <title>$error</title>
   </head>
   <body>
-    <h1>$error</h1>
+    <h1> $statusCode</h1>
     $screen_placeholder
   </body>
 </html>

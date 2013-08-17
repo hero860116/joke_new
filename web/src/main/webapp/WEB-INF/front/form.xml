@@ -41,6 +41,10 @@
                 </fm-validators:regexp-validator>
             </field>
 
+            <field name="signature" displayName="个性签名">
+            </field>
+
+
             <field name="faceImageUrl" displayName="头像">
                 <fm-validators:required-validator>
                     <message>您还没有填写${displayName}</message>

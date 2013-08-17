@@ -9,7 +9,7 @@ import com.kelepi.dal.dataobject.UserDO;
 public interface UserAO {
     void save(UserDO userDO);
 
-    void updateInfo(String nikeName, String email, String faceImageUrl, long id);
+    void updateInfo(String nikeName, String email, String faceImageUrl, long id, String signature);
 
     UserDO getUserDO(long id);
 }

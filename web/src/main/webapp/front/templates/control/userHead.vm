@@ -1,6 +1,6 @@
 <div id="userinfo" class="well media">
     <a class="pull-left">
-        <img src="$userDO.faceImageUrl" style="width:60px;"/>
+        <img src="$!imageTool.getURI($!userDO.faceImageUrl, '100x100.jpg')" style="width:60px;"/>
     </a>
 
     <div class="media-body">

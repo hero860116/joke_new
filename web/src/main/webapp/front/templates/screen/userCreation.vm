@@ -29,7 +29,7 @@
                     #else
                         <div class="joke-details clearfix">
                             <h3><a href="$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $jokeDO.id)">$!jokeDO.title</a></h3>
-                            <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)"/>
+                            <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)!w460.jpg"/>
 
                             <div class="dig">
                                 <input type="hidden" value="$jokeDO.id" />

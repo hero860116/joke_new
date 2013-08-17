@@ -22,7 +22,7 @@
     <beans:import resource="common/webx-component.xml" />
 
     <!-- 执行管道。 -->
-    <beans:import resource="common/pipeline.xml" />
+    <beans:import resource="common/pipeline-admin.xml" />
 
     <!-- 表单验证。 -->
     <beans:import resource="admin/form.xml" />

@@ -19,12 +19,13 @@ public class UserAction extends BaseAction{
     private UserAO userAO;
 
     public void doUpdateUser(@FormGroup("register") UserDO userDO, Navigator nav, TurbineRunData rundata, Context context)  {
-        userAO.updateInfo(userDO.getNickName(), userDO.getEmail(), userDO.getFaceImageUrl(), userDO.getId());
+        userAO.updateInfo(userDO.getNickName(), userDO.getEmail(), userDO.getFaceImageUrl(), userDO.getId(), userDO.getSignature());
 
         UserDO userDO1 = getCurrentLoginUser();
         userDO1.setFaceImageUrl(userDO.getFaceImageUrl());
         userDO1.setEmail(userDO.getEmail());
         userDO1.setNickName(userDO.getNickName());
+        userDO1.setSignature(userDO.getSignature());
         setCurrentLoginUser(userDO1);
         nav.redirectToLocation(getTurbineURIBroker("jokeModule").render());
     }

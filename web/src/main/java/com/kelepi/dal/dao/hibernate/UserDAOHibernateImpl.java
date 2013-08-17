@@ -42,9 +42,9 @@ public class UserDAOHibernateImpl extends HibernateBaseDAO implements UserDAO {
         return userDO;
     }
 
-    public void updateInfo(String nickName, String email, String faceImageUrl, Long id) {
-        getSession().createQuery("update UserDO u set nickName = :nickName, email = :email, faceImageUrl = :faceImageUrl where id = :id")
-                .setString("nickName", nickName).setString("email", email).setString("faceImageUrl", faceImageUrl).setLong("id", id).executeUpdate();
+    public void updateInfo(String nickName, String email, String faceImageUrl, String signature, Long id) {
+        getSession().createQuery("update UserDO u set nickName = :nickName, email = :email, faceImageUrl = :faceImageUrl,signature=:signature  where id = :id")
+                .setString("nickName", nickName).setString("email", email).setString("faceImageUrl", faceImageUrl).setString("signature", signature).setLong("id", id).executeUpdate();
 
     }
 

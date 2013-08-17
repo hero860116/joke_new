@@ -30,9 +30,10 @@ public interface UserDAO {
      * @param nikeName
      * @param email
      * @param faceImageUrl
+     * @param signature
      * @param id
      */
-    void updateInfo(String nikeName, String email, String faceImageUrl, Long id);
+    void updateInfo(String nikeName, String email, String faceImageUrl, String signature, Long id);
 
     /**
      * 获取用户列表

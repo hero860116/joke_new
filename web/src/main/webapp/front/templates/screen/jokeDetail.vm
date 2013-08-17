@@ -3,7 +3,7 @@
 
     </div>
     <ul>
-        <li class="media"><div class="avatar pull-left"><a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $jokeDO.userId)"><img src="$!imageTool.getURI($!userDO.faceImageUrl, 'w100.jpg')"/></a></div>
+        <li class="media"><div class="avatar pull-left"><a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $jokeDO.userId)"><img src="$!imageTool.getURI($!userDO.faceImageUrl, '100x100.jpg')"/></a></div>
             <div class="joke-details media-body">
                 #if($jokeDO.viewPermissions == 2 && !$currentLoginUser)
                         <h3><a href="$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $jokeDO.id)">$!jokeDO.title</a></h3>
@@ -19,7 +19,7 @@
                         </div>
                 #else
                         <h3>$!jokeDO.title</h3>
-                        <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)"/>
+                        <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)!w460.jpg"/>
 
                         <div class="dig">
                             <input type="hidden" value="$jokeDO.id" />
@@ -43,7 +43,7 @@
                     <h5>喜欢过的人：</h5>
                     <div class="likepeople">
                         #foreach($topUserDO in $topUserDOs)
-                            <a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $topUserDO.id)"><img src="$!imageTool.getURI($!topUserDO.faceImageUrl, 'w100.jpg')"></a>
+                            <a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $topUserDO.id)"><img src="$!imageTool.getURI($!topUserDO.faceImageUrl, '100x100.jpg')"></a>
                         #end
                     </div>
                 </div>

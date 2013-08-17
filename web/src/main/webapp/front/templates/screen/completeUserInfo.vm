@@ -45,6 +45,15 @@
                             </div>
                         </div>
 
+                        <div class="control-group">
+                            <label class="control-label" for="signature">个性签名：</label>
+                            <div class="controls">
+                                <textarea id="signature" name="$group.signature.key">$!group.signature.value</textarea>
+                                <span class="help-block">选填项，让自己更个性吧</span>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="span3">
