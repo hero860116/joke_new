@@ -5,7 +5,7 @@ import java.util.List;
 
 public class JokeConstants {
 
-    public static final int FRONT_PAGE_SZIE = 10;
+    public static final int FRONT_PAGE_SZIE = 2;
 
     /**
      * 创建常量对象

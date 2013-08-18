@@ -11,6 +11,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -167,6 +168,10 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
      * @return
      */
     public List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery) {
+        BigInteger bigInteger = (BigInteger)getSession().createSQLQuery("select count(*) from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where j.isDelete = 0 and r.type = :type and r.userId = :userId")
+                .setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).uniqueResult();
+        jokeInteractionRecordQuery.setTotalItem(bigInteger.intValue());
+
         List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where j.isDelete = 0 and r.type = :type and r.userId = :userId")
                 .addEntity(JokeDO.class).setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).setFirstResult(jokeInteractionRecordQuery.getStartRow()).setMaxResults(jokeInteractionRecordQuery.getPageSize()).list();
         return jokeDOs;

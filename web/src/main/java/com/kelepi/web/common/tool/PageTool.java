@@ -34,9 +34,37 @@ public class PageTool {
 		Pattern pattern = Pattern.compile("(.*[\\?&]?page=)(\\d*)([&#]?.*)");
 		Matcher m = pattern.matcher(url);
 		if (!m.matches()) {
-			return url + (url.indexOf('?') == -1 ? '?' : '&') + "page=" + page;
+			url = url + (url.indexOf('?') == -1 ? '?' : '&') + "page=" + page;
 		} else {
-			return m.replaceAll("$1" + page + "$3");
+			url = m.replaceAll("$1" + page + "$3");
 		}
+
+
+        Pattern pattern1 = Pattern.compile("http://(.*)/\\?page=(\\d*)([&#]?.*)");
+        Matcher m1 = pattern1.matcher(url);
+        if (m1.matches()) {
+            url = m1.replaceAll("http://$1" + "/all" + "/$2$3");
+        } else {
+            Pattern pattern2 = Pattern.compile("http://(.*)/homepage\\.htm\\?recommendType=2&page=(\\d*)([&#]?.*)");
+            Matcher m2 = pattern2.matcher(url);
+            if (m2.matches()) {
+                url = m2.replaceAll("http://$1" + "/hot" + "/$2$3");
+            } else {
+                Pattern pattern3 = Pattern.compile("http://(.*)/user_creation\\.htm\\?userId=(\\d*)&page=(\\d*)([&#]?.*)");
+                Matcher m3 = pattern3.matcher(url);
+                if (m3.matches()) {
+                    url = m3.replaceAll("http://$1" + "/u/$2" + "/$3$4");
+                } else {
+
+                    Pattern pattern4 = Pattern.compile("http://(.*)/user_top\\.htm\\?userId=(\\d*)&page=(\\d*)([&#]?.*)");
+                    Matcher m4 = pattern4.matcher(url);
+                    if (m4.matches()) {
+                        url = m4.replaceAll("http://$1" + "/u/$2/t" + "/$3$4");
+                    }
+                }
+            }
+        }
+
+        return url;
 	}
 }
