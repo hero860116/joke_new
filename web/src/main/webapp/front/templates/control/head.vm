@@ -8,9 +8,12 @@
         <li #if($index == "review") class="active" #end><a href="$jokeModule.setTarget('jokeReview.vm')">审查</a></li>
         #if($currentLoginUser)
             <li ><div id="user" class="btn-group">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$currentLoginUser.nickName<span class="caret">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$currentLoginUser.nickName#if(!$!currentLoginUser.email)<span class="badge badge-important">1</span>#end<span class="caret">
 						</span></a>
                 <ul class="dropdown-menu">
+                    #if(!$!currentLoginUser.email)
+                        <li><a href="$jokeModule.setTarget('completeUserInfo.vm')">完善个人资料<span class="badge badge-important">1</span></a></li>
+                    #end
                     <li><a href="$jokeModule.setTarget('userCreation.vm').addQueryData('userId', $!currentLoginUser.id)">个人中心</a></li>
                     <li><a href="$jokeModule/logout?action=user_action&event_submit_do_logout=1">退出</a></li>
                 </ul>

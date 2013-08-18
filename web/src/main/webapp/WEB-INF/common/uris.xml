@@ -28,6 +28,8 @@
         </uris:turbine-uri>
 
         <uris:turbine-uri id="jokeModule" exposed="true" extends="jokeServer">
+            <uri-interceptors:interceptor
+                    class="com.kelepi.biz.uri.JokeRewriteHandler" />
             <contextPath></contextPath>
         </uris:turbine-uri>
 

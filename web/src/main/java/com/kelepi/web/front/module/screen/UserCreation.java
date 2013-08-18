@@ -27,7 +27,7 @@ public class UserCreation extends BaseScreen{
             throws Exception {
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setCurrentPage(page);
-        jokeQuery.setPageSize(10);
+        jokeQuery.setPageSize(2);
         jokeQuery.setUserId(userId);
 
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);

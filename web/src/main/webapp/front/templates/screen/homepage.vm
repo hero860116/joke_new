@@ -16,7 +16,7 @@
                         <div class="text-center">
                             <a href="$jokeModule/login?action=sina_weibo_action&event_submit_do_goto_login=1">
                                 <img src="$staticsContent.getURI('images/loginbtn_weibo.png')"></a>
-                            <a class="margin-left-20" href="$jokeModule/login?action=qq_action&event_submit_do_goto_login=1">
+                            <a href="$jokeModule/login?action=qq_action&event_submit_do_goto_login=1">
                                 <img src="$staticsContent.getURI('images/loginbtn_qq.png')"></a>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
             #else
                 <div class="joke-details media-body">
                     <h3><a href="$jokeModule.setTarget('jokeDetail.vm').addQueryData('jokeId', $jokeDO.id)">$!jokeDO.title</a></h3>
-                    <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)!w460.jpg"/>
+                    <img src="$upyunImageServer.getURI($!jokeDO.contentImageUrl)!w440.jpg"/>
 
                     <div class="dig">
                         <input type="hidden" value="$jokeDO.id" />

@@ -18,6 +18,11 @@
             #end
 
         </h4>
-        原创爆笑图片社区，太可乐了！拒绝广告！放心关注吧!
+        #if($userDO.signature != "" && "$!userDO.signature" != "")
+            $!userDO.signature
+        #else
+            这家伙太懒，连个性签名都不填
+        #end
+
     </div>
 </div>

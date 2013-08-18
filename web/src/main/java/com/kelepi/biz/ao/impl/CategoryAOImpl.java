@@ -229,6 +229,10 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 		Map<Long, List<CategoryDO>> parentCategorysMap = new HashMap<Long, List<CategoryDO>>();
 
 		for (CategoryDO categoryDO : categoryDOs) {
+            if (categoryDO.getIsDelete() == 1) {
+                continue;
+            }
+
 			// 为当前类别设置子类别
 			List<CategoryDO> subCategoryList = parentCategorysMap
 					.get(categoryDO.getId());

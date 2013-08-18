@@ -19,11 +19,12 @@ public class JokeList extends BaseScreen {
 	@Resource
 	private JokeAO jokeAO;
 	
-	public void execute(@Param("title") String title, TurbineRunData rundata, Context context)
+	public void execute(@Param("title") String title,@Param("page")Integer page, TurbineRunData rundata, Context context)
 			throws Exception {
 
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setTitle(title);
+        jokeQuery.setCurrentPage(page);
 
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);
         context.put("jokeDOs", jokeDOs);

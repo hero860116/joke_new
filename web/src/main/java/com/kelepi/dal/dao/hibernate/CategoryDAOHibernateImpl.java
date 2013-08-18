@@ -36,7 +36,7 @@ public class CategoryDAOHibernateImpl extends HibernateBaseDAO implements Catego
 
 	@Transactional
 	public void delete(long id) {
-		getSession().createQuery("update CategoryDO set isDelete = 1, gmtModified = now() where id = :id").setLong("id", id).executeUpdate();
+		getSession().createQuery("update CategoryDO set isDelete = 1, gmtModify = now() where id = :id").setLong("id", id).executeUpdate();
 	}
 
 	@Transactional

@@ -33,6 +33,7 @@ public class JokeReview extends BaseScreen {
         }
         context.put("jokeDO", result.getModule("jokeDO"));
         context.put("userDO", result.getModule("userDO"));
+        context.put("currentLoginUser", getCurrentLoginUser());
         context.put("nextPage", page+1);
         context.put("index", "review");
 	}

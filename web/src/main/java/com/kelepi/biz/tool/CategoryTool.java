@@ -3,6 +3,7 @@ package com.kelepi.biz.tool;
 import com.kelepi.common.bean.ParamInstance;
 import com.kelepi.dal.dataobject.CategoryDO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
 public class CategoryTool {
     public List<CategoryDO> getSubCategoryList(long parentId) {
         List<CategoryDO> categoryDOList =   ParamInstance.getCategoryList(parentId);
+
         return categoryDOList;
     }
 
