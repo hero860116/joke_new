@@ -1,12 +1,11 @@
 <div id="friendlink" class="well">
     <h5>友情链接 [<a href="" class="text-info">申请友情链接</a>]</h5>
     <ul class="inline">
-        <li><a href="#">糗事百科</a></li>
-        <li><a href="#">挖段子</a></li>
-        <li><a href="#">女段子</a></li>
-        <li><a href="#">麻辣</a></li>
-        <li><a href="#">麻花</a></li>
-        <li><a href="#">捧腹</a></li>
+        <li><a href="http://www.qiushibaike.com" target="_blank">糗事百科</a></li>
+        <li><a href="http://www.waduanzi.com" target="_blank">挖段子</a></li>
+        <li><a href="http://www.mala.com" target="_blank">麻辣</a></li>
+        <li><a href="http://www.kl688.com" target="_blank">麻花</a></li>
+        <li><a href="http://www.pengfu.com" target="_blank">捧腹</a></li>
     </ul>
 </div>
 <div id="footer" class="text-center">
