@@ -4,6 +4,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.JokeAO;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.JokeDO;
 import com.kelepi.dal.enums.JokeInteractionRecordType;
 import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
@@ -28,7 +29,7 @@ public class UserTop extends BaseScreen{
         JokeInteractionRecordQuery jokeInteractionRecordQuery = new JokeInteractionRecordQuery();
         jokeInteractionRecordQuery.setUserId(userId);
         jokeInteractionRecordQuery.setCurrentPage(page);
-        jokeInteractionRecordQuery.setPageSize(10);
+        jokeInteractionRecordQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         jokeInteractionRecordQuery.setType(JokeInteractionRecordType.POSITION_UP.getType());
 
         List<JokeDO> jokeDOs = jokeAO.getTopJokeByQuery(jokeInteractionRecordQuery);

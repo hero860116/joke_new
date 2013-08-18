@@ -6,6 +6,7 @@ import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.common.bean.Result;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.JokeDO;
 import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.enums.RecommendType;
@@ -31,7 +32,7 @@ public class Homepage extends BaseScreen{
     public void execute(@Param("page") int page, @Param("recommendType") Integer recommendType, Navigator nav, TurbineRunData rundata, Context context) {
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setCurrentPage(page);
-        jokeQuery.setPageSize(2);
+        jokeQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         jokeQuery.setRecommendType(recommendType);
         jokeQuery.setStatus(MainStatus.NORMAL.getType());
 

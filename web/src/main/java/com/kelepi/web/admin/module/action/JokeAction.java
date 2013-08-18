@@ -38,4 +38,11 @@ public class JokeAction extends BaseAction{
 
         nav.redirectToLocation(rediUrl);
     }
+
+    public void doDeleteJoke(@Param("jokeId")long jokeId , @Param("referer")String referer, Navigator nav, TurbineRunData rundata, Context context) {
+        jokeAO.delete(jokeId);
+
+        nav.redirectToLocation(referer);
+    }
+
 }

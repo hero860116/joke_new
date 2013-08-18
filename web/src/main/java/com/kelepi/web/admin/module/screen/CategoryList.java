@@ -8,6 +8,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.kelepi.biz.ao.CategoryAO;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.CategoryDO;
 import com.kelepi.dal.queryobject.CategoryQuery;
 import com.kelepi.web.common.BaseScreen;
@@ -22,7 +23,7 @@ public class CategoryList extends BaseScreen {
 		CategoryQuery categoryQuery = new CategoryQuery();
 
 		categoryQuery.setParentId(parentId);
-		categoryQuery.setPageSize(20);
+		categoryQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
 		categoryQuery.setFirstOrder("indexf");
 		categoryQuery.setFirstOrderSort("asc");
 		

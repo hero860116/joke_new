@@ -53,6 +53,11 @@
                 </a>
             #end
 
+                <a
+                        href="$!{adminModule}/view.htm?action=joke_action&event_submit_doDeleteJoke=1&jokeId=$jokeDO.id">
+                    删除
+                </a>
+
             </td>
         </tr>
     #end

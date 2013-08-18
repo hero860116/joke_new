@@ -6,6 +6,7 @@ import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.google.gson.Gson;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.biz.ao.UserAO;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.JokeDO;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.web.common.BaseScreen;
@@ -27,7 +28,7 @@ public class UserCreation extends BaseScreen{
             throws Exception {
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setCurrentPage(page);
-        jokeQuery.setPageSize(2);
+        jokeQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         jokeQuery.setUserId(userId);
 
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);

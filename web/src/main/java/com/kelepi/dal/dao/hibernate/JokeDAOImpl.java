@@ -130,11 +130,11 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
 
     public JokeDO findReviewJoke(int several, long userId) {
 
-        JokeDO jokeDO = (JokeDO)getSession().createSQLQuery("select * from t_joke j left join t_joke_interaction_record r on j.id = r.jokeId and r.type in (1,2,3) and r.userId = :userId where j.status = 0 and r.id is null order by j.gmtCreate desc")
+        JokeDO jokeDO = (JokeDO)getSession().createSQLQuery("select * from t_joke j left join t_joke_interaction_record r on j.id = r.jokeId and r.type in (1,2,3) and r.userId = :userId where j.isDelete = 0 and j.status = 0 and r.id is null order by j.gmtCreate desc")
                 .addEntity(JokeDO.class).setLong("userId", userId).setFirstResult(several - 1).setMaxResults(1).uniqueResult();
 
         return  jokeDO;
-    }
+}
 
     public void addFunnySize(int addSize, long id) {
         getSession().createQuery("update JokeDO set funnySize = funnySize + :addSize where id = :id")
@@ -167,7 +167,7 @@ public class JokeDAOImpl extends HibernateBaseDAO implements JokeDAO {
      * @return
      */
     public List<JokeDO> getTopJokeByUserId(JokeInteractionRecordQuery jokeInteractionRecordQuery) {
-        List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where r.type = :type and r.userId = :userId")
+        List<JokeDO> jokeDOs = getSession().createSQLQuery("select j.* from t_joke j inner join t_joke_interaction_record r on j.id = r.jokeId where j.isDelete = 0 and r.type = :type and r.userId = :userId")
                 .addEntity(JokeDO.class).setInteger("type", jokeInteractionRecordQuery.getType()).setLong("userId", jokeInteractionRecordQuery.getUserId()).setFirstResult(jokeInteractionRecordQuery.getStartRow()).setMaxResults(jokeInteractionRecordQuery.getPageSize()).list();
         return jokeDOs;
     }
