@@ -54,6 +54,12 @@ public class ParamInstance {
         return  idCategoryMap.get(id);
     }
 
+    public static void addCategory(CategoryDO categoryDO) {
+        Map<Long, CategoryDO> idCategoryMap  = (Map<Long, CategoryDO>)ParamInstance.getInstance().getParas().get(ID_MAP_CATEGORY);
+
+        idCategoryMap.put(categoryDO.getId(), categoryDO);
+    }
+
 	public Map<String, Object> getParas() {
 		return paras;
 	}

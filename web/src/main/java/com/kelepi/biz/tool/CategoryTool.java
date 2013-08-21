@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CategoryTool {
     public List<CategoryDO> getSubCategoryList(long parentId) {
-        List<CategoryDO> categoryDOList =   ParamInstance.getCategoryList(parentId);
+        List<CategoryDO> categoryDOList =   ParamInstance.getCategory(parentId).getSubCategorys();
 
         return categoryDOList;
     }

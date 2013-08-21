@@ -49,17 +49,38 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
         if (category.getIndexf() == null) {
             category.setIndexf(100);
         }
-		return categoryDAO.save(category);
+		long id = categoryDAO.save(category);
+
+        //插入成功，更新缓存
+        if (id > 0) {
+            CategoryDO categoryDO = getCategory(id);
+            CategoryDO cacheCategoryDO = ParamInstance.getCategory(category.getParentId());
+            cacheCategoryDO.getSubCategoryDOs().add(categoryDO);
+
+            ParamInstance.addCategory(categoryDO);
+        }
+
+        return id;
 	}
 
 	public void update(CategoryDO category) {
         CategoryDO srcCategoryDO = categoryDAO.getCategory(category.getId());
         category.setIndexf(srcCategoryDO.getIndexf());
 		categoryDAO.update(category);
+
+        //更新成功，更新缓存
+        srcCategoryDO = categoryDAO.getCategory(category.getId());
+        CategoryDO cacheCategoryDO = ParamInstance.getCategory(category.getId());
+        cacheCategoryDO.setName(srcCategoryDO.getName());
+        cacheCategoryDO.setDescription(srcCategoryDO.getDescription());
+        cacheCategoryDO.setIndexf(srcCategoryDO.getIndexf());
+        cacheCategoryDO.setGmtModify(srcCategoryDO.getGmtModify());
 	}
 
 	public void delete(long id) {
 		categoryDAO.delete(id);
+
+        ParamInstance.getCategory(id).setIsDelete(1);
 	}
 
 	public CategoryDO getCategory(long id) {
@@ -81,6 +102,8 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 
 	public void updateIndexf(int indexf, long id) {
 		categoryDAO.updateIndexf(indexf, id);
+
+        ParamInstance.getCategory(id).setIndexf(indexf);
 	}
 
 	public CategoryDO getCategoryFromCache(Long id) {
@@ -229,9 +252,6 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 		Map<Long, List<CategoryDO>> parentCategorysMap = new HashMap<Long, List<CategoryDO>>();
 
 		for (CategoryDO categoryDO : categoryDOs) {
-            if (categoryDO.getIsDelete() == 1) {
-                continue;
-            }
 
 			// 为当前类别设置子类别
 			List<CategoryDO> subCategoryList = parentCategorysMap

@@ -47,6 +47,13 @@ public class JokeAction extends BaseAction{
         nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("jokeReview.vm").addQueryData("page", nextPage).render());
     }
 
+    public void doForbidJoke(@Param("id")long id, @Param("nextPage")int nextPage, Navigator nav, TurbineRunData rundata, Context context)  {
+
+        jokeAO.forbidJoke(id);
+
+        nav.redirectToLocation(getTurbineURIBroker("jokeModule").setTarget("jokeReview.vm").addQueryData("page", nextPage).render());
+    }
+
     public void doTopJoke(@Param("id")long id, @Param("page")int page, Navigator nav, TurbineRunData rundata, Context context)  {
 
         jokeAO.topJoke(id);

@@ -1,5 +1,7 @@
 package com.kelepi.dal.dataobject;
 
+import com.kelepi.util.ListUtil;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +26,19 @@ public class CategoryDO extends BaseDO{
     private List<CategoryDO> subCategoryDOs = new ArrayList<CategoryDO>();
     private List<CategoryDO> parentCategoryDOs = new ArrayList<CategoryDO>();
     private List<Object> entityList = new ArrayList<Object>();
+
+    @Transient
+    public List<CategoryDO> getSubCategorys() {
+        List<CategoryDO> subCategorys = new ArrayList<CategoryDO>();
+
+        for (CategoryDO subCategoryDO : subCategoryDOs) {
+            if (subCategoryDO.getIsDelete() == 0) {
+                subCategorys.add(subCategoryDO);
+            }
+        }
+
+        return ListUtil.orderByProperties(subCategorys, "asc", "indexf");
+    }
 
     @Id
     @GeneratedValue

@@ -9,6 +9,7 @@
             </li>
             <li><a href="$jokeModule.setTarget('userTop.vm').addQueryData('userId', $!jokeQuery.userId)">赞过</a></li>
         </ul>
+       #if($jokeDOs.size() > 0)
         <ul class="no-margin">
             #foreach($jokeDO in $jokeDOs)
                 <li>
@@ -52,6 +53,16 @@
                 </li>
             #end
         </ul>
+       #else
+           <ul class="no-margin">
+               <li>
+                   <div class="joke-details clearfix">
+                       <h4 class="alert margin-left-20">：（  TA没有创作过一张图片</h4>
+                   </div>
+               </li>
+
+           </ul>
+       #end
     </div>
 
 </div>

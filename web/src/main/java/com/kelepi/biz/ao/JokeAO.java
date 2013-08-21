@@ -83,6 +83,12 @@ public interface JokeAO {
     void reviewPass(long id);
 
     /**
+     * 禁止一个笑话
+     * @param id
+     */
+    void forbidJoke(long id);
+
+    /**
      * 顶
      * @param id
      */

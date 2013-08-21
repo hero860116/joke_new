@@ -162,6 +162,10 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
         jokeDAO.updateStatus(MainStatus.NORMAL.getType(), id);
     }
 
+    public void forbidJoke(long id) {
+        jokeDAO.updateStatus(MainStatus.FORBID.getType(), id);
+    }
+
     @Transactional
     public void topJoke(long id) {
         JokeDO jokeDO = jokeDAO.getJoke(id);
@@ -234,6 +238,7 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     public JokeDO getNextJoke(JokeQuery jokeQuery) {
         jokeQuery.setPageSize(1);
+        jokeQuery.setStatus(MainStatus.NORMAL.getType());
         jokeQuery.setFirstOrder("gmtCreate");
         jokeQuery.setFirstOrderSort("desc");
 
@@ -247,6 +252,7 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     public JokeDO getPreJoke(JokeQuery jokeQuery) {
         jokeQuery.setPageSize(1);
+        jokeQuery.setStatus(MainStatus.NORMAL.getType());
         jokeQuery.setFirstOrder("gmtCreate");
         jokeQuery.setFirstOrderSort("asc");
 

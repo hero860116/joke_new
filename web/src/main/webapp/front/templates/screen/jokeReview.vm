@@ -8,6 +8,7 @@
             <a class="btn btn-inverse btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_not_funny_joke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-thumbs-down icon-white"></i>不好笑</a>
             #if ($currentLoginUser.permissions == 2)
             <a class="btn btn-danger btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_review_pass=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-ok icon-white"></i>通过</a>
+            <a class="btn btn-inverse btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_doForbidJoke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-ok icon-white"></i>不通过</a>
             #end
             <div class="pull-right"><a class="btn" href="$jokeModule.setTarget('jokeReview.vm').addQueryData('page', $nextPage)">下一个</a></div>
         </div></li>
@@ -28,6 +29,7 @@
             <a class="btn btn-inverse btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_not_funny_joke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-thumbs-down icon-white"></i>不好笑</a>
             #if ($currentLoginUser.permissions == 2)
                 <a class="btn btn-danger btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_do_review_pass=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-ok icon-white"></i>通过</a>
+                <a class="btn btn-danger btn-large pull-left" href="$jokeModule/funny?action=joke_action&event_submit_doForbidJoke=1&id=$jokeDO.id&nextPage=$nextPage"><i class="icon-ok icon-white"></i>不通过</a>
             #end
             <div class="pull-right"><a class="btn" href="$jokeModule.setTarget('jokeReview.vm').addQueryData('page', $nextPage)">下一个</a></div>
         </div></li>
