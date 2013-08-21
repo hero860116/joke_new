@@ -122,15 +122,18 @@ public class JmagickHelps {
         if(wideth > tl && height > 5){
             DrawInfo aInfo = new DrawInfo(info);
             aInfo.setFill(PixelPacket.queryColorDatabase("white"));
-            aInfo.setUnderColor(new PixelPacket(0,0,0,100));
-            aInfo.setPointsize(15);
+           // aInfo.setUnderColor(new PixelPacket(0,0,0,100));
+            aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
+
+            aInfo.setPointsize(30);
+
             //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
             String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
             //                String fontPath = "/usr/maindata/MSYH.TTF";
             aInfo.setFont(fontPath);
             aInfo.setTextAntialias(true);
             aInfo.setOpacity(0);
-            aInfo.setText("　" + text + "于　" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "　上传于可乐皮，版权归作者所有！");
+            aInfo.setText("　" + text + "于　" + "　可乐皮");
             aInfo.setGeometry("+" + (wideth-tl) + "+" + (height-5));
             scaled.annotateImage(aInfo);
         }
