@@ -13,8 +13,11 @@ import com.kelepi.biz.ao.CategoryAO;
 import com.kelepi.common.bean.KeyValue;
 import com.kelepi.common.bean.ParamInstance;
 import com.kelepi.dal.dao.CategoryDAO;
+import com.kelepi.dal.dao.CategoryExtensionDAO;
 import com.kelepi.dal.dataobject.CategoryDO;
+import com.kelepi.dal.dataobject.CategoryExtensionDO;
 import com.kelepi.dal.queryobject.CategoryQuery;
+import com.kelepi.util.ListUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,9 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 
 	@Resource
 	private CategoryDAO categoryDAO;
+
+    @Resource
+    private CategoryExtensionDAO categoryExtensionDAO;
 
     @Transactional
     public long generateOutCategory(String outId, String outType) {
@@ -92,8 +98,21 @@ public class CategoryAOImpl extends BaseAO implements CategoryAO {
 	}
 
 	public List<CategoryDO> findCategorysByQuery(CategoryQuery categoryQuery) {
-		return categoryDAO.findCategorysByQuery(categoryQuery);
-	}
+		List<CategoryDO>  categoryDOList = categoryDAO.findCategorysByQuery(categoryQuery);
+
+        if (!categoryDOList.isEmpty()) {
+            List<Long> ids = ListUtil.getPropertiesFromList(categoryDOList, "id");
+
+            List<CategoryExtensionDO> categoryExtensionDOs = categoryExtensionDAO.getCategoryExtensions(ids);
+
+            for (CategoryDO categoryDO : categoryDOList) {
+                List<CategoryExtensionDO> categoryExtensionDOs1 = ListUtil.getObjectsFromList(categoryExtensionDOs, "cid", categoryDO.getId());
+                categoryDO.setCategoryExtensionDOs(categoryExtensionDOs1);
+            }
+        }
+
+        return categoryDOList;
+    }
 
 	/*
 	 * @Override public List<CategoryDO> getCategorysByIds(List<Long> ids) {

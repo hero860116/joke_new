@@ -27,6 +27,8 @@ public class CategoryDO extends BaseDO{
     private List<CategoryDO> parentCategoryDOs = new ArrayList<CategoryDO>();
     private List<Object> entityList = new ArrayList<Object>();
 
+    private List<CategoryExtensionDO> categoryExtensionDOs = new ArrayList<CategoryExtensionDO>();
+
     @Transient
     public List<CategoryDO> getSubCategorys() {
         List<CategoryDO> subCategorys = new ArrayList<CategoryDO>();
@@ -130,5 +132,14 @@ public class CategoryDO extends BaseDO{
     }
     public void setEntityList(List<Object> entityList) {
         this.entityList = entityList;
+    }
+
+    @Transient
+    public List<CategoryExtensionDO> getCategoryExtensionDOs() {
+        return categoryExtensionDOs;
+    }
+
+    public void setCategoryExtensionDOs(List<CategoryExtensionDO> categoryExtensionDOs) {
+        this.categoryExtensionDOs = categoryExtensionDOs;
     }
 }

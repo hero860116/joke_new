@@ -27,13 +27,15 @@ public class QuiLeft extends BaseScreen {
         TreeNode treeNode1 = new TreeNode(0l, "笑话类别", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "jokeType").addQueryData("outId", "0").render(), "frmright");
 	       
 	       TreeNode treeNode2 = new TreeNode(0l, "笑话TAG", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "jokeTag").addQueryData("outId", "0").render(), "frmright");
+           TreeNode treeNode3 = new TreeNode(0l, "素材剧集", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "material_series").addQueryData("outId", "0").render(), "frmright");
 
-           TreeNode treeNode3 = new TreeNode(0l, "刷新类别缓存", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_put_to_cache", 1).render(), "frmright");
+           TreeNode treeNode5 = new TreeNode(0l, "刷新类别缓存", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_put_to_cache", 1).render(), "frmright");
 
            treeNodes.add(treeNode4);
            treeNodes.add(treeNode1);
            treeNodes.add(treeNode2);
            treeNodes.add(treeNode3);
+        treeNodes.add(treeNode5);
 	       context.put("treeNodesJson", new Gson().toJson(treeNodes));
 	}
 }

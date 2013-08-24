@@ -88,6 +88,21 @@
 				$("#" + id).show();
 			}
 		}
+
+        $.fn.deleteConfirm = function() {
+
+            $(this).each(function() {
+
+                $(this).click(function(){
+
+                    if (confirm("确定删除吗，删除后将不可恢复?")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+            });
+        }
 		
 		/**
 		 * 单项修改操作

@@ -8,7 +8,7 @@
                     <div class="padding_top5 padding_left10">
                         <a href="$!{adminModule}/add_modify_category.htm?parentId=$!categoryQuery.parentId"><span class="icon_add">增加类别</span></a>
                         <div class="box_tool_line"></div>
-                        <a onclick="return false;" class="printStatement" href="$!{adminModule}"><span class="icon_print">返回</span></a>
+                        <a class="printStatement" href="$!referer"><span class="icon_print">返回</span></a>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -20,9 +20,10 @@
         <table  border="1" class="tableStyle">
             <thead>
             <th width="10%">id</th>
-            <th width="20%">类型名称</th>
-            <th width="30%">类型描述</th>
+            <th width="10%">类型名称</th>
+            <th width="20%">类型描述</th>
             <th width="10%">类型排序</th>
+            <th width="20%">扩展属性</th>
             <th width="30%">操作</th>
             </thead>
             #foreach($!categoryDO in $!categoryDOs)
@@ -35,9 +36,19 @@
                         [<a onClick="return false;" class="modifyIndexf" href="$!{adminModule}/modify.htm?action=category_action&event_submit_doUpdateIndexf=1&id=$!categoryDO.id">修改</a>]
                     </td>
                     <td>
+                        #foreach($categoryExtensionDO in $categoryDO.categoryExtensionDOs)
+                            $categoryExtensionDO.name=$categoryExtensionDO.value
+                            [<a class="deleteConfirm" href="$!{adminModule}/modify.htm?action=category_extension_action&event_submit_doDelete=1&id=$!categoryExtensionDO.id">删除</a>]
+                            #if(${velocityCount} < $categoryDO.categoryExtensionDOs.size())
+                                </br>
+                            #end
+                        #end
+                        [<a onClick="return false;" class="addExtension" href="$!{adminModule}/modify.htm?action=category_extension_action&event_submit_doSave=1&cid=$!categoryDO.id">增加</a>]
+                    </td>
+                    <td>
                         <a href="$adminModule.setTarget('categoryList.vm').addQueryData('parentId', $categoryDO.id)" class="smallLink">子类列表</a>
                         <a href="$adminModule.setTarget('addModifyCategory.vm').addQueryData('id', $categoryDO.id).addQueryData('parentId', $categoryDO.parentId)" class="smallLink">修改</a>
-                        <a href="$adminModule/delete.htm?action=category_action&event_submit_do_delete=1&id=$!categoryDO.id&parentId=$categoryDO.parentId">删除</a>
+                        <a class="deleteConfirm" href="$adminModule/delete.htm?action=category_action&event_submit_do_delete=1&id=$!categoryDO.id&parentId=$categoryDO.parentId">删除</a>
                     </td>
                 </tr>
             #end
@@ -49,4 +60,6 @@
 </div>
 <script>
     $(".modifyIndexf").modifyM('请输入新值',[{"label":"排序号：", "name":"indexf", "type":"text"}]);
+    $(".addExtension").modifyM('增加新的属性对',[{"label":"属性名：", "name":"name", "type":"text"}, {"label":"属性值：", "name":"value", "type":"text"}]);
+    $(".deleteConfirm").deleteConfirm();
 </script>
