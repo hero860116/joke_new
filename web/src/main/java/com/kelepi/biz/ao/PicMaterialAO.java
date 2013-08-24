@@ -49,4 +49,10 @@ public interface PicMaterialAO {
      * @return
      */
     List<PicMaterialDO> findPicMaterialsByQuery(PicMaterialQuery picMaterialQuery);
+
+    /**
+     * 审核通过
+     * @param id
+     */
+    void reviewPass(long id);
 }

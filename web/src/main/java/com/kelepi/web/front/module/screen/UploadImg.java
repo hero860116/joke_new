@@ -35,6 +35,8 @@ public class UploadImg extends BaseScreen {
             url = imageManager.saveFaceImageUrl(request, picture);
         } else if ("jokeimage".equals(type)) {
             url = imageManager.saveJokeImageUrl(request, picture);
+        }  else if ("materialimage".equals(type)) {
+            url = imageManager.saveMaterialImageUrl(request, picture);
         }
         context.put("url", url);
     }

@@ -1,0 +1,81 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+
+<script type="text/javascript" src="$!staticsContent.getURI('uploadify/jquery.uploadify.min.js')"></script>
+<link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('uploadify/uploadify.css')"/>
+<!-- 增加修改店铺 -->
+<div class="primary">
+    #set ($group = $form.addModifyPicMaterial.defaultInstance)
+    $group.mapTo($picMaterialDO)
+    <div class="box3" panelTitle="上传图片素材" style="width:500px;">
+        <form id="add" method="post" action="#" enctype="multipart/form-data">
+            $csrfToken.uniqueHiddenField
+            <input name="id" type="hidden" value="$id"/>
+            <input name="$group.id.key" type="hidden" value="$id"/>
+            <input name="$group.status.key" type="hidden" value="$!group.status.value"/>
+            <input type="hidden" name="action" value="pic_material_action"/>
+
+            <table class="tableStyle" formMode="transparent">
+                <tr>
+                    <td>$group.imageUrl.displayName：</td>
+
+                    <td>
+                        <input type="hidden" id="imageUrlId" name="$group.imageUrl.key" value="$group.imageUrl.value"/><span
+                            style="color:red;">#addProductMessage ($group.imageUrl)</span>
+                        <button class="btn" id="imguploader">选择文件</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>$group.seriesName.displayName：</td>
+                    <td><input type="text" name="$group.seriesName.key" value="$group.seriesName.value"/><span
+                            style="color:red;">#addProductMessage ($group.seriesName)</span></td>
+                </tr>
+                <tr>
+                    <td>$group.roleName.displayName：</td>
+                    <td><input type="text" name="$group.roleName.key" value="$group.roleName.value"/><span
+                            style="color:red;">#addProductMessage ($group.roleName)</span></td>
+                </tr>
+                <tr>
+                    <td>$group.face.displayName：</td>
+                    <td><input type="text" name="$group.face.key" value="$group.face.value"/><span
+                            style="color:red;">#addProductMessage ($group.face)</span></td>
+                </tr>
+                <tr>
+                    <td>$group.scene.displayName：</td>
+                    <td><input type="text" name="$group.scene.key" value="$group.scene.value"/><span
+                            style="color:red;">#addProductMessage ($group.scene)</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        #if($!id > 0)
+                            <input type="submit" class="mybutton" name="event_submit_do_update" value="修改"/>
+                        #else
+                            <input type="submit" class="mybutton" name="event_submit_do_save" value="添加"/>
+                        #end
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#imguploader").uploadify({
+            'fileObjName': 'imgFile',
+            'buttonText': '上传图片',
+            'formData': {'type': 'materialimage'},
+            'height': 30,
+            'swf': '$staticsContent.getURI('uploadify/uploadify.swf')',
+            <!--         uploader   这里你来定义     -->
+            'uploader': '$jokeModule.setTarget('uploadImg.vm')',
+            'width': 120,
+            'onUploadSuccess': function (file, data, response) {
+                $("#imageUrlId").val(data);
+            }
+        });
+    });
+</script>

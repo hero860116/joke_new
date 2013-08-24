@@ -1,28 +1,69 @@
 package com.kelepi.dal.dataobject;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * User: liWeiLin
  * Date: 13-8-24 下午3:52
  */
+@Entity
+@Table(name="t_pic_material")
 public class PicMaterialDO extends BaseDO{
     private Long id;
     private String imageUrl;
     private String seriesName;
     private String roleName;
+    private String actorName;
     private String face;
     private String scene;
+    private Integer status;
+    private Long seriesId;
+    private Long roleId;
     private Date gmtCreate;
     private Date gmtModify;
     private Integer isDelete;
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getActorName() {
+        return actorName;
+    }
+
+    public void setActorName(String actorName) {
+        this.actorName = actorName;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Long getSeriesId() {
+        return seriesId;
+    }
+
+    public void setSeriesId(Long seriesId) {
+        this.seriesId = seriesId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getImageUrl() {
@@ -65,6 +106,7 @@ public class PicMaterialDO extends BaseDO{
         this.scene = scene;
     }
 
+    @Column(updatable = false)
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -81,11 +123,12 @@ public class PicMaterialDO extends BaseDO{
         this.gmtModify = gmtModify;
     }
 
-    public Integer getDelete() {
+    @Column(insertable =false, updatable = false)
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(Integer delete) {
-        isDelete = delete;
+    public void setIsDelete(Integer isDelete) {
+        isDelete = isDelete;
     }
 }

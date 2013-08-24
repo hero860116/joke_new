@@ -24,6 +24,8 @@ public class ImageManager {
 
     private String jokeimagePath = "/statics/images/jokeimage";
 
+    private String materialimagePath = "/statics/images/materialimage";
+
     @Resource
     private UpYunManager upYunManager;
 
@@ -74,6 +76,10 @@ public class ImageManager {
 
     public String saveJokeImageUrl(HttpServletRequest request, FileItem fileItem) {
         return  saveToFile(fileItem, request, jokeimagePath);
+    }
+
+    public String saveMaterialImageUrl(HttpServletRequest request, FileItem fileItem) {
+        return  saveToFile(fileItem, request, materialimagePath);
     }
 
     

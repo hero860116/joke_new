@@ -58,4 +58,11 @@ public interface PicMaterialDAO {
      * @return
      */
     List<PicMaterialDO> findPicMaterialsByQuery(PicMaterialQuery picMaterialQuery);
+
+    /**
+     * 更新状态
+     * @param status
+     * @param id
+     */
+    void updateStatus(int status, long id);
 }

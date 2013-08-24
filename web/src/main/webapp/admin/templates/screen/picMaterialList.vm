@@ -1,0 +1,83 @@
+<div class="box2" statusText="展开">
+    <form id="queryForm" action="$adminModule.setTarget('picMaterialList.vm')">
+        <input type="hidden" name="status" value="$!picMaterialQuery.status" />
+        <table>
+            <tr>
+                <td>
+                    <label for="seriesName">标题</label>
+                </td>
+                <td>
+                    <input id="seriesName" name="seriesName" type="text" value="$!picMaterialQuery.seriesName">
+                    </input>
+                </td>
+                <td>
+                    <input type="submit" value="查询"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div class="box_tool_min padding_top2 padding_bottom2 padding_right5">
+    <div class="center">
+        <div class="left">
+            <div class="right">
+                <div class="padding_top5 padding_left10">
+                    <a href="$adminModule.setTarget('addModifyPicMaterial.vm')" />
+                        <span class="icon_poll">上传图片</span>
+                    </a>
+                    <div class="box_tool_line"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div id="scrollContent">
+<table class="tableStyle">
+    <thead>
+    <th width="15%">图片</th>
+    <th width="15%">剧集</th>
+    <th width="15%">角色</th>
+    <th width="15%">表情</th>
+    <th width="15%">场景</th>
+    <th width="25%">操作</th>
+    </thead>
+    #foreach($picMaterialDO in $picMaterialDOs)
+        <tr>
+            <td><img src="$!upyunImageServer.getURI($!picMaterialDO.imageUrl)!h50.jpg"/></td>
+            <td>$!picMaterialDO.seriesName</td>
+            <td>$!picMaterialDO.roleName</td>
+            <td>$!picMaterialDO.face</td>
+            <td>$!picMaterialDO.scene</td>
+            <td>
+
+                <a
+                        href="$!adminModule.setTarget('addModifyPicMaterial.vm').addQueryData('id', $!picMaterialDO.id)">
+                    编辑
+                </a>
+
+                <a
+                        href="$!{adminModule}/pass.htm?action=pic_material_action&event_submit_doReviewPass=1&id=$!picMaterialDO.id">
+                    通过
+                </a>
+
+                <a class="deleteConfirm"
+                        href="$!{adminModule}/delete.htm?action=pic_material_action&event_submit_doDelete=1&id=$!picMaterialDO.id">
+                    删除
+                </a>
+
+            </td>
+        </tr>
+    #end
+</table>
+</div>
+<div class="pagination">
+    $control.setTemplate("pageChange.vm").setParameter('query',$picMaterialQuery)
+</div>
+
+<script>
+    $(".deleteConfirm").deleteConfirm();
+</script>
