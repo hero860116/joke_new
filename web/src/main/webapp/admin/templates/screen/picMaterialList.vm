@@ -4,10 +4,17 @@
         <table>
             <tr>
                 <td>
-                    <label for="seriesName">标题</label>
+                    <label for="seriesName">剧集名</label>
                 </td>
                 <td>
                     <input id="seriesName" name="seriesName" type="text" value="$!picMaterialQuery.seriesName">
+                    </input>
+                </td>
+                <td>
+                    <label for="roleName">角色名</label>
+                </td>
+                <td>
+                    <input id="roleName" name="roleName" type="text" value="$!picMaterialQuery.roleName">
                     </input>
                 </td>
                 <td>
@@ -18,7 +25,7 @@
     </form>
 </div>
 
-<div class="box_tool_min padding_top2 padding_bottom2 padding_right5">
+#*<div class="box_tool_min padding_top2 padding_bottom2 padding_right5">
     <div class="center">
         <div class="left">
             <div class="right">
@@ -33,7 +40,7 @@
         </div>
     </div>
     <div class="clear"></div>
-</div>
+</div>*#
 
 <div id="scrollContent">
 <table class="tableStyle">
@@ -59,10 +66,13 @@
                     编辑
                 </a>
 
-                <a
-                        href="$!{adminModule}/pass.htm?action=pic_material_action&event_submit_doReviewPass=1&id=$!picMaterialDO.id">
-                    通过
-                </a>
+                #if($picMaterialDO.status == 0)
+                    <a
+                            href="$!{adminModule}/pass.htm?action=pic_material_action&event_submit_doReviewPass=1&id=$!picMaterialDO.id">
+                        通过
+                    </a>
+                #end
+
 
                 <a class="deleteConfirm"
                         href="$!{adminModule}/delete.htm?action=pic_material_action&event_submit_doDelete=1&id=$!picMaterialDO.id">

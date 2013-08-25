@@ -5,6 +5,7 @@
 
         <!--如果是管理员，显示-->
         <li #if($index == "addTopic") class="active" #end><a href="$jokeModule.setTarget('addTopic.vm')">投稿</a></li>
+        <li #if($index == "material") class="active" #end><a href="$jokeModule.setTarget('picMaterialUpload.vm')">捐献素材</a></li>
         <li #if($index == "review") class="active" #end><a href="$jokeModule.setTarget('jokeReview.vm')">审查</a></li>
         #if($currentLoginUser)
             <li ><div id="user" class="btn-group">

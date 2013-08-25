@@ -81,6 +81,32 @@
             </field>
         </group>
 
+        <group name="uploadPicMaterial" extends="csrfTokenCheckGroup">
+            <field name="imageUrl" displayName="图片">
+                <fm-validators:required-validator>
+                    <message>您还没有上传${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+            <field name="seriesId" displayName="剧集id">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+            <field name="roleId" displayName="角色id">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+            <field name="face" displayName="表情">
+            </field>
+
+            <field name="scene" displayName="场景描述">
+            </field>
+
+        </group>
+
     </services:form>
 
 </beans:beans>

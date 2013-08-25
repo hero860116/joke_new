@@ -35,6 +35,8 @@ public class PicMaterialDAOImpl extends HibernateBaseDAO implements PicMaterialD
         getHibernateTemplate().update(picMaterialDO);
     }
 
+
+
     public void delete(long id) {
         getSession().createQuery("update PicMaterialDO set isDelete = 1 where id = :id").setLong("id", id).executeUpdate();
     }

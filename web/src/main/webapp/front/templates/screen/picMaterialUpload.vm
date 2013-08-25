@@ -1,0 +1,30 @@
+<div class="alert" style="margin:20px 0px;">优秀的搞笑对话图，离不开搞笑的段子和奇葩的图片素材。虽然我们一直在努力收集这些素材，但毕竟我们的能力和时间有限，所以希望大家能够在看到搞笑的段子和奇葩图片的时候，能在这里上传给我们，谢谢大家的支持！</div>
+<ul style="margin:30px 0px 0px;" class="nav nav-tabs">
+    <li class="active"><a href="#" style="padding:20px 50px"><h3>图片素材上传</h3></a></li>
+    <!-- <li><a href="#" style="padding:20px 50px"><h3>提供笑话段子</h3></a></li>    -->
+</ul>
+<div class="content bg_white">
+
+    <div class="page-header text-center">
+        <h3>亲，我们需要以下的搞笑图片，请你与我们一起收集$categoryTool.getSubCategoryList(33).size()！</h3>
+    </div>
+    <div class="text-center">
+        #foreach($categoryTypeDOs in $categoryTool.getSubCategoryList(36))
+            #foreach($categoryType in $categoryTypeDOs.getSubCategorys())
+                <a class="btn btn-large" href="$jokeModule.setTarget('picMaterialUploadBySeries.vm').addQueryData('seriesId', $categoryType.id)">$!categoryType.name</a>
+            #end
+        #end
+    </div>
+    <div style="padding:30px 12px;">
+        <div class="hero-unit">
+            <h3>图片收录标准：</h3>
+            <p>1 图片清晰，无无关网站的水印，宽度至少440px</p>
+            <p>2 图片中人物表情丰富，如果有夸张的表情或者动作更佳</p>
+            <p>3 图片中人物最好不要是远景</p>
+            <h5>图片实例：</h5>
+            <p><img src="$staticsContent.getURI('images/good.jpg')" /></p>
+            <p><img src="$staticsContent.getURI('images/bad1.jpg')" /></p>
+            <p><img src="$staticsContent.getURI('images/bad2.jpg')" /></p>
+        </div>
+    </div>
+</div>

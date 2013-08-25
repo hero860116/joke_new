@@ -1,0 +1,95 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+<script type="text/javascript" src="$!staticsContent.getURI('uploadify/jquery.uploadify.min.js')"></script>
+<link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('uploadify/uploadify.css')"/>
+
+<ul style="margin:30px 0px 0px;" class="nav nav-tabs">
+    <li class="active"><a href="#" style="padding:20px 50px"><h3>图片素材上传</h3></a></li>
+    #*<li><a href="#" style="padding:20px 50px"><h3>提供笑话段子</h3></a></li>*#
+</ul>
+<div class="content bg_white">
+
+    <div class="page-header">
+        <h1 style="padding-left:100px;">投稿</h1>
+    </div>
+
+    <form class="form-horizontal" action="" method="post">
+        $csrfToken.hiddenField
+        #set ($group = $form.uploadPicMaterial.defaultInstance)
+        <input type="hidden" name="action" value="pic_material_action"/>
+        <input type="hidden" name="event_submit_do_save" value="1"/>
+        <input type="hidden" name="seriesId" value="$!seriesId" />
+
+        <div class="control-group">
+            <label class="control-label">所属影视：</label>
+            <div class="controls">
+                <span class="input-xlarge uneditable-input">$categoryTool.getCategory($seriesId).name</span>
+            </div>
+            <input type="hidden" name="$group.seriesId.key" value="$seriesId" />
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="img">上传图片：</label>
+            <div class="controls">
+                <input  type="hidden" id="img" name="$group.imageUrl.key" value="$!group.imageUrl.value"/>
+                <button class="btn" id="imguploader">选择文件</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Select Basic -->
+            <label class="control-label">所属角色</label>
+            <div class="controls">
+                <select class="input-xlarge" name="$group.roleId.key">
+                    #foreach($categoryDO in $categoryTool.getSubCategoryList($seriesId))
+                        <option value="$!categoryDO.id" #if($group.roleId.value == $categoryDO.id) selected="selected" #end >$categoryDO.name</option>
+                    #end
+                </select>
+            </div>
+
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="scene">场景：</label>
+            <div class="controls">
+                <input class="x-large" type="text" id="scene" name="$group.scene.key" value="$!group.scene.value">
+                <span class="help-inline">非必填项,多个TAG用,分开</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="face">表情：</label>
+            <div class="controls">
+                <input class="x-large" type="text" id="face" name="$group.face.key" value="$!group.face.value">
+                <span class="help-inline">非必填项,多个TAG用,分开</span>
+            </div>
+        </div>
+
+        <div class=" form-actions" >
+            <input type="hidden" id="avatar" value="http://tp4.sinaimg.cn/1749127163/180/5664354122/1">
+            <button type="submit" class="btn btn-large btn-primary submit">提交</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $("#imguploader").uploadify({
+            'fileObjName': 'imgFile',
+            'buttonText'	: '上传图片',
+            'formData': {'type': 'materialimage'},
+            'height'        : 30,
+            'swf'           : '$staticsContent.getURI('uploadify/uploadify.swf')',
+            <!--         uploader   这里你来定义     -->
+            'uploader'      : '$jokeModule.setTarget('uploadImg.vm')',
+            'width'         : 120,
+            'onUploadSuccess' : function(file, imgurl, response){
+                $('#img').val(imgurl);
+                $('#imgview').remove();
+                $("#imguploader").after('<img id="imgview" src="'+imgurl+'" />');
+            }
+        });
+    });
+</script>

@@ -3,6 +3,7 @@ package com.kelepi.dal.dao;
 import com.kelepi.dal.dataobject.CategoryExtensionDO;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface CategoryExtensionDAO {
@@ -53,4 +54,11 @@ public interface CategoryExtensionDAO {
      * @return
      */
     List<CategoryExtensionDO> getCategoryExtensions(long cid);
+
+    /**
+     * 根据cid获取属性类表
+     * @param cid
+     * @return
+     */
+    Map<String, String> getCategoryExtensionMap(long cid);
 }

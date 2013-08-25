@@ -8,15 +8,15 @@
 <div class="primary">
     #set ($group = $form.addModifyPicMaterial.defaultInstance)
     $group.mapTo($picMaterialDO)
-    <div class="box3" panelTitle="上传图片素材" style="width:500px;">
+    <div class="box3" panelTitle="修改素材" style="width:500px;">
         <form id="add" method="post" action="#" enctype="multipart/form-data">
             $csrfToken.uniqueHiddenField
             <input name="id" type="hidden" value="$id"/>
             <input name="$group.id.key" type="hidden" value="$id"/>
-            <input name="$group.status.key" type="hidden" value="$!group.status.value"/>
             <input type="hidden" name="action" value="pic_material_action"/>
 
             <table class="tableStyle" formMode="transparent">
+                <!--
                 <tr>
                     <td>$group.imageUrl.displayName：</td>
 
@@ -26,15 +26,21 @@
                         <button class="btn" id="imguploader">选择文件</button>
                     </td>
                 </tr>
+                -->
                 <tr>
-                    <td>$group.seriesName.displayName：</td>
-                    <td><input type="text" name="$group.seriesName.key" value="$group.seriesName.value"/><span
-                            style="color:red;">#addProductMessage ($group.seriesName)</span></td>
+                    <td>剧集名：</td>
+                    <td><input style="disable:true;" type="text" name="$picMaterialDO.seriesName" value="$picMaterialDO.seriesName"/></td>
                 </tr>
                 <tr>
-                    <td>$group.roleName.displayName：</td>
-                    <td><input type="text" name="$group.roleName.key" value="$group.roleName.value"/><span
-                            style="color:red;">#addProductMessage ($group.roleName)</span></td>
+                    <td>角色：</td>
+                    <td>
+                        <select name="$group.roleId.key">
+                            #foreach($categoryDO in $categoryTool.getSubCategoryList($picMaterialDO.seriesId))
+                                <option value="$!categoryDO.id" #if($group.roleId.value == $categoryDO.id) selected="selected" #end >$categoryDO.name</option>
+                            #end
+                             <option value=""></option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>$group.face.displayName：</td>
@@ -53,6 +59,7 @@
                         #else
                             <input type="submit" class="mybutton" name="event_submit_do_save" value="添加"/>
                         #end
+                        &nbsp;&nbsp;<a href="$!referer">返回</a>
                     </td>
                 </tr>
             </table>

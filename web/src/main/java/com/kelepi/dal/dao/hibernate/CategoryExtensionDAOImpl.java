@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: liWeiLin
@@ -58,5 +60,19 @@ public class CategoryExtensionDAOImpl extends HibernateBaseDAO implements Catego
                 .setLong("cid", cid).list();
 
         return categoryExtensionDOs;
+    }
+
+    public Map<String, String> getCategoryExtensionMap(long cid) {
+        List<CategoryExtensionDO> categoryExtensionDOs = getSession().createQuery("from CategoryExtensionDO where cid = :cid")
+                .setLong("cid", cid).list();
+
+        Map<String, String> nameValueMap = new HashMap<String, String>();
+
+        for (CategoryExtensionDO categoryExtensionDO : categoryExtensionDOs) {
+            nameValueMap.put(categoryExtensionDO.getName(), categoryExtensionDO.getValue());
+        }
+
+
+        return nameValueMap;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

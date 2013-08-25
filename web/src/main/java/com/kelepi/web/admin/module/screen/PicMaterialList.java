@@ -19,11 +19,12 @@ public class PicMaterialList extends BaseScreen {
 	@Resource
 	private PicMaterialAO picMaterialAO;
 	
-	public void execute(@Param("seriesName") String seriesName, @Param("status") int status, @Param("page")Integer page, TurbineRunData rundata, Context context)
+	public void execute(@Param("seriesName") String seriesName, @Param("roleName")String roleName, @Param("status") int status, @Param("page")Integer page, TurbineRunData rundata, Context context)
 			throws Exception {
 
         PicMaterialQuery picMaterialQuery = new PicMaterialQuery();
         picMaterialQuery.setSeriesName(seriesName);
+        picMaterialQuery.setRoleName(roleName);
         picMaterialQuery.setCurrentPage(page);
         picMaterialQuery.setStatus(status);
 

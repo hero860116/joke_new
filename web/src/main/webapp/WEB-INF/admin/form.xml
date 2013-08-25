@@ -50,6 +50,7 @@
         </group>
 
         <group name="addModifyPicMaterial" extends="csrfTokenCheckGroup">
+            <!--
             <field name="imageUrl" displayName="图片">
                 <fm-validators:required-validator>
                     <message>您还没有上传${displayName}</message>
@@ -60,14 +61,17 @@
                     <message>您还没有填写${displayName}</message>
                 </fm-validators:required-validator>
             </field>
-
-            <field name="roleName" displayName="角色">
+            -->
+            <field name="id" displayName="id">
                 <fm-validators:required-validator>
                     <message>您还没有填写${displayName}</message>
                 </fm-validators:required-validator>
             </field>
 
-            <field name="status" displayName="状态">
+            <field name="roleId" displayName="角色">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
             </field>
 
             <field name="face" displayName="表情">

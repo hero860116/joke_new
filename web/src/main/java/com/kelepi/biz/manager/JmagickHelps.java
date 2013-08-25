@@ -19,7 +19,7 @@ public class JmagickHelps {
      * @param filePath 源文件路径
      * @param toPath   缩略图路径
      */
-    public static void createThumbnail(String filePath, String toPath) throws MagickException{
+    public static boolean createThumbnail(String filePath, String toPath, int widethTo) throws MagickException{
         ImageInfo info = null;
         MagickImage image = null;
         Dimension imageDim = null;
@@ -30,8 +30,13 @@ public class JmagickHelps {
             imageDim = image.getDimension();
             int wideth = imageDim.width;
             int height = imageDim.height;
-                height = 660 * height / wideth;
-                wideth = 660;
+
+            if (wideth < widethTo) {
+                return false;
+            }
+
+            height = widethTo * height / wideth;
+            wideth = widethTo;
             scaled = image.scaleImage(wideth, height);//小图片文件的大小.
             scaled.setFileName(toPath);
             scaled.writeImage(info);
@@ -39,7 +44,13 @@ public class JmagickHelps {
             if(scaled != null){
                 scaled.destroyImages();
             }
+
+            if (image != null) {
+                image.destroyImages();
+            }
         }
+
+        return true;
     }
 
     /**
@@ -168,7 +179,7 @@ public class JmagickHelps {
     }*/
     public static void main(String[] args) {
         try {
-            initTextToImg("K:\\img\\src.jpg", "K:\\img\\to.jpg", "李卫林");
+            initTextToImg("K:\\img\\src.jpg", "K:\\img\\src.jpg", "李卫林");
         } catch (MagickException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
