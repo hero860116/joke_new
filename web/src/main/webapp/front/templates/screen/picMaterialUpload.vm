@@ -6,7 +6,7 @@
 <div class="content bg_white">
 
     <div class="page-header text-center">
-        <h3>亲，我们需要以下的搞笑图片，请你与我们一起收集$categoryTool.getSubCategoryList(33).size()！</h3>
+        <h3>亲，我们需要以下的搞笑图片，请你与我们一起收集！</h3>
     </div>
     <div class="text-center">
         #foreach($categoryTypeDOs in $categoryTool.getSubCategoryList(36))

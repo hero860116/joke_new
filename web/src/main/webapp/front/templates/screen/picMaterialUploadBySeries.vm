@@ -85,10 +85,17 @@
             <!--         uploader   这里你来定义     -->
             'uploader'      : '$jokeModule.setTarget('uploadImg.vm')',
             'width'         : 120,
-            'onUploadSuccess' : function(file, imgurl, response){
-                $('#img').val(imgurl);
-                $('#imgview').remove();
-                $("#imguploader").after('<img id="imgview" src="'+imgurl+'" />');
+            'onUploadSuccess' : function(file, data, response){
+                data = JSON.parse(data);
+                if (data.success) {
+                    var imgurl =  data.data;
+                    $('#img').val(imgurl);
+                    $('#imgview').remove();
+                    $("#imguploader").after('<img id="imgview" src="'+imgurl+'" />');
+                } else {
+                    alert(data.msg);
+                }
+
             }
         });
     });

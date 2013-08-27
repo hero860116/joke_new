@@ -114,7 +114,7 @@ public class ImageManager extends BaseManager {
         String localPath =  request.getSession().getServletContext().getRealPath(filePath);
 
         //压缩图片
-/*        boolean creResult = false;
+        boolean creResult = false;
         try {
             creResult = JmagickHelps.createThumbnail(localPath, localPath, 440);
         } catch (MagickException e) {
@@ -123,9 +123,9 @@ public class ImageManager extends BaseManager {
 
         if (!creResult) {
             result.setSuccess(false);
-            result.setModel("message", "图片宽度必须大于440px！");
+            result.setModel("msg", "图片宽度必须大于440px！");
             return result;
-        }*/
+        }
 
         //上传到upyun
         upYunManager.upload(localPath, filePath);

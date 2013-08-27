@@ -46,8 +46,9 @@
 <table class="tableStyle">
     <thead>
     <th width="15%">图片</th>
-    <th width="15%">剧集</th>
-    <th width="15%">角色</th>
+    <th width="10%">剧集</th>
+    <th width="10%">角色</th>
+    <th width="10%">演员</th>
     <th width="15%">表情</th>
     <th width="15%">场景</th>
     <th width="25%">操作</th>
@@ -57,6 +58,7 @@
             <td><img src="$!upyunImageServer.getURI($!picMaterialDO.imageUrl)!h50.jpg"/></td>
             <td>$!picMaterialDO.seriesName</td>
             <td>$!picMaterialDO.roleName</td>
+            <td>$!picMaterialDO.actorName</td>
             <td>$!picMaterialDO.face</td>
             <td>$!picMaterialDO.scene</td>
             <td>
