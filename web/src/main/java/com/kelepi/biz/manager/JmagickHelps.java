@@ -3,6 +3,7 @@ package com.kelepi.biz.manager;
 import magick.*;
 
 import java.awt.*;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -139,9 +140,10 @@ public class JmagickHelps {
             aInfo.setPointsize(30);
 
             //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
-            String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
+            //String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
             //                String fontPath = "/usr/maindata/MSYH.TTF";
-            aInfo.setFont(fontPath);
+            //aInfo.setFont(fontPath);
+            //aInfo.setfon
             aInfo.setTextAntialias(true);
             aInfo.setOpacity(0);
             aInfo.setText("　" + text + "于　" + "　可乐皮");
@@ -153,6 +155,139 @@ public class JmagickHelps {
         scaled.destroyImages();
     }
 
+    public String cut()
+    {
+        String fileName = "";//图片路径+图片名称
+        String txt_width = "";//缩放后宽
+        String txt_height = "";//缩放后高
+        String txt_top = "";//x坐标
+        String txt_left = "";//y坐标
+        String txt_DropWidth = "";//剪切宽
+        String txt_DropHeight = "";//剪切高
+        String filePath = "";
+
+
+        String cutFilePath = "";
+        File fileList = new File("");
+        if(!fileList.exists())
+        {
+            fileList.mkdirs();
+        }
+        try {
+            System.setProperty("jmagick.systemclassloader","no");
+            ImageInfo info = new ImageInfo(filePath);
+
+            MagickImage image = new MagickImage(info);
+            MagickImage cropped = null;
+            MagickImage scaleImg = image.scaleImage(Integer.valueOf(txt_width), Integer.valueOf(txt_height));//缩放图片
+            Rectangle rect = new Rectangle (Integer.valueOf(txt_left),Integer.valueOf(txt_top),Integer.valueOf(txt_DropWidth),Integer.valueOf(txt_DropHeight));
+            cropped = scaleImg.cropImage(rect);//剪切图片
+            cropped.setFileName(cutFilePath);
+            cropped .writeImage(info);
+
+        } catch (MagickException e) {
+            e.printStackTrace();
+        }
+        return "cut";
+    }
+
+    public String watermark()
+    {
+        String fileName = "";//图片路径+名字
+        String logoFileName = "";//水印图片历经+名字
+        Integer txt_width = 0;//缩放后宽
+        Integer txt_height = 0;//缩放后高
+        Integer txt_top = 0;//x坐标
+        Integer txt_left = 0;//y坐标
+        Integer txt_DropWidth = 0;//剪切宽度
+        Integer txt_DropHeight = 0;//剪切高度
+        String filePath = "";
+        String logoImagPath = "";
+        String flag = "";
+
+        String cutFilePath = "";
+        File fileList = new File("");
+        if(!fileList.exists())
+        {
+            fileList.mkdirs();
+        }
+        try {
+            System.setProperty("jmagick.systemclassloader","no");
+            ImageInfo info = new ImageInfo(filePath);
+
+            MagickImage image = new MagickImage(info);
+            MagickImage cropped = null;
+            MagickImage fLogo = null;
+            MagickImage sLogo = null;
+            Dimension logoDim = null;
+
+            MagickImage scaleImg = image.scaleImage(txt_width, txt_height);
+            Rectangle rect = new Rectangle (txt_left,txt_top,txt_DropWidth,txt_DropHeight);
+            cropped = scaleImg.cropImage(rect);
+            fLogo = new MagickImage(new ImageInfo(logoImagPath));
+            logoDim = fLogo.getDimension();
+            int lw = txt_DropWidth / 4;
+            int lh = logoDim.height * lw / logoDim.width;
+            sLogo = fLogo.scaleImage(lw, lh);
+            //水印出现在左上方
+            if(flag.equals("leftTop"))
+            {
+                cropped.compositeImage(CompositeOperator.AtopCompositeOp, sLogo,
+                        lh / 10, lh / 10);
+            }
+            else if(flag.equals("rightTop"))
+            {
+                cropped.compositeImage(CompositeOperator.AtopCompositeOp, sLogo,
+                        txt_DropWidth - (lw + lh / 10), lh / 10);
+            }
+            else if(flag.equals("middle"))
+            {
+                cropped.compositeImage(CompositeOperator.AtopCompositeOp, sLogo,
+                        (txt_DropWidth - lw)/2, (txt_DropHeight-lh)/2);
+            }
+            else if(flag.equals("leftBottom"))
+            {
+                cropped.compositeImage(CompositeOperator.AtopCompositeOp, sLogo,
+                        lh / 10, txt_DropHeight - (lh + lh / 10));
+            }
+            else
+            {
+                cropped.compositeImage(CompositeOperator.AtopCompositeOp, sLogo,
+                        txt_DropWidth - (lw + lh / 10), txt_DropHeight - (lh + lh / 10));
+            }
+            cropped.setFileName(cutFilePath);
+            cropped.writeImage(info);
+
+        } catch (MagickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "cut";
+    }
+
+    //锐化
+    public void sharpen(String filePath,String savePath)
+    {
+        ImageInfo info = null;
+        MagickImage image = null;
+        MagickImage sharpened = null;
+        try {
+            info = new ImageInfo(filePath);
+            image = new MagickImage(info);
+            sharpened = image.sharpenImage(1.0, 5.0);
+            sharpened.setFileName(savePath);
+
+            sharpened.writeImage(info);
+        } catch (MagickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally {
+            if (image != null) {
+                image.destroyImages();
+            }
+        }
+    }
 
 /*    *//**
      * 切图
@@ -179,7 +314,7 @@ public class JmagickHelps {
     }*/
     public static void main(String[] args) {
         try {
-            initTextToImg("K:\\img\\src.jpg", "K:\\img\\src.jpg", "李卫林");
+            initTextToImg("K:\\img\\src.jpg", "K:\\img\\src1.jpg", "李卫林");
         } catch (MagickException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
