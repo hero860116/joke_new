@@ -155,6 +155,42 @@ public class JmagickHelps {
         scaled.destroyImages();
     }
 
+    public static void addText(String text, String srcPath, String toPath) {
+        try {
+            ImageInfo info = new ImageInfo(srcPath);
+            MagickImage aImage = new MagickImage(info);
+            Dimension imageDim = aImage.getDimension();
+            int wideth = imageDim.width;
+            int height = imageDim.height;
+
+
+            DrawInfo aInfo = new DrawInfo(info);
+            aInfo.setFill(PixelPacket.queryColorDatabase("white"));
+            // aInfo.setUnderColor(new PixelPacket(0,0,0,100));
+           // aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
+            aInfo.setStroke(PixelPacket.queryColorDatabase("black"));
+            aInfo.setStrokeWidth(1);
+            aInfo.setPointsize(30);
+
+            //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
+            String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
+            //String fontPath = "/usr/maindata/MSYH.TTF";
+            aInfo.setFont(fontPath);
+            //aInfo.setfon
+            aInfo.setTextAntialias(true);
+            aInfo.setOpacity(0);
+            aInfo.setText(text);
+            aInfo.setGeometry("+" + (5) + "+" + (height-5));
+            aImage.annotateImage(aInfo);
+
+            aImage.setFileName(toPath);
+            aImage.writeImage(info);
+            aImage.destroyImages();
+        } catch (MagickException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
     public String cut()
     {
         String fileName = "";//图片路径+图片名称
@@ -314,8 +350,10 @@ public class JmagickHelps {
     }*/
     public static void main(String[] args) {
         try {
-            initTextToImg("K:\\img\\src.jpg", "K:\\img\\src1.jpg", "李卫林");
-        } catch (MagickException e) {
+           // initTextToImg("K:\\img\\src.jpg", "K:\\img\\src1.jpg", "李卫林");
+            addText("李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试", "K:\\img\\src_440.jpg", "K:\\img\\src1.jpg");
+            //createThumbnail("K:\\img\\src.jpg", "K:\\img\\src_440.jpg", 440);
+        } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
