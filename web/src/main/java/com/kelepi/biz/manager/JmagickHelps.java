@@ -54,6 +54,31 @@ public class JmagickHelps {
         return true;
     }
 
+   public static void concontImage(String toPath, MagickImage... magickImages) {
+       try {
+           int totalHeight = 0;
+           for (MagickImage magickImage : magickImages) {
+               totalHeight += magickImage.getDimension().getHeight();
+           }
+
+           MagickImage firstImageInfo = new MagickImage(new ImageInfo("http://www.kelepi.com/statics/images/logo.png"));
+           firstImageInfo = firstImageInfo.scaleImage(440, totalHeight);
+
+           int height = 0;
+           for (int i = 0; i < magickImages.length; i++) {
+               MagickImage magic = magickImages[i];
+               //magic = magic.scaleImage(magic.getDimension().width, magic.getDimension().height);
+               firstImageInfo.compositeImage(CompositeOperator.AtopCompositeOp, magic, 0, height);
+               height += magic.getDimension().height;
+           }
+
+           firstImageInfo.setFileName(toPath);
+           firstImageInfo.writeImage(new ImageInfo());
+       } catch (MagickException e) {
+           e.printStackTrace();
+       }
+   }
+
     /**
      * 水印(图片logo)
      * @param filePath  源文件路径
@@ -155,40 +180,73 @@ public class JmagickHelps {
         scaled.destroyImages();
     }
 
-    public static void addText(String text, String srcPath, String toPath) {
+    public static void addText(String text1, String srcPath, String toPath) {
         try {
+            int colHeight = 25 * 10;
+            int fromBotton = 20 * 10;
+            int fontSize = 200;
+
             ImageInfo info = new ImageInfo(srcPath);
             MagickImage aImage = new MagickImage(info);
             Dimension imageDim = aImage.getDimension();
             int wideth = imageDim.width;
             int height = imageDim.height;
 
+            aImage = aImage.scaleImage(wideth * 10, height * 10) ;
+            int length = text1.length();
 
-            DrawInfo aInfo = new DrawInfo(info);
-            aInfo.setFill(PixelPacket.queryColorDatabase("white"));
-            // aInfo.setUnderColor(new PixelPacket(0,0,0,100));
-           // aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
-            aInfo.setStroke(PixelPacket.queryColorDatabase("black"));
-            aInfo.setStrokeWidth(1);
-            aInfo.setPointsize(30);
+            String[] textArray = getTexts(text1, 20);
 
-            //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
-            String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
-            //String fontPath = "/usr/maindata/MSYH.TTF";
-            aInfo.setFont(fontPath);
-            //aInfo.setfon
-            aInfo.setTextAntialias(true);
-            aInfo.setOpacity(0);
-            aInfo.setText(text);
-            aInfo.setGeometry("+" + (5) + "+" + (height-5));
-            aImage.annotateImage(aInfo);
+            int hei = height * 10 - fromBotton - colHeight * (textArray.length - 1);
+            for (String text : textArray) {
+                DrawInfo aInfo = new DrawInfo(info);
+                //aInfo.setFill(PixelPacket.queryColorDatabase("white"));
+                aInfo.setFill(new PixelPacket(255,255,255,100));
+                //aInfo.setUnderColor(new PixelPacket(0,0,0,100));
+                aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
+                aInfo.setStroke(PixelPacket.queryColorDatabase("black"));
+                aInfo.setStrokeWidth(1);
+                aInfo.setPointsize(fontSize);
 
+                //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
+                String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
+                //String fontPath = "/usr/maindata/MSYH.TTF";
+                aInfo.setFont(fontPath);
+                //aInfo.setfon
+                aInfo.setTextAntialias(true);
+                aInfo.setOpacity(0);
+                aInfo.setText(text);
+                aInfo.setGeometry("+" + getLeftForCenter(fontSize * text.length(), 440 * 10) + "+" + hei);
+                aImage.annotateImage(aInfo);
+
+                hei += colHeight;
+            }
+
+            aImage = aImage.scaleImage(wideth, height) ;
             aImage.setFileName(toPath);
             aImage.writeImage(info);
             aImage.destroyImages();
+
         } catch (MagickException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+    }
+
+
+    private static int getLeftForCenter(int contentSize, int contaterSize) {
+        return (contaterSize - contentSize) / 2;
+    }
+
+    private static String[] getTexts(String text, int size) {
+          int length = text.length();
+          int arrSize = (length + (size - 1))/size;
+
+          String[] arr = new String[arrSize];
+          for (int i = 0; i < arrSize; i++){
+               arr[i] = text.substring(i * size, (i+1) * size > length ? length : (i+1) * size);
+          }
+
+         return arr;
     }
 
     public String cut()
@@ -351,8 +409,22 @@ public class JmagickHelps {
     public static void main(String[] args) {
         try {
            // initTextToImg("K:\\img\\src.jpg", "K:\\img\\src1.jpg", "李卫林");
-            addText("李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试", "K:\\img\\src_440.jpg", "K:\\img\\src1.jpg");
+           addText("李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试", "K:\\img\\ttt.jpg", "K:\\img\\ttt1.jpg");
             //createThumbnail("K:\\img\\src.jpg", "K:\\img\\src_440.jpg", 440);
+
+          /*  MagickImage magickImage1 = new MagickImage(new ImageInfo("K:\\img\\src_440.jpg"));
+            MagickImage magickImage2 = new MagickImage(new ImageInfo("K:\\img\\src1.jpg"));
+
+            MagickImage magickImage3 = new MagickImage(new ImageInfo("http://img03.kelepi.com/statics/images/jokeimage/pOuRrEqVh02Ugf73fLVVTRAUGDX8sx.jpg!w440.jpg"));
+            MagickImage magickImage4 = new MagickImage(new ImageInfo("http://img05.kelepi.com/statics/images/jokeimage/4sQpWBZUqgoZAybfa0XcpVlshjDg3x.jpg!w440.jpg"));
+            MagickImage magickImage5 = new MagickImage(new ImageInfo("http://img02.kelepi.com/statics/images/jokeimage/cdQdBNF0owbO4bHptNfNRb1oO9xlxu.jpg!w440.jpg"));
+            MagickImage magickImage6 = new MagickImage(new ImageInfo("http://img05.kelepi.com/statics/images/jokeimage/n5LlSIZmpvDiVhc6cxDGr2tVN1sCq4.jpg!w440.jpg"));
+
+            long s = System.currentTimeMillis();
+            concontImage("K:\\img\\src2.jpg", magickImage3, magickImage4, magickImage5, magickImage6);
+            long e = System.currentTimeMillis();
+            System.out.println("******************" + (e - s ));*/
+            //initLogoImg("K:\\img\\src_440.jpg", "K:\\img\\src3.jpg", "K:\\img\\logo.png");
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
