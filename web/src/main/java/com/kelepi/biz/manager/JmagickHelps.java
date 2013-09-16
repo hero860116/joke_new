@@ -181,10 +181,11 @@ public class JmagickHelps {
     }
 
     public static void addText(String text1, String srcPath, String toPath) {
+        int multiple = 5;
         try {
-            int colHeight = 25 * 10;
-            int fromBotton = 20 * 10;
-            int fontSize = 200;
+            int colHeight = 25 *  multiple;
+            int fromBotton = 20 *  multiple;
+            int fontSize = 20 * multiple;
 
             ImageInfo info = new ImageInfo(srcPath);
             MagickImage aImage = new MagickImage(info);
@@ -192,39 +193,51 @@ public class JmagickHelps {
             int wideth = imageDim.width;
             int height = imageDim.height;
 
-            aImage = aImage.scaleImage(wideth * 10, height * 10) ;
+            aImage = aImage.scaleImage(wideth *  multiple, height *  multiple) ;
             int length = text1.length();
 
             String[] textArray = getTexts(text1, 20);
 
-            int hei = height * 10 - fromBotton - colHeight * (textArray.length - 1);
+            int hei = height *  multiple - fromBotton - colHeight * (textArray.length - 1);
             for (String text : textArray) {
-                DrawInfo aInfo = new DrawInfo(info);
-                //aInfo.setFill(PixelPacket.queryColorDatabase("white"));
-                aInfo.setFill(new PixelPacket(255,255,255,100));
+                String fontPath = "K:/simhei.ttf";
+                DrawInfo aInfo1 = new DrawInfo(info);
+                aInfo1.setFill(PixelPacket.queryColorDatabase("white"));
+                aInfo1.setDecorate(100);
+                aInfo1.setFont(fontPath);
+                aInfo1.setPointsize(fontSize);
+                aInfo1.setText(text);
+                //aInfo.setFill(new PixelPacket(255,255,255,100));
                 //aInfo.setUnderColor(new PixelPacket(0,0,0,100));
-                aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
-                aInfo.setStroke(PixelPacket.queryColorDatabase("black"));
-                aInfo.setStrokeWidth(1);
-                aInfo.setPointsize(fontSize);
+                //aInfo.setBorderColor(PixelPacket.queryColorDatabase("black"));
+                aInfo1.setStroke(PixelPacket.queryColorDatabase("black"));
+                aInfo1.setStrokeWidth(2);
+                aInfo1.setStrokeAntialias(true);
+                aInfo1.setTextAntialias(true);
 
-                //解决中文乱码问题,自己可以去随意定义个自己喜欢字体，我在这用的微软雅黑
-                String fontPath = "C:/WINDOWS/Fonts/MSYH.TTF";
-                //String fontPath = "/usr/maindata/MSYH.TTF";
-                aInfo.setFont(fontPath);
-                //aInfo.setfon
-                aInfo.setTextAntialias(true);
-                aInfo.setOpacity(0);
-                aInfo.setText(text);
-                aInfo.setGeometry("+" + getLeftForCenter(fontSize * text.length(), 440 * 10) + "+" + hei);
-                aImage.annotateImage(aInfo);
+                //aInfo.setOpacity(0);
+
+                aInfo1.setGeometry("+" + getLeftForCenter(fontSize * text.length(), 440 * multiple) + "+" + hei);
+
+                aImage.annotateImage(aInfo1);
+
+              /*  MagickImage mi = new MagickImage();
+                mi.setBackgroundColor(PixelPacket.queryColorDatabase("white"));
+                mi.annotateImage(aInfo);
+                mi.setFileName("K:\\img\\label.png");
+                mi.writeImage(new ImageInfo());*/
 
                 hei += colHeight;
             }
 
+
+            aImage.setCompression(100);
             aImage = aImage.scaleImage(wideth, height) ;
             aImage.setFileName(toPath);
             aImage.writeImage(info);
+
+            //aImage = aImage.scaleImage(wideth, height) ;
+            //aImage.writeImage(info);
             aImage.destroyImages();
 
         } catch (MagickException e) {
@@ -409,8 +422,8 @@ public class JmagickHelps {
     public static void main(String[] args) {
         try {
            // initTextToImg("K:\\img\\src.jpg", "K:\\img\\src1.jpg", "李卫林");
-           addText("李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试", "K:\\img\\ttt.jpg", "K:\\img\\ttt1.jpg");
-            //createThumbnail("K:\\img\\src.jpg", "K:\\img\\src_440.jpg", 440);
+           addText("李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试李卫林测试", "K:\\img\\ttt.jpg", "K:\\img\\ttt17.jpg");
+            //createThumbnail("K:\\img\\ttt1.jpg", "K:\\img\\ttt7.jpg", 220);
 
           /*  MagickImage magickImage1 = new MagickImage(new ImageInfo("K:\\img\\src_440.jpg"));
             MagickImage magickImage2 = new MagickImage(new ImageInfo("K:\\img\\src1.jpg"));

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('css/kelepi.css')">
     <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="$!staticsContent.getURI('js/jplugin/jquery.autosize-min.js')"></script>
     <script>
         var _hmt = _hmt || [];
         (function() {

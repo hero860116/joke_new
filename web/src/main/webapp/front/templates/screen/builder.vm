@@ -1,0 +1,195 @@
+<div class="content">
+    <div class="right-slider pull-right">
+
+    </div>
+    <div class="instructions"><h4>可乐皮生成器使用说明：</h4>
+        <ol>
+            <li><strong>第一步</strong>：确定对白素材，使用自己的对白或者使用本页左侧为你提供的备选素材</li>
+            <li><strong>第二步</strong>：选择合适的图片，将对话键入到图片底部的文字框中</li>
+            <li><strong>第三步</strong>：为整幅创作写一段描述语言</li>
+            <li><strong>第四步</strong>：点击“生成”，搞定收工！分享给你好友吧，让他们来欣赏一下</li>
+        </ol>
+    </div>
+    <div id="generate">
+        <div class="pull-left">
+            <div class="joke" data-spy="affix" data-offset-top="10">
+                <h5>你还没选择笑话素材：</h5>
+                <a href="javascript:openmodal(joke_modal_title,'modal-text.html?423');" class="btn btn-info">选择笑话素材</a>
+            </div>
+        </div>
+        <div class="imgarea" >
+            <div class="imgdiv">
+                <img src="$staticsContent.getURI('images/noimage.jpg')" />
+                <a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a>
+                <a class="btn btn-del fix">删除</a>
+                <textarea placeholder="对白写在这里"></textarea>
+            </div>
+            <div class="imgdiv">
+                <img src="$staticsContent.getURI('images/img2.jpg')" />
+                <a class="btn btn-del fix">删除</a>
+                <a href="javascript:void(0);" class="btn btn-info btn-reslt fix">换一张</a>
+                <textarea placeholder="对白写在这里"></textarea>
+            </div>
+            <div class="imgdiv">
+                <img src="$staticsContent.getURI('images/noimage.jpg')" />
+                <a href="javascript:openmodal(img_modal_title,'modalImg.html');" class="btn btn-info btn-select">选择图片</a>
+                <a class="btn btn-del fix">删除</a>
+                <textarea placeholder="对白写在这里"></textarea>
+            </div>
+            <div class="jokedescription">
+                <button class="btn btn-info addimg">添加一张图片</button>
+                <h5>最后一步：写一句话的描述吧！</h5>
+                <textarea id="jokedes" row=3></textarea>
+            </div>
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-primary">生成</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="slt-modal" class="modal hide fade">
+    <div class="modaltitle">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h5>选择一个图片</h5>
+    </div>
+    <div class="modal-body">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var joke_slted_title = '<h5>你选择的笑话素材(<a href="javascript:openmodal(joke_modal_title,'+"'modal-text.html?324'"+');">换一个</a>):</h5>';
+    var joke_modal_title = '选一个段子来丰富你的创造吧';
+    var img_modal_title = '选一个图片来点缀你的创作吧';
+    var img_modal_url = '$jokeModule.setTarget('modalImg.vm')';
+    var img_slted_id = 0;
+    var img_jqobj;
+    function openmodal(title,path){
+        $('.modaltitle h5').html(title);
+        $('#slt-modal').modal({
+            keyboard: false,
+            backdrop: false,
+            remote:path
+        });
+    }
+    $(function(){
+        $('.addimg').click(function(){
+            $('.jokedescription').before('<div class="imgdiv"><img src="$staticsContent.getURI('images/noimage.jpg')" /><a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a><a class="btn btn-del fix">删除</a><textarea placeholder="对白写在这里"></textarea></div>');
+        });
+        $(document).on({
+            click:function(e){
+                $(this).parents('.tab-pane').load(""+$(this).attr('href'));
+                e.preventDefault();
+            }
+        },'.pagination li a');
+        $(document).on('click','.btn-del',function(){
+            $(this).parent('.imgdiv').remove();
+        });
+        $(document).on({
+            mouseenter:function(){
+                $(this).children('.fix').show();
+            },
+            mouseleave:function(){
+                $(this).children('.fix').hide();
+            }
+        },'.imgdiv');
+        $(document).on({
+            focus:function(){
+                $(this).autosize();
+            }
+        },'textarea');
+        $(document).on({
+            click:function(){
+                $('.joke').html(joke_slted_title+$(this).text());
+                $('#slt-modal').modal('hide');
+            }
+        },'.joketd');
+        $(document).on({
+            click:function(){
+                openmodal(img_modal_title,img_modal_url);
+                img_jqobj = $(this).parent('.imgdiv');
+            }
+        },'.btn-select,.btn-reslt');
+        $(document).on({
+            click:function(){
+                var slt_juji=$('.nav-tabs').children('.active').children('a').attr('data');
+                var slt_roler = $('.rolers').children('.active').attr('data');
+                img_modal_url += "?juji="+slt_juji+"&slt_roler="+slt_roler;
+                img_jqobj.children('img').replaceWith('<img src="' + $(this).attr('src') + '" />');
+                img_jqobj.children('.btn-select').replaceWith('<a href="javascript:void(0);" class="btn btn-info btn-reslt fix">换一张</a>');
+                $('#slt-modal').modal('hide');
+            }
+        },'.rolerimg');
+        $('#slt-modal').on('hide',function(){
+            $(this).removeData('modal');
+        });
+        $('#slt-modal').on('show',function(){
+            $(this).find('.modal-body').css({
+                height:'auto',
+                'max-height':'100%'});
+        });
+        $(document).on({
+            click:function(e){
+                e.preventDefault();
+                $(this).parents('.nav-tabs').children("li").removeClass("active");
+                $(this).parent('li').addClass('active');
+                $.getJSON($(this).attr('href'),function(data){
+                    if(data.role){
+                        c_role_html(data.role);
+                    }
+                    c_img_html(data.img);
+                    if(data.page){
+                        c_page_html(data.page);
+                    }
+                });
+            }
+        },'.sucai_class');
+        $(document).on({
+            click:function(e){
+                e.preventDefault();
+                $(this).parent('.rolers').children('.roler').removeClass('active');
+                $(this).addClass('active');
+                $.getJSON($(this).attr('href'),function(data){
+                    c_img_html(data.img);
+                    if(data.page){
+                        c_page_html(data.page);
+                    }
+                });
+            }
+        },'.roler');
+        $(document).on({
+            click:function(e){
+                e.preventDefault();
+                $.getJSON($(this).attr('href'),function(data){
+                    c_img_html(data.img);
+                    if(data.page){
+                        c_page_html(data.page);
+                    }
+                });
+            }
+        },'.sucai_page');
+    });
+    function c_role_html(jsondata){
+        var role_html = '';
+        $.each(jsondata, function(i,item){
+            role_html += '<a class="roler" href="'+item.href+'" data="'+item.id+'">'+item.rolename+'</a>';
+        });
+        $('.rolers').html(role_html);
+    }
+    function c_img_html(jsondata){
+        var rolerimg_html =''
+        $.each(jsondata,function(i,item){
+            rolerimg_html += '<img src="'+item+'" data="'+item+'" class="img-polaroid rolerimg" />';
+        }) ;
+        $('.rolerimgs').html(rolerimg_html);
+    }
+    function c_page_html(jsondata){
+        console.log(jsondata);
+        var rolepage_html = '';
+        $.each(jsondata,function(i,item){
+            rolepage_html += '<li><a href="'+item.href+'"  class="sucai_page" data="img">'+item.string+'</a></li>';
+        });
+        $('.pagination').html('<ul>'+rolepage_html+'</ul>');
+    }
+</script>

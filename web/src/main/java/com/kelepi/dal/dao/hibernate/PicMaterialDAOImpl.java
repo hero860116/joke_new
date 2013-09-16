@@ -64,8 +64,16 @@ public class PicMaterialDAOImpl extends HibernateBaseDAO implements PicMaterialD
             criteria.add(Restrictions.like("roleName", "%"+picMaterialQuery.getRoleName() + "%"));
         }
 
+        if (picMaterialQuery.getRoleId() != null) {
+            criteria.add(Restrictions.eq("roleId", picMaterialQuery.getRoleId()));
+        }
+
         if (!StringUtils.isEmpty(picMaterialQuery.getSeriesName())) {
             criteria.add(Restrictions.like("seriesName", "%"+picMaterialQuery.getSeriesName() + "%"));
+        }
+
+        if (picMaterialQuery.getSeriesId() != null) {
+            criteria.add(Restrictions.eq("seriesId", picMaterialQuery.getSeriesId()));
         }
 
         if (picMaterialQuery.getStatus() != null) {
@@ -90,8 +98,16 @@ public class PicMaterialDAOImpl extends HibernateBaseDAO implements PicMaterialD
             criteria.add(Restrictions.like("roleName", "%"+picMaterialQuery.getRoleName() + "%"));
         }
 
+        if (picMaterialQuery.getRoleId() != null) {
+            criteria.add(Restrictions.eq("roleId", picMaterialQuery.getRoleId()));
+        }
+
         if (!StringUtils.isEmpty(picMaterialQuery.getSeriesName())) {
             criteria.add(Restrictions.like("seriesName", "%"+picMaterialQuery.getSeriesName() + "%"));
+        }
+
+        if (picMaterialQuery.getSeriesId() != null) {
+            criteria.add(Restrictions.eq("seriesId", picMaterialQuery.getSeriesId()));
         }
 
         if (picMaterialQuery.getStatus() != null) {

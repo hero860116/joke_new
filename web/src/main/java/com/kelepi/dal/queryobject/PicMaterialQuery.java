@@ -6,7 +6,9 @@ package com.kelepi.dal.queryobject;
  */
 public class PicMaterialQuery extends BaseQuery{
     private String seriesName;
+    private Long seriesId;
     private String roleName;
+    private Long roleId;
     private String actorName;
     private Integer status;
 
@@ -40,5 +42,21 @@ public class PicMaterialQuery extends BaseQuery{
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getSeriesId() {
+        return seriesId;
+    }
+
+    public void setSeriesId(Long seriesId) {
+        this.seriesId = seriesId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 }
