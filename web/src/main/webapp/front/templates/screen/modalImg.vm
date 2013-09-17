@@ -13,7 +13,9 @@ $rundata.setLayoutEnabled(false)
 <div class="tabbable tabs-left">
     <ul class="nav nav-tabs">
         #foreach($category in $categorys)
-            <li class="active"><a href="$jokeModule.setTarget('picMaterialList.vm').addQueryData('seriesId', $!category.id)" data='0' class="sucai_class">$!category.name</a></li>
+            <li #if($category.id == $picMaterialQuery.seriesId) class="active" #end>
+            <a href="$jokeModule.setTarget('picMaterialList.vm').addQueryData('seriesId', $!category.id)" data='0' class="sucai_class">$!category.name</a>
+            </li>
         #end
     </ul>
     <div class="tab-content">

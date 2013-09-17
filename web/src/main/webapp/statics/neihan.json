@@ -1,0 +1,28 @@
+{
+	"role":[
+		{"id":1,"rolename":"陆三金","href":"www.kelepi.com/img/3/1"},
+		{"id":1,"rolename":"恭叔","href":"www.kelepi.com/img/3/2"},
+		{"id":1,"rolename":"陆三金","href":"www.kelepi.com/img/3/1"},
+		{"id":1,"rolename":"陆三金","href":"www.kelepi.com/img/3/1"}
+	],
+	"img":[
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img2.jpg","ori":"http://kelepi.com/statics/images/img2.jpg"},
+		{"thumb":"http://kelepi.com/statics/images/img3.jpg","ori":"http://kelepi.com/statics/images/img3.jpg"}
+	],
+	"page":[
+		{"href":"www.kelepi.com/sucai/page/1","string":"上一页"},
+		{"href":"www.kelepi.com/sucai/page/3","string":"下一页"}
+	]
+}

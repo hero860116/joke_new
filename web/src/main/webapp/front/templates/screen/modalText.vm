@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>可乐皮生成器-原创笑话社区，内涵笑话，基情无限,腐得有腔调</title>
+    <meta name="keywords" content="内涵笑话 夫妻笑话 段子">
+    <meta name="description" content="可乐皮-原创笑话社区，才子佳人多，所以内涵深、基情无限、腐得有腔调">
+    <link rel="stylesheet" type="text/css" href="$staticsContent.getURI('css/bootstrap.min.css')">
+    <link rel="stylesheet" type="text/css" href="$staticsContent.getURI('css/kelepi.css')">
+</head>
+<body>
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        #foreach($category in $categorys)
+            <li #if($category.id == $jokeMaterialQuery.categoryId) class="active" #end><a href="$jokeModule.setTarget('jokeMaterialList.vm').addQueryData('categoryId', $!category.id)" data='0' class="sucai_class">$!category.name</a></li>
+        #end
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="qiushi">
+            <table class="table table-hover">
+                <tbody>
+                    #foreach($jokeMaterialDO in $jokeMaterialDOs)
+                        <tr>
+                            <td class="joketd">$jokeMaterialDO.content</td>
+                        </tr>
+                    #end
+                </tbody>
+            </table>
+            <div class="pagination pagination-small pagination-centered">
+                #if ($jokeMaterialQuery.totalPage > 1)
+                    <ul>
+                        <li><a href="$jokeModule.setTarget('jokeMaterialList.vm').addQueryData('categoryId', $!jokeMaterialQuery.categoryId).addQueryData('currentPage', 2)"  class="sucai_page" data="text">下一页</a></li>
+                    </ul>
+                #end
+            </div>
+        </div>
+    </div>
+</div>
+</body>

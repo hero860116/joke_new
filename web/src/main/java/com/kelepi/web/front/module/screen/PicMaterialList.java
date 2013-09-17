@@ -3,14 +3,14 @@ package com.kelepi.web.front.module.screen;
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.Param;
+import com.alibaba.citrus.turbine.uribroker.uri.TurbineContentURIBroker;
 import com.google.gson.Gson;
 import com.kelepi.biz.ao.CategoryAO;
-import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.biz.ao.PicMaterialAO;
 import com.kelepi.common.bean.ParamInstance;
-import com.kelepi.common.bean.Result;
 import com.kelepi.dal.dataobject.CategoryDO;
 import com.kelepi.dal.dataobject.PicMaterialDO;
+import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.jsonobject.PageJson;
 import com.kelepi.dal.jsonobject.PicMaterialJson;
 import com.kelepi.dal.jsonobject.RoleJson;
@@ -42,10 +42,16 @@ public class PicMaterialList extends BaseScreen{
         PicMaterialQuery picMaterialQuery = new PicMaterialQuery();
         picMaterialQuery.setRoleId(roleId);
         picMaterialQuery.setSeriesId(seriesId);
+        picMaterialQuery.setStatus(MainStatus.NORMAL.getType());
         picMaterialQuery.setCurrentPage(currentPage);
-        picMaterialQuery.setPageSize(2);
         List<PicMaterialDO> picMaterialDOs = picMaterialAO.findPicMaterialsByQuery(picMaterialQuery);
-        List<String> images = ListUtil.getPropertiesFromList(picMaterialDOs, "imageUrl");
+        List<String> images = new ArrayList<String>();
+
+        TurbineContentURIBroker turbineContentUri = (TurbineContentURIBroker)getURIBroker("upyunImageServer");
+        for (PicMaterialDO picMaterialDO :  picMaterialDOs) {
+
+            images.add(turbineContentUri.getURI(picMaterialDO.getImageUrl()).render());
+        }
 
         //获得角色列表
         List<CategoryDO> roleCategoryDOs =   ParamInstance.getCategory(seriesId).getSubCategorys();

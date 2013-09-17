@@ -82,6 +82,28 @@
 
         </group>
 
+        <group name="addModifyJokeMaterial" extends="csrfTokenCheckGroup">
+
+            <field name="id" displayName="id">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+            <field name="categoryId" displayName="类别">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+            <field name="content" displayName="内容">
+                <fm-validators:required-validator>
+                    <message>您还没有填写${displayName}</message>
+                </fm-validators:required-validator>
+            </field>
+
+        </group>
+
 
     </services:form>
 

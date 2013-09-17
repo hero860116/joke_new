@@ -1,0 +1,68 @@
+#macro (addProductMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+
+<script type="text/javascript" src="$!staticsContent.getURI('uploadify/jquery.uploadify.min.js')"></script>
+<link rel="stylesheet" type="text/css" href="$!staticsContent.getURI('uploadify/uploadify.css')"/>
+<!-- 增加修改店铺 -->
+<div class="primary">
+    #set ($group = $form.addModifyJokeMaterial.defaultInstance)
+    $group.mapTo($jokeMaterialDO)
+    <div class="box3" panelTitle="修改素材" style="width:500px;">
+        <form id="add" method="post" action="#" enctype="multipart/form-data">
+            $csrfToken.uniqueHiddenField
+            <input name="id" type="hidden" value="$id"/>
+            <input name="$group.id.key" type="hidden" value="$id"/>
+            <input type="hidden" name="action" value="joke_material_action"/>
+
+            <table class="tableStyle" formMode="transparent">
+
+                <tr>
+                    <td>类别：</td>
+                    <td>
+                        <select name="$group.categoryId.key">
+                            #foreach($categoryDO in $categoryTool.getSubCategoryList($categoryTool.getCategory($jokeMaterialDO.categoryId).parentId))
+                                <option value="$!categoryDO.id" #if($group.categoryId.value == $categoryDO.id) selected="selected" #end >$categoryDO.name</option>
+                            #end
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>$group.content.displayName：</td>
+                    <td><input type="text" name="$group.content.key" value="$group.content.value"/><span
+                            style="color:red;">#addProductMessage ($group.content)</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        #if($!id > 0)
+                            <input type="submit" class="mybutton" name="event_submit_do_update" value="修改"/>
+                        #else
+                            <input type="submit" class="mybutton" name="event_submit_do_save" value="添加"/>
+                        #end
+                        &nbsp;&nbsp;<a href="$!referer">返回</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#imguploader").uploadify({
+            'fileObjName': 'imgFile',
+            'buttonText': '上传图片',
+            'formData': {'type': 'materialimage'},
+            'height': 30,
+            'swf': '$staticsContent.getURI('uploadify/uploadify.swf')',
+            <!--         uploader   这里你来定义     -->
+            'uploader': '$jokeModule.setTarget('uploadImg.vm')',
+            'width': 120,
+            'onUploadSuccess': function (file, data, response) {
+                $("#imageUrlId").val(data);
+            }
+        });
+    });
+</script>

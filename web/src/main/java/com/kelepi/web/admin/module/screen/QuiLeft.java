@@ -33,6 +33,9 @@ public class QuiLeft extends BaseScreen {
         TreeNode treeNode5 = new TreeNode(1l, "剧集管理", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "material_series").addQueryData("outId", "0").render(), "frmright");
         TreeNode treeNode6 = new TreeNode(1l, "未审核图片", getTurbineURIBroker("adminModule").setTarget("picMaterialList.vm").addQueryData("status", MainStatus.TO_REVIEW.getType()).render(), "frmright");
         TreeNode treeNode7 = new TreeNode(1l, "已审核图片", getTurbineURIBroker("adminModule").setTarget("picMaterialList.vm").addQueryData("status", MainStatus.NORMAL.getType()).render(), "frmright");
+        TreeNode treeNode8 = new TreeNode(1l, "笑话类别管理", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_generate_out_category", 1).addQueryData("outType", "material_joke_content").addQueryData("outId", "0").render(), "frmright");
+        TreeNode treeNode9 = new TreeNode(1l, "未审核笑话", getTurbineURIBroker("adminModule").setTarget("jokeMaterialList.vm").addQueryData("status", MainStatus.TO_REVIEW.getType()).render(), "frmright");
+        TreeNode treeNode10 = new TreeNode(1l, "已审核笑话", getTurbineURIBroker("adminModule").setTarget("jokeMaterialList.vm").addQueryData("status", MainStatus.NORMAL.getType()).render(), "frmright");
 
 
         TreeNode treeNode100 = new TreeNode(0l, "刷新类别缓存", getTurbineURIBroker("adminModule").setTarget("generator.vm").addQueryData("action", "category_action").addQueryData("event_submit_do_put_to_cache", 1).render(), "frmright");
@@ -44,6 +47,9 @@ public class QuiLeft extends BaseScreen {
         treeNodes.add(treeNode5);
         treeNodes.add(treeNode6);
         treeNodes.add(treeNode7);
+        treeNodes.add(treeNode8);
+        treeNodes.add(treeNode9);
+        treeNodes.add(treeNode10);
         treeNodes.add(treeNode100);
         context.put("treeNodesJson", new Gson().toJson(treeNodes));
     }

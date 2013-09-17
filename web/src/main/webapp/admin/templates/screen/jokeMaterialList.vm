@@ -1,0 +1,80 @@
+<div class="box2" statusText="展开">
+    <form id="queryForm" action="$adminModule.setTarget('jokrMaterialList.vm')">
+        <input type="hidden" name="status" value="$!jokeMaterialQuery.status" />
+        <table>
+            <tr>
+                <td>
+                    <label for="categoryName">类别名</label>
+                </td>
+                <td>
+                    <input id="categoryName" name="categoryName" type="text" value="$!jokeMaterialQuery.categoryName">
+                    </input>
+                </td>
+                <td>
+                    <input type="submit" value="查询"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+#*<div class="box_tool_min padding_top2 padding_bottom2 padding_right5">
+    <div class="center">
+        <div class="left">
+            <div class="right">
+                <div class="padding_top5 padding_left10">
+                    <a href="$adminModule.setTarget('addModifyPicMaterial.vm')" />
+                        <span class="icon_poll">上传图片</span>
+                    </a>
+                    <div class="box_tool_line"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>*#
+
+<div id="scrollContent">
+<table class="tableStyle">
+    <thead>
+    <th width="65%">内容</th>
+    <th width="10%">类别</th>
+    <th width="25%">操作</th>
+    </thead>
+    #foreach($jokeMaterialDO in $jokeMaterialDOs)
+        <tr>
+            <td>$!jokeMaterialDO.content</td>
+            <td>$!jokeMaterialDO.categoryName</td>
+            <td>
+
+                <a
+                        href="$!adminModule.setTarget('addModifyJokeMaterial.vm').addQueryData('id', $!jokeMaterialDO.id)">
+                    编辑
+                </a>
+
+                #if($jokeMaterialDO.status == 0)
+                    <a
+                            href="$!{adminModule}/pass.htm?action=joke_material_action&event_submit_doReviewPass=1&id=$!jokeMaterialDO.id">
+                        通过
+                    </a>
+                #end
+
+
+                <a class="deleteConfirm"
+                        href="$!{adminModule}/delete.htm?action=joke_material_action&event_submit_doDelete=1&id=$!jokeMaterialDO.id">
+                    删除
+                </a>
+
+            </td>
+        </tr>
+    #end
+</table>
+</div>
+<div class="pagination">
+    $control.setTemplate("pageChange.vm").setParameter('query',$jokeMaterialQuery)
+</div>
+
+<script>
+    $(".deleteConfirm").deleteConfirm();
+</script>

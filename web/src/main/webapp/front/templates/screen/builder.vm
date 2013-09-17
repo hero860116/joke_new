@@ -14,7 +14,7 @@
         <div class="pull-left">
             <div class="joke" data-spy="affix" data-offset-top="10">
                 <h5>你还没选择笑话素材：</h5>
-                <a href="javascript:openmodal(joke_modal_title,'modal-text.html?423');" class="btn btn-info">选择笑话素材</a>
+                <a href="javascript:openmodal(joke_modal_title,joke_modal_url);" class="btn btn-info">选择笑话素材</a>
             </div>
         </div>
         <div class="imgarea" >
@@ -32,7 +32,7 @@
             </div>
             <div class="imgdiv">
                 <img src="$staticsContent.getURI('images/noimage.jpg')" />
-                <a href="javascript:openmodal(img_modal_title,'modalImg.html');" class="btn btn-info btn-select">选择图片</a>
+                <a href="javascript:openmodal(joke_modal_title, joke_modal_url)" class="btn btn-info btn-select">选择图片</a>
                 <a class="btn btn-del fix">删除</a>
                 <textarea placeholder="对白写在这里"></textarea>
             </div>
@@ -59,12 +59,13 @@
 </div>
 
 <script type="text/javascript">
-    var joke_slted_title = '<h5>你选择的笑话素材(<a href="javascript:openmodal(joke_modal_title,'+"'modal-text.html?324'"+');">换一个</a>):</h5>';
     var joke_modal_title = '选一个段子来丰富你的创造吧';
+    var joke_modal_url = '$jokeModule.setTarget('modalText.vm')';
     var img_modal_title = '选一个图片来点缀你的创作吧';
     var img_modal_url = '$jokeModule.setTarget('modalImg.vm')';
     var img_slted_id = 0;
     var img_jqobj;
+    var joke_slted_title = '<h5>你选择的笑话素材(<a href="javascript:openmodal(joke_modal_title, joke_modal_url);">换一个</a>):</h5>';
     function openmodal(title,path){
         $('.modaltitle h5').html(title);
         $('#slt-modal').modal({
@@ -178,6 +179,7 @@
         $('.rolers').html(role_html);
     }
     function c_img_html(jsondata){
+        console.log(jsondata);
         var rolerimg_html =''
         $.each(jsondata,function(i,item){
             rolerimg_html += '<img src="'+item+'" data="'+item+'" class="img-polaroid rolerimg" />';
