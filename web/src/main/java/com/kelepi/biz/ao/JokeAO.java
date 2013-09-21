@@ -138,4 +138,14 @@ public interface JokeAO {
      * @param jokeId
      */
     void updateRecommendType(int recommendType, long jokeId);
+
+    /**
+     * 自动拼接生成图片
+     * @param pics
+     * @param dialogues
+     * @param title
+     * @param jokeCategory
+     * @param tags
+     */
+    long buildJoke(String[] pics, String[] dialogues, String title, String serverHomeDir, int jokeCategory, String tags);
 }

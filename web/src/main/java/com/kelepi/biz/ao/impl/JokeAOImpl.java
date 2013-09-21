@@ -3,7 +3,11 @@ package com.kelepi.biz.ao.impl;
 import com.kelepi.biz.ao.BaseAO;
 import com.kelepi.biz.ao.CategoryAO;
 import com.kelepi.biz.ao.JokeAO;
+import com.kelepi.biz.manager.ImagesUtil;
+import com.kelepi.biz.manager.UpYunManager;
+import com.kelepi.common.bean.ParamInstance;
 import com.kelepi.common.bean.Result;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dao.JokeDAO;
 import com.kelepi.dal.dao.JokeInteractionRecordDAO;
 import com.kelepi.dal.dao.UserDAO;
@@ -17,6 +21,8 @@ import com.kelepi.dal.enums.RecommendType;
 import com.kelepi.dal.queryobject.JokeInteractionRecordQuery;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.util.ListUtil;
+import com.kelepi.util.PathUtil;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +43,9 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     @Resource
     private JokeInteractionRecordDAO jokeInteractionRecordDAO;
+
+    @Resource
+    private UpYunManager upYunManager;
 
     public long save(JokeDO joke) {
 		return jokeDAO.save(joke);
@@ -292,5 +301,46 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
             jokeInteractionRecordDAO.save(jokeInteractionRecordDO);
         }
+    }
+
+    public long buildJoke(String[] pics, String[] dialogues, String title, String serverHomeDir, int jokeCategory, String tags) {
+        long s = System.currentTimeMillis();
+
+        List<String> siginPics = new ArrayList<String>();
+
+
+        for (int i = 0; i < pics.length; i++) {
+            String pic = pics[i];
+            String dialogue = dialogues[i];
+            String siginPic = JokeConstants.TEM_DIR + "t_" + System.nanoTime() + "."+PathUtil.getExtension(pic);
+            String src = serverHomeDir + PathUtil.getNakedPath(pic);
+
+            ImagesUtil.addText(src, siginPic, dialogue);
+
+            siginPics.add(siginPic);
+        }
+        String jokeimagePath = "/statics/images/jokeimage";
+        String picName = RandomStringUtils.randomAlphanumeric(30) + ".jpg";
+        ImagesUtil.appendImgs(siginPics, serverHomeDir+jokeimagePath + "/" + picName);
+
+        upYunManager.upload(serverHomeDir + jokeimagePath + "/" + picName, jokeimagePath + "/" + picName);
+
+        JokeDO jokeDO = new JokeDO();
+        jokeDO.setUserId(getCurrentLoginUser().getId());
+        jokeDO.setUserNickName(getCurrentLoginUser().getNickName());
+        jokeDO.setStatus(MainStatus.TO_REVIEW.getType());
+        jokeDO.setTitle(title);
+        jokeDO.setJokeCategory(jokeCategory);
+        jokeDO.setMediumCategory(ParamInstance.getCategory(jokeCategory).getParentId().intValue());
+        jokeDO.setRecommendType(RecommendType.NORMAL.getType());
+        jokeDO.setTags(tags);
+
+        jokeDO.setContentImageUrl(jokeimagePath + "/" + picName);
+
+        long id = jokeDAO.save(jokeDO);
+        long e = System.currentTimeMillis();
+
+        System.out.println(e-s);
+        return id;
     }
 }

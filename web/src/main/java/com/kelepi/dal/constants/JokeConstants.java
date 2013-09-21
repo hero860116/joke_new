@@ -7,6 +7,10 @@ public class JokeConstants {
 
     public static final int FRONT_PAGE_SZIE = 10;
 
+    public static final String TEM_DIR = "/home/joke/joke/tmp/";
+
+    public static final String MSYH = "/home/joke/joke/msyhbd.ttf";
+
     /**
      * 创建常量对象
      * @param <T>

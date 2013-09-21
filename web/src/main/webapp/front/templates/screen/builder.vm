@@ -17,7 +17,9 @@
                 <a href="javascript:openmodal(joke_modal_title,joke_modal_url);" class="btn btn-info">选择笑话素材</a>
             </div>
         </div>
+        <form action="build.htm?action=joke_action&event_submit_do_builder_joke=1" method="post">
         <div class="imgarea" >
+            <!--
             <div class="imgdiv">
                 <img src="$staticsContent.getURI('images/noimage.jpg')" />
                 <a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a>
@@ -36,16 +38,40 @@
                 <a class="btn btn-del fix">删除</a>
                 <textarea placeholder="对白写在这里"></textarea>
             </div>
+            -->
+
+
+
             <div class="jokedescription">
                 <button class="btn btn-info addimg">添加一张图片</button>
                 <h5>最后一步：写一句话的描述吧！</h5>
-                <textarea id="jokedes" row=3></textarea>
+                <textarea name="title" id="jokedes" row=3></textarea>
             </div>
+
+
+            <label class="control-label">图片类型</label>
+            <div class="controls">
+                <select class="input-xlarge" name="jokeCategory">
+                    #foreach($categoryDO in $categoryTool.getSubCategoryList(23))
+                        <option value="$categoryDO.id">$categoryDO.name</option>
+                    #end
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tag">标签：</label>
+                <div class="controls">
+                    <input class="x-large" type="text" id="tag" name="tags">
+                    <span class="help-inline">多个TAG用,分开</span>
+                </div>
+            </div>
+
+
             <div class="form-actions">
 
                 <button type="submit" class="btn btn-primary">生成</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -76,7 +102,8 @@
     }
     $(function(){
         $('.addimg').click(function(){
-            $('.jokedescription').before('<div class="imgdiv"><img src="$staticsContent.getURI('images/noimage.jpg')" /><a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a><a class="btn btn-del fix">删除</a><textarea placeholder="对白写在这里"></textarea></div>');
+            $('.jokedescription').before('<div class="imgdiv"><img src="$staticsContent.getURI('images/noimage.jpg')" /><a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a><a class="btn btn-del fix">删除</a><textarea name="dialogues" placeholder="对白写在这里"></textarea><input type="hidden" name="pics"/></div>');
+            return false;
         });
         $(document).on({
             click:function(e){
@@ -118,6 +145,7 @@
                 var slt_roler = $('.rolers').children('.active').attr('data');
                 img_modal_url += "?juji="+slt_juji+"&slt_roler="+slt_roler;
                 img_jqobj.children('img').replaceWith('<img src="' + $(this).attr('src') + '" />');
+                img_jqobj.children('input').val($(this).attr('src'));
                 img_jqobj.children('.btn-select').replaceWith('<a href="javascript:void(0);" class="btn btn-info btn-reslt fix">换一张</a>');
                 $('#slt-modal').modal('hide');
             }

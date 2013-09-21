@@ -105,4 +105,14 @@ public class JokeAction extends BaseAction{
 
         nav.redirectToLocation(nextJokeUrl);
     }
+
+    public void doBuilderJoke(@Param("pics")String[] pics, @Param("dialogues")String[] dialogues, @Param("title")String title, @Param("jokeCategory")int jokeCategory,@Param("tags")String tags,Navigator nav, TurbineRunData rundata, Context context) {
+        String basePath = rundata.getRequest().getSession().getServletContext().getRealPath("");
+
+        long jokeId = jokeAO.buildJoke(pics, dialogues, title, basePath, jokeCategory, tags);
+
+        String nextJokeUrl = getTurbineURIBroker("jokeModule").setTarget("jokeDetail.vm").addQueryData("jokeId", jokeId).render();
+
+        nav.redirectToLocation(nextJokeUrl);
+    }
 }
