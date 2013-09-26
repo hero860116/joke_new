@@ -3,17 +3,17 @@ package com.kelepi.biz.manager;
 import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.util.FileUtil;
 import magick.ImageInfo;
-import magick.MagickImage;
 import org.im4java.core.CompositeCmd;
 import org.im4java.core.ConvertCmd;
+import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.Dimension;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +21,6 @@ import java.util.List;
 public class ImagesUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ImagesUtil.class);
-    /**
-     * ImageMagick的路径
-     */
-    public static String imageMagickPath = null;
-
-    static{
-        //不能漏掉这个，不然jmagick.jar的路径找不到
-        System.setProperty("jmagick.systemclassloader","no");
-    }
-
-    static{
-        /**
-         * 获取ImageMagick的路径
-         */
-        //linux下不要设置此值，不然会报错
-        imageMagickPath = "G:\\Program Files\\ImageMagick-6.3.9-Q8";
-    }
 
      
     /**
@@ -70,7 +53,10 @@ public class ImagesUtil {
         ConvertCmd convert = new ConvertCmd();
          
         //linux下不要设置此值，不然会报错
-        convert.setSearchPath(imageMagickPath);
+        if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+            convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+        }
+
          
  
         convert.run(op);
@@ -93,7 +79,9 @@ public class ImagesUtil {
         ConvertCmd convert = new ConvertCmd();
          
         //linux下不要设置此值，不然会报错
-        convert.setSearchPath(imageMagickPath);
+        if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+            convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+        }
          
         convert.run(op);
     }
@@ -113,7 +101,9 @@ public class ImagesUtil {
             ConvertCmd convert = new ConvertCmd();
 
             //linux下不要设置此值，不然会报错
-            //convert.setSearchPath(imageMagickPath);
+            if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+                convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+            }
 
             convert.run(op);
 
@@ -124,6 +114,8 @@ public class ImagesUtil {
         }
 
     }
+
+
      
      
     /**
@@ -141,7 +133,9 @@ public class ImagesUtil {
 
         op.addImage("K:\\img\\t.png");
         //linux下不要设置此值，不然会报错
-        convert.setSearchPath(imageMagickPath);
+        if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+            convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+        }
 
         convert.run(op);
 
@@ -159,6 +153,94 @@ public class ImagesUtil {
     }
 
     public static void addText(String srcPath, String toPath, String text) {
+
+        try {
+        //生成textpng
+        int pointSize = 20;
+        int lineSize = 20;  //一行的字符长度
+        int lineOffset = 5;
+
+        //解析长度，将数据分组，同时确定最后一组相对定位长度
+        List<String> subTextArr = new ArrayList();
+        List<String> subTextPathArr = new ArrayList<String>();
+        int lines = (text.length() + lineSize - 1) / lineSize;
+        for (int i = 0; i < lines; i++) {
+            int end = text.length() > (i+1) * lineSize ? (i+1) * lineSize : text.length();
+            String subText = text.substring(lineSize * i, end);
+            subTextArr.add(subText);
+
+            String textFileName = getRodomFileName("txt");
+            String textPath = JokeConstants.TEM_DIR +   textFileName;
+            FileUtil.string2File(subText, textPath);
+            subTextPathArr.add(textPath);
+        }
+        //最后一行的缩放大小  ,像素
+        int lastLineZoom = (lineSize - text.length() % lineSize) * pointSize / 2;
+
+
+        //多行字体png生成
+        // convert -size 400x100 xc:none -font /home/joke/joke/msyh.ttf -pointsize 20 -stroke black -strokewidth 1 -annotate +0+20 '@1.txt' -stroke black -strokewidth 1 -annotate +100+50 '@2.txt' -blur 0x1 -fill white   -stroke none   -annotate +0+20 '@1.txt' -fill white   -stroke none   -annotate +100+50 '@2.txt' th.png
+        IMOperation op = new IMOperation();
+
+        op.size(pointSize * lineSize + 2 * lineOffset, 25 * subTextArr.size());
+        op.addImage("xc:none");
+        op.font(JokeConstants.MSYH).pointsize(pointSize);
+         for (int i = 0; i < subTextPathArr.size(); i++) {
+             String subTextPath = subTextPathArr.get(i);
+
+             int w = lineOffset;
+             if (i == subTextPathArr.size() - 1) {
+                 w +=  lastLineZoom;
+             }
+
+             int h =  20 + i * 25;
+             op.stroke("black").strokewidth(1).annotate(0,0,w,h,"@"+subTextPath);
+         }
+         op.blur(0d,1d);
+         for (int i = 0; i < subTextPathArr.size(); i++) {
+            String subTextPath = subTextPathArr.get(i);
+
+            int w = lineOffset;
+            if (i == subTextPathArr.size() - 1) {
+                w +=  lastLineZoom;
+            }
+
+            int h =  20 + i * 25;
+            op.fill("white").stroke("none").annotate(0, 0, w, h, "@"+subTextPath);
+         }
+
+        ConvertCmd convert = new ConvertCmd();
+
+        String pngLabelFileName = getRodomFileName("png");
+        String pngLabelPath = JokeConstants.TEM_DIR  + pngLabelFileName;
+        op.addImage(pngLabelPath);
+
+        //linux下不要设置此值，不然会报错
+        if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+            convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+        }
+        convert.run(op);
+
+
+        op = new IMOperation();
+        op.addImage(srcPath);
+        op.addImage(pngLabelPath);
+        op.gravity("south");
+        op.geometry(null,null,0,25);
+        op.composite();
+        op.addImage(toPath);
+        convert.run(op);
+        //convert i1.jpg t_1_1.png -gravity south -geometry +0+50 -composite t1.jpg
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IM4JavaException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    public static void addText1(String srcPath, String toPath, String text) {
         logger.info("************* addText in");
         int colHeight = 25;
         int fromBotton = 25;
@@ -169,13 +251,16 @@ public class ImagesUtil {
         ImageInfo info = null;
         InputStream is = null;
         try {
-            info = new ImageInfo(srcPath);
+/*            info = new ImageInfo(srcPath);
             MagickImage aImage = new MagickImage(info);
             Dimension imageDim = aImage.getDimension();
 
             wideth = imageDim.width;
-            height = imageDim.height;
+            height = imageDim.height;*/
 
+            BufferedImage sourceImg = ImageIO.read(new FileInputStream(srcPath));
+            wideth = sourceImg.getWidth();
+            height = sourceImg.getHeight();
 
         } catch (Exception e) {
             logger.warn("inageInfo", e);
@@ -220,7 +305,7 @@ public class ImagesUtil {
         op.size(labelWidth, labenHeight);
 
         op.addImage("xc:none");
-        op.font(JokeConstants.MSYH).pointsize(pointSize).stroke("black").strokewidth(4).annotate(0,0,5,20,"@"+textPath).blur(0d,8d).fill("white").stroke("none").annotate(0, 0, 5, 20, "@"+textPath);
+        op.font(JokeConstants.MSYHBD).pointsize(pointSize).stroke("black").strokewidth(2).annotate(0,0,5,20,"@"+textPath).blur(0d,1d).fill("white").stroke("none").annotate(0, 0, 5, 20, "@"+textPath);
 
 
         ConvertCmd convert = new ConvertCmd();
@@ -230,7 +315,9 @@ public class ImagesUtil {
         op.addImage(pngLabelPath);
 
         //linux下不要设置此值，不然会报错
-        //convert.setSearchPath(imageMagickPath);
+        if (JokeConstants.IMAGE_MAGICK_PATH != null) {
+            convert.setSearchPath(JokeConstants.IMAGE_MAGICK_PATH);
+        }
 
         logger.info("************* new png , pngLabelPath:{}", pngLabelPath);
         convert.run(op);
@@ -297,14 +384,17 @@ public class ImagesUtil {
         //addText("K:\\img\\ttt.jpg", "K:\\img\\ttt_cut5.jpg", "李卫林的终极测试", 100, 700);
         //addText("K:\\img\\ttt.jpg", "K:\\img\\ttt_cut6.jpg", "李卫林的终极测试李卫林的终极测试李卫林的终极测试李卫林的终极测试李卫林的终极测试林的终极测试李卫林的终极测试李卫林的终极测试李卫林的终极测试李卫");
 
-        List<String> paths = new ArrayList<String>();
+/*        List<String> paths = new ArrayList<String>();
         paths.add("K:\\img\\src_440.jpg");
        // paths.add("K:\\img\\src2.jpg");
         paths.add( "K:\\img\\ttt.jpg");
         paths.add("K:\\img\\ttt_cut5.jpg");
         paths.add("K:\\img\\ttt_cut6.jpg");
 
-        appendImgs(paths, "K:\\img\\test.jpg");
+        appendImgs(paths, "K:\\img\\test.jpg");*/
+
+       //generatorTitleImage("邪恶的微笑", "www.kelepi.com/u/10000", "http://tp3.sinaimg.cn/3340699002/180/0/1");
+        addText1("K:/img/src_440.jpg", "K:/img/ptpt.jpg", "老夫妇去拍照，摄影师问：“大爷，您是要侧光，逆光，还是全光？");
     }
 }
 

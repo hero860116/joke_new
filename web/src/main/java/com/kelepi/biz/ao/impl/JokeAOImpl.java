@@ -3,6 +3,7 @@ package com.kelepi.biz.ao.impl;
 import com.kelepi.biz.ao.BaseAO;
 import com.kelepi.biz.ao.CategoryAO;
 import com.kelepi.biz.ao.JokeAO;
+import com.kelepi.biz.manager.ImageManager;
 import com.kelepi.biz.manager.ImagesUtil;
 import com.kelepi.biz.manager.UpYunManager;
 import com.kelepi.common.bean.ParamInstance;
@@ -43,6 +44,9 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
     @Resource
     private JokeInteractionRecordDAO jokeInteractionRecordDAO;
+
+    @Resource
+    private ImageManager imageManager;
 
     @Resource
     private UpYunManager upYunManager;
@@ -308,6 +312,8 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
         List<String> siginPics = new ArrayList<String>();
 
+        String headImg = imageManager.generatorTitleImage(serverHomeDir, getCurrentLoginUser().getId());
+        siginPics.add(headImg);
 
         for (int i = 0; i < pics.length; i++) {
             String pic = pics[i];
@@ -319,6 +325,8 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 
             siginPics.add(siginPic);
         }
+        siginPics.add(JokeConstants.JOKE_FOOTER_IMAGE);
+
         String jokeimagePath = "/statics/images/jokeimage";
         String picName = RandomStringUtils.randomAlphanumeric(30) + ".jpg";
         ImagesUtil.appendImgs(siginPics, serverHomeDir+jokeimagePath + "/" + picName);

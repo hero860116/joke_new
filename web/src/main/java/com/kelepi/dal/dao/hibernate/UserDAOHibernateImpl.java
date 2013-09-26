@@ -53,4 +53,9 @@ public class UserDAOHibernateImpl extends HibernateBaseDAO implements UserDAO {
                 .setParameterList("ids", userIds).list();
         return userDOs;
     }
+
+    public void updateJokeHeadImageUrl(String jokeHeadImageUrl, long id) {
+        getSession().createQuery("update UserDO u set u.jokeHeadImageUrl = :jokeHeadImageUrl where id = :id")
+                .setString("jokeHeadImageUrl", jokeHeadImageUrl).setLong("id", id).executeUpdate();
+    }
 }

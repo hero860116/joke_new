@@ -1,9 +1,6 @@
 package com.kelepi.dal.dataobject;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,6 +25,7 @@ public class UserDO extends BaseDO {
     private String signature;
     private String homepage;
     private Date tokenExpireDate;
+    private String jokeHeadImageUrl;
     private Date gmtCreate;
     private Date gmtModify;
 
@@ -135,6 +133,15 @@ public class UserDO extends BaseDO {
 
     public void setTokenExpireDate(Date tokenExpireDate) {
         this.tokenExpireDate = tokenExpireDate;
+    }
+
+    @Column(insertable = false,updatable = false)
+    public String getJokeHeadImageUrl() {
+        return jokeHeadImageUrl;
+    }
+
+    public void setJokeHeadImageUrl(String jokeHeadImageUrl) {
+        this.jokeHeadImageUrl = jokeHeadImageUrl;
     }
 
     public Date getGmtCreate() {

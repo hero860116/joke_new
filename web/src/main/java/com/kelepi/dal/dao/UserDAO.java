@@ -41,4 +41,11 @@ public interface UserDAO {
      * @return
      */
     List<UserDO> getUserDOs(List<Long> userIds);
+
+    /**
+     * 跟新笑话头
+     * @param jokeHeadImageUrl
+     * @param id
+     */
+    void updateJokeHeadImageUrl(String jokeHeadImageUrl, long id);
 }
