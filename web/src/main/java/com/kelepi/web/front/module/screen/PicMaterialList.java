@@ -75,7 +75,7 @@ public class PicMaterialList extends BaseScreen{
             pageJsons.add(pageJson);
         }
 
-        if (currentPage < picMaterialQuery.getTotalPage()) {
+        if (picMaterialQuery.getCurrentPage() < picMaterialQuery.getTotalPage()) {
             PageJson pageJson = new PageJson();
             pageJson.setString("下一页");
             pageJson.setHref(getTurbineURIBroker("jokeModule").setTarget("picMaterialList").addQueryData("roleId", roleId).addQueryData("seriesId", seriesId).addQueryData("currentPage", (currentPage + 1)).render());

@@ -105,12 +105,12 @@
             $('.jokedescription').before('<div class="imgdiv"><img src="$staticsContent.getURI('images/noimage.jpg')" /><a href="javascript:void(0);" class="btn btn-info btn-select">选择图片</a><a class="btn btn-del fix">删除</a><textarea name="dialogues" placeholder="对白写在这里"></textarea><input type="hidden" name="pics"/></div>');
             return false;
         });
-        $(document).on({
+/*        $(document).on({
             click:function(e){
                 $(this).parents('.tab-pane').load(""+$(this).attr('href'));
                 e.preventDefault();
             }
-        },'.pagination li a');
+        },'.pagination li a');*/
         $(document).on('click','.btn-del',function(){
             $(this).parent('.imgdiv').remove();
         });
@@ -167,7 +167,15 @@
                     if(data.role){
                         c_role_html(data.role);
                     }
-                    c_img_html(data.img);
+                    if (data.img) {
+                        c_img_html(data.img);
+                    } else if (data.text) {
+                        c_text_html(data.text);
+                    } else {
+                        c_img_html([]);
+                        c_text_html([]);
+                    }
+
                     if(data.page){
                         c_page_html(data.page);
                     }
@@ -214,6 +222,16 @@
         }) ;
         $('.rolerimgs').html(rolerimg_html);
     }
+
+    function c_text_html(jsondata){
+        console.log(jsondata);
+        var text_html =''
+        $.each(jsondata,function(i,item){
+            text_html += '<tr><td class="joketd">' + item.content+ '</td></tr>';
+        }) ;
+        $('.table-hover').html('<tbody>' + text_html + '</tbody>');
+    }
+
     function c_page_html(jsondata){
         console.log(jsondata);
         var rolepage_html = '';
