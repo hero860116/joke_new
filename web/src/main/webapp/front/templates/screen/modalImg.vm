@@ -27,7 +27,7 @@ $rundata.setLayoutEnabled(false)
             </div>
             <div class="rolerimgs">
                 #foreach($picMaterialDO in $picMaterialDOs)
-                    <img src="$picMaterialDO.imageUrl" data="$picMaterialDO.imageUrl" class="img-polaroid rolerimg" />
+                    <img src="$upyunImageServer.getURI($picMaterialDO.imageUrl)!190x130.jpg" data="$upyunImageServer.getURI($picMaterialDO.imageUrl)" class="img-polaroid rolerimg" />
                 #end
             </div>
             <div class="pagination pagination-small pagination-centered">
