@@ -8,6 +8,7 @@ import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.biz.ao.UserAO;
 import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.enums.MainStatus;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.web.common.BaseScreen;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class UserCreation extends BaseScreen{
         jokeQuery.setCurrentPage(page);
         jokeQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         jokeQuery.setUserId(userId);
+        jokeQuery.setStatus(MainStatus.NORMAL.getType());
         jokeQuery.setFirstOrder("gmtCreate");
         jokeQuery.setFirstOrderSort("desc");
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);
