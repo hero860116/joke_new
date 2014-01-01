@@ -45,7 +45,7 @@ public class ModalImg {
         PicMaterialQuery picMaterialQuery = new PicMaterialQuery();
         picMaterialQuery.setSeriesId(seCategoryList.get(0).getId());
         picMaterialQuery.setStatus(MainStatus.NORMAL.getType());
-        picMaterialQuery.setPageSize(2);
+        picMaterialQuery.setPageSize(12);
         List<PicMaterialDO> picMaterialDOs = picMaterialAO.findPicMaterialsByQuery(picMaterialQuery);
 
         context.put("categorys", seCategoryList);

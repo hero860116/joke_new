@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.kelepi.biz.ao.CategoryAO;
 import com.kelepi.biz.ao.PicMaterialAO;
 import com.kelepi.common.bean.ParamInstance;
+import com.kelepi.dal.constants.JokeConstants;
 import com.kelepi.dal.dataobject.CategoryDO;
 import com.kelepi.dal.dataobject.PicMaterialDO;
 import com.kelepi.dal.enums.MainStatus;
@@ -44,6 +45,7 @@ public class PicMaterialList extends BaseScreen{
         picMaterialQuery.setSeriesId(seriesId);
         picMaterialQuery.setStatus(MainStatus.NORMAL.getType());
         picMaterialQuery.setCurrentPage(currentPage);
+        picMaterialQuery.setPageSize(12);
         List<PicMaterialDO> picMaterialDOs = picMaterialAO.findPicMaterialsByQuery(picMaterialQuery);
         List<String> images = new ArrayList<String>();
 

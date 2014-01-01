@@ -72,8 +72,7 @@ public class JokeAOImpl extends BaseAO implements JokeAO {
 	}
 
 	public List<JokeDO> findJokesByQuery(JokeQuery jokeQuery) {
-        jokeQuery.setFirstOrder("gmtCreate");
-        jokeQuery.setFirstOrderSort("desc");
+
 		return jokeDAO.findJokeListByQuery(jokeQuery);
 	}
 

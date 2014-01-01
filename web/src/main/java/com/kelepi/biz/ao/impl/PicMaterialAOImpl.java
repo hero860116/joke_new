@@ -78,7 +78,6 @@ public class PicMaterialAOImpl extends BaseAO implements PicMaterialAO{
     public List<PicMaterialDO> findPicMaterialsByQuery(PicMaterialQuery picMaterialQuery) {
         picMaterialQuery.setFirstOrder("gmtCreate");
         picMaterialQuery.setFirstOrderSort("desc");
-        picMaterialQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         return picMaterialDAO.findPicMaterialsByQuery(picMaterialQuery);
     }
 

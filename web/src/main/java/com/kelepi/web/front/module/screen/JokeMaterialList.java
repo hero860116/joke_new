@@ -43,6 +43,7 @@ public class JokeMaterialList extends BaseScreen{
         jokeMaterialQuery.setCategoryId(categoryId);
         jokeMaterialQuery.setStatus(MainStatus.NORMAL.getType());
         jokeMaterialQuery.setCurrentPage(currentPage);
+        jokeMaterialQuery.setPageSize(10);
         List<JokeMaterialDO> jokeMaterialDOs = jokeMaterialAO.findJokeMaterialsByQuery(jokeMaterialQuery);
         List<String> images = new ArrayList<String>();
 
@@ -59,7 +60,7 @@ public class JokeMaterialList extends BaseScreen{
         if (currentPage > 1) {
             PageJson pageJson = new PageJson();
             pageJson.setString("上一页");
-            pageJson.setHref(getTurbineURIBroker("jokeModule").setTarget("picMaterialList").addQueryData("categoryId", categoryId).addQueryData("currentPage", (currentPage - 1)).render());
+            pageJson.setHref(getTurbineURIBroker("jokeModule").setTarget("jokeMaterialList.vm").addQueryData("categoryId", categoryId).addQueryData("currentPage", (currentPage - 1)).render());
 
             pageJsons.add(pageJson);
         }
@@ -67,7 +68,7 @@ public class JokeMaterialList extends BaseScreen{
         if (jokeMaterialQuery.getCurrentPage() < jokeMaterialQuery.getTotalPage()) {
             PageJson pageJson = new PageJson();
             pageJson.setString("下一页");
-            pageJson.setHref(getTurbineURIBroker("jokeModule").setTarget("picMaterialList").addQueryData("categoryId", categoryId).addQueryData("currentPage", (currentPage + 1)).render());
+            pageJson.setHref(getTurbineURIBroker("jokeModule").setTarget("jokeMaterialList.vm").addQueryData("categoryId", categoryId).addQueryData("currentPage", (currentPage + 1)).render());
 
             pageJsons.add(pageJson);
         }

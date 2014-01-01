@@ -5,11 +5,17 @@ import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.dataresolver.FormGroup;
 import com.alibaba.citrus.turbine.dataresolver.Param;
+import com.alibaba.citrus.util.StringUtil;
 import com.kelepi.biz.ao.JokeAO;
 import com.kelepi.dal.dataobject.JokeDO;
+import com.kelepi.dal.enums.MainStatus;
+import com.kelepi.dal.jsonobject.JokeSnsDO;
 import com.kelepi.dal.queryobject.JokeQuery;
 import com.kelepi.web.common.BaseAction;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: liWeiLin
@@ -114,5 +120,43 @@ public class JokeAction extends BaseAction{
         String nextJokeUrl = getTurbineURIBroker("jokeModule").setTarget("jokeDetail.vm").addQueryData("jokeId", jokeId).render();
 
         nav.redirectToLocation(nextJokeUrl);
+    }
+
+    public void doFindJoke(@Param("page")int page, @Param("firstOrder")String firstOrder, @Param("firstOrderSort")String firstOrderSort, @Param("pageSize")Integer pageSize, Navigator nav, TurbineRunData rundata, Context context) {
+        String basePath = rundata.getRequest().getSession().getServletContext().getRealPath("");
+
+        JokeQuery jokeQuery = new JokeQuery();
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        jokeQuery.setStatus(MainStatus.NORMAL.getType());
+        jokeQuery.setCurrentPage(page);
+        jokeQuery.setPageSize(pageSize);
+        if (firstOrderSort == null) {
+            firstOrderSort = "desc";
+        }
+        if (firstOrder == null) {
+            firstOrder = "topSize";
+        }
+
+        jokeQuery.setFirstOrder(firstOrder);
+        jokeQuery.setFirstOrderSort(firstOrderSort);
+
+        jokeQuery.setSecondOrder("gmtCreate");
+        jokeQuery.setSecondOrderSort("desc");
+
+        List<JokeDO> jOkeDOList = jokeAO.findJokesByQuery(jokeQuery);
+
+        List<JokeSnsDO> jokeSnsDOs = new ArrayList<JokeSnsDO>();
+        for (JokeDO jokeDO : jOkeDOList) {
+            JokeSnsDO jokeSnsDO = new JokeSnsDO();
+            jokeSnsDO.setContentImageUrl(jokeDO.getContentImageUrl());
+            jokeSnsDO.setDownSize(jokeDO.getDownSize());
+            jokeSnsDO.setTitle(jokeDO.getTitle());
+            jokeSnsDO.setTopSize(jokeDO.getTopSize());
+            jokeSnsDOs.add(jokeSnsDO);
+        }
+
+        toSuccessJson(jokeSnsDOs);
     }
 }

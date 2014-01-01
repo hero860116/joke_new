@@ -25,7 +25,8 @@ public class JokeList extends BaseScreen {
         JokeQuery jokeQuery = new JokeQuery();
         jokeQuery.setTitle(title);
         jokeQuery.setCurrentPage(page);
-
+        jokeQuery.setFirstOrder("gmtCreate");
+        jokeQuery.setFirstOrderSort("desc");
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);
         context.put("jokeDOs", jokeDOs);
         context.put("jokeQuery", jokeQuery);

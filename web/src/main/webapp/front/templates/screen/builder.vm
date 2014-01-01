@@ -1,3 +1,4 @@
+$context
 <div class="content">
     <div class="right-slider pull-right">
 
@@ -145,7 +146,7 @@
                 var slt_roler = $('.rolers').children('.active').attr('data');
                 img_modal_url += "?juji="+slt_juji+"&slt_roler="+slt_roler;
                 img_jqobj.children('img').replaceWith('<img src="' + $(this).attr('data') + '" />');
-                img_jqobj.children('input').val($(this).attr('src'));
+                img_jqobj.children('input').val($(this).attr('data'));
                 img_jqobj.children('.btn-select').replaceWith('<a href="javascript:void(0);" class="btn btn-info btn-reslt fix">换一张</a>');
                 $('#slt-modal').modal('hide');
             }
@@ -206,6 +207,18 @@
                 });
             }
         },'.sucai_page');
+
+        $(document).on({
+            click:function(e){
+                e.preventDefault();
+                $.getJSON($(this).attr('href'),function(data){
+                    c_text_html(data.img);
+                    if(data.page){
+                        c_page_html(data.page);
+                    }
+                });
+            }
+        },'.text_page');
     });
     function c_role_html(jsondata){
         var role_html = '';

@@ -30,7 +30,8 @@ public class UserCreation extends BaseScreen{
         jokeQuery.setCurrentPage(page);
         jokeQuery.setPageSize(JokeConstants.FRONT_PAGE_SZIE);
         jokeQuery.setUserId(userId);
-
+        jokeQuery.setFirstOrder("gmtCreate");
+        jokeQuery.setFirstOrderSort("desc");
         List<JokeDO> jokeDOs = jokeAO.findJokesByQuery(jokeQuery);
 
         context.put("jokeDOs", jokeDOs);

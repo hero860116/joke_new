@@ -29,7 +29,7 @@
             <div class="pagination pagination-small pagination-centered">
                 #if ($jokeMaterialQuery.totalPage > 1)
                     <ul>
-                        <li><a href="$jokeModule.setTarget('jokeMaterialList.vm').addQueryData('categoryId', $!jokeMaterialQuery.categoryId).addQueryData('currentPage', 2)"  class="sucai_page" data="text">下一页</a></li>
+                        <li><a href="$jokeModule.setTarget('jokeMaterialList.vm').addQueryData('categoryId', $!jokeMaterialQuery.categoryId).addQueryData('currentPage', 2)"  class="text_page" data="text">下一页</a></li>
                     </ul>
                 #end
             </div>

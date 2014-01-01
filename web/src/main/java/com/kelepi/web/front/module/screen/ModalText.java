@@ -39,6 +39,7 @@ public class ModalText {
         JokeMaterialQuery jokeMaterialQuery = new JokeMaterialQuery();
         jokeMaterialQuery.setCategoryId(categoryDOList.get(0).getId());
         jokeMaterialQuery.setStatus(MainStatus.NORMAL.getType());
+        jokeMaterialQuery.setPageSize(10);
         List<JokeMaterialDO> jokeMaterialDOs = jokeMaterialAO.findJokeMaterialsByQuery(jokeMaterialQuery);
 
         context.put("categorys", categoryDOList);
